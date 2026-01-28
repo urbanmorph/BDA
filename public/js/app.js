@@ -9,6 +9,8 @@ let sourcesData = null;
 let administrativeBoundariesData = null;
 let gbaCorporationData = null;
 let bdaJurisdictionData = null;
+let planningDistrictsData = null;
+let currentPlanVersion = '2015';
 let map; // Master Plan map
 let layoutsMap; // Layouts map
 let charts = {};
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSourcesData();
     loadLayoutsBoundaries();
     loadAdministrativeBoundaries();
+    loadPlanningDistricts();
     initializeCharts();
     initializeMap();
     setupEventListeners();
@@ -587,6 +590,59 @@ function filterLayouts() {
     populateLayoutsTable(filtered);
 }
 
+// Load Planning Districts Data
+async function loadPlanningDistricts() {
+    try {
+        const response = await fetch('data/planning-districts.json');
+        planningDistrictsData = await response.json();
+        console.log('Loaded planning districts data');
+        displayPlanningDistricts(currentPlanVersion);
+    } catch (error) {
+        console.error('Error loading planning districts:', error);
+    }
+}
+
+// Display Planning Districts
+function displayPlanningDistricts(version) {
+    if (!planningDistrictsData) return;
+
+    const container = document.getElementById('planningDistrictsContainer');
+    const subtitle = document.getElementById('planningDistrictSubtitle');
+
+    if (!container || !subtitle) return;
+
+    container.innerHTML = '';
+
+    const planData = version === '2015' ? planningDistrictsData.rmp_2015 : planningDistrictsData.rmp_2031;
+
+    // Update subtitle
+    subtitle.textContent = `${planData.total_districts} districts for RMP ${version} - ${planData.status}`;
+
+    // Display districts
+    planData.districts.forEach(district => {
+        const districtCard = document.createElement('div');
+        districtCard.className = 'bg-earth-50 hover:bg-earth-100 border border-earth-200 rounded-lg p-3 cursor-pointer transition-colors';
+
+        const wardInfo = district.wards ? `<p class="text-xs text-earth-500 mt-1">${district.wards.length} wards</p>` : '';
+        const villageInfo = district.villages ? `<p class="text-xs text-earth-500 mt-1">${district.villages.length} villages</p>` : '';
+
+        districtCard.innerHTML = `
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <p class="font-semibold text-earth-800 text-sm">${district.id}</p>
+                    <p class="text-xs text-earth-600 mt-0.5">${district.name}</p>
+                    ${wardInfo}
+                    ${villageInfo}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(districtCard);
+    });
+
+    console.log(`Displayed ${planData.districts.length} planning districts for RMP ${version}`);
+}
+
 // Plan version toggle
 function togglePlan(version) {
     const btn2015 = document.getElementById('plan-2015');
@@ -600,7 +656,9 @@ function togglePlan(version) {
         btn2015.className = 'plan-toggle px-4 py-2 text-sm font-medium text-earth-700 bg-white border border-earth-200 rounded-lg';
     }
 
-    // Update map or data based on selected plan
+    // Update current plan version and refresh display
+    currentPlanVersion = version;
+    displayPlanningDistricts(version);
     console.log(`Switched to RMP ${version}`);
 }
 

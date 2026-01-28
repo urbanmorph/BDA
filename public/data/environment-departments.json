@@ -1,0 +1,401 @@
+{
+  "metadata": {
+    "title": "Environmental Features Management - Responsible Departments & Agencies",
+    "description": "Complete mapping of Bengaluru environmental features to managing government departments and agencies",
+    "last_updated": "2026-01-28"
+  },
+  "managing_authorities": [
+    {
+      "authority": "Bangalore Development Authority (BDA)",
+      "type": "Planning & Development Authority",
+      "jurisdiction": "Bengaluru Metropolitan Area (peripheral - 582 km²)",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lakes",
+          "count": 33,
+          "role": "Custody and development",
+          "activities": [
+            "Lake restoration projects under National Lake Conservation Programme (NLCP)",
+            "Sewage treatment plant construction",
+            "Sewage interception and diversion systems",
+            "Remodeling inlet/outlet channels",
+            "Master plan preparation as per MoEF guidelines"
+          ]
+        },
+        {
+          "feature": "Parks & Green Spaces",
+          "role": "Development in BDA layouts",
+          "activities": [
+            "15% reservation for parks/playgrounds in all layouts",
+            "Green cover enhancement initiatives",
+            "Horticulture section for park development"
+          ]
+        }
+      ],
+      "website": "https://bda.karnataka.gov.in",
+      "key_divisions": ["Horticulture Section", "Town Planning Department"]
+    },
+    {
+      "authority": "Bruhat Bengaluru Mahanagara Palike (BBMP)",
+      "type": "Municipal Corporation",
+      "jurisdiction": "Bengaluru City (712 km² - Greater Bengaluru)",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lakes",
+          "count": 167,
+          "role": "Custody, development and maintenance",
+          "activities": [
+            "Lake development projects",
+            "Sewage treatment plants at lakes",
+            "Lake rejuvenation programs",
+            "Maintenance and upkeep"
+          ]
+        },
+        {
+          "feature": "Parks & Gardens",
+          "role": "Development and maintenance (excluding heritage gardens)",
+          "activities": [
+            "Park creation and maintenance",
+            "Tree plantation drives",
+            "Green space management"
+          ]
+        },
+        {
+          "feature": "Storm Water Drains",
+          "role": "Construction and maintenance",
+          "activities": [
+            "SWD Master Plan implementation",
+            "Drain network development",
+            "Flood management"
+          ]
+        }
+      ],
+      "website": "https://bbmp.gov.in",
+      "key_departments": ["Lakes Department", "Horticulture Department", "Storm Water Drains Department"]
+    },
+    {
+      "authority": "Department of Horticulture, Government of Karnataka",
+      "type": "State Government Department",
+      "jurisdiction": "State-wide (Heritage gardens in Bengaluru)",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lalbagh Botanical Gardens",
+          "area": "96 hectares",
+          "role": "Administration and maintenance",
+          "legal_protection": "Karnataka Government Park (Preservation) Act, 1975",
+          "activities": [
+            "Garden administration",
+            "Plant conservation",
+            "Heritage preservation",
+            "Public access management"
+          ]
+        },
+        {
+          "feature": "Cubbon Park",
+          "area": "121 hectares",
+          "role": "Administration and maintenance",
+          "legal_protection": "Karnataka Government Park (Preservation) Act, 1975",
+          "management_officer": "Deputy Director of Horticulture (Cubbon Park)",
+          "activities": [
+            "Park administration",
+            "Landscaping and maintenance",
+            "Heritage conservation",
+            "Public amenity management"
+          ]
+        }
+      ],
+      "website": "https://horticulture.kar.nic.in",
+      "note": "Karnataka is the first state in India to have a separate Horticulture Department"
+    },
+    {
+      "authority": "Karnataka Forest Department",
+      "type": "State Government Department",
+      "jurisdiction": "State-wide (Protected areas, reserve forests)",
+      "environmental_responsibilities": [
+        {
+          "feature": "Bannerghatta National Park",
+          "area": "260.51 km² (including 13 reserve forests)",
+          "role": "Protection and management",
+          "management_structure": "31 Beats under 6 ranges",
+          "activities": [
+            "Wildlife protection",
+            "Forest conservation",
+            "Biodiversity management",
+            "Eco-tourism regulation"
+          ]
+        },
+        {
+          "feature": "Bannerghatta Eco-Sensitive Zone (ESZ)",
+          "area": "169 km² (reduced from 268.96 km² in 2020)",
+          "original_notification": "2016 - 268.96 km²",
+          "current_notification": "2020 - 169 km²",
+          "role": "Regulation and protection",
+          "activities": [
+            "ESZ regulation enforcement",
+            "Buffer zone management",
+            "Elephant corridor protection",
+            "Development activity monitoring"
+          ],
+          "note": "30% reduction in ESZ area controversial - reduced to facilitate roads and mining despite MoEF request to retain original area"
+        },
+        {
+          "feature": "Lakes (Forest areas)",
+          "count": 5,
+          "role": "Custody within forest boundaries"
+        }
+      ],
+      "website": "https://aranya.gov.in"
+    },
+    {
+      "authority": "Karnataka State Pollution Control Board (KSPCB)",
+      "type": "State Regulatory Agency",
+      "jurisdiction": "State-wide (Pollution monitoring and control)",
+      "environmental_responsibilities": [
+        {
+          "feature": "Rivers - Vrishabhavathi",
+          "role": "Pollution monitoring and control",
+          "monitoring_points": 15,
+          "activities": [
+            "Water quality monitoring",
+            "Industrial effluent regulation",
+            "Raids on violating industries",
+            "Environmental compensation enforcement",
+            "Power and water supply stoppage for violations",
+            "Hazardous waste landfill regulation"
+          ],
+          "pollution_status": "Carries domestic sewage and industrial effluents from Peenya, Yeshwanthpura, Kumbalgodu, Bidadi, Harohalli"
+        },
+        {
+          "feature": "Rivers - Arkavathi",
+          "role": "Pollution monitoring and control",
+          "monitoring_points": 6,
+          "pollution_classification": "Priority level three (BOD 10-20 mg/l)",
+          "activities": [
+            "Water quality monitoring",
+            "Industrial pollution control",
+            "Treatment standards setting"
+          ]
+        },
+        {
+          "feature": "Lakes",
+          "role": "Water quality standards and monitoring",
+          "activities": [
+            "Setting treatment standards",
+            "Water quality monitoring",
+            "Lake pollution control"
+          ]
+        }
+      ],
+      "website": "https://kspcb.karnataka.gov.in",
+      "note": "Overall responsibility to protect lakes and water bodies in Karnataka"
+    },
+    {
+      "authority": "Bangalore Water Supply and Sewerage Board (BWSSB)",
+      "type": "State Government Board",
+      "jurisdiction": "Bengaluru Metropolitan Area",
+      "environmental_responsibilities": [
+        {
+          "feature": "Rivers - Sewage Management",
+          "role": "Sewage treatment and interception",
+          "activities": [
+            "Operate sewage treatment plants",
+            "Underground sewage network (145 works)",
+            "Joint surveys with KSPCB to stop sewage entering drains",
+            "Vrishabhavathi Valley Tertiary Treatment Plant (60 MLD)"
+          ]
+        },
+        {
+          "feature": "Lakes",
+          "role": "Sewage treatment infrastructure",
+          "activities": [
+            "Sewage treatment plants construction",
+            "Treatment monitoring",
+            "Sewage interception systems"
+          ]
+        },
+        {
+          "feature": "Thippagondanahalli Reservoir",
+          "role": "Historical water source management",
+          "status": "Conservation zone"
+        }
+      ],
+      "website": "https://bwssb.karnataka.gov.in"
+    },
+    {
+      "authority": "Karnataka Tank Conservation and Development Authority (KTCDA)",
+      "type": "State Government Authority",
+      "jurisdiction": "State-wide (All lakes/tanks)",
+      "department": "Minor Irrigation Department",
+      "chairman": "Chief Minister of Karnataka",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lakes (All)",
+          "count": "Total: 210 in Bengaluru (across all custodians)",
+          "role": "Regulatory agency for all lakes in Karnataka",
+          "activities": [
+            "Lake conservation policy",
+            "Development guidelines",
+            "Regulatory oversight",
+            "Coordination among custodian agencies"
+          ],
+          "note": "Formed in 2018 after repealing Karnataka Lake Conservation and Development Authority (KLCDA) Act. Custody remains with local agencies (BBMP, BDA, KFD, BMRCL)"
+        }
+      ],
+      "website": "https://karunadu.karnataka.gov.in/ldakarnataka",
+      "legal_basis": "Replaced KLCDA in 2018"
+    },
+    {
+      "authority": "Lake Development Authority (LDA)",
+      "type": "Specialized Development Authority",
+      "jurisdiction": "Specific lakes in Bengaluru",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lakes",
+          "count": 4,
+          "role": "Development and maintenance",
+          "status": "Limited operational role, most functions transferred to KTCDA"
+        }
+      ],
+      "note": "Formed in 2002, succeeded by KCLDA in 2015, responsibilities transferred to KTCDA in 2018"
+    },
+    {
+      "authority": "Bangalore Metro Rail Corporation Limited (BMRCL)",
+      "type": "Public Corporation",
+      "jurisdiction": "Metro rail network areas",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lakes",
+          "count": 1,
+          "role": "Custody for lake within metro jurisdiction"
+        }
+      ],
+      "website": "https://english.bmrc.co.in"
+    },
+    {
+      "authority": "Ministry of Environment, Forest and Climate Change (MoEF&CC)",
+      "type": "Central Government Ministry",
+      "jurisdiction": "National (Eco-sensitive zones)",
+      "environmental_responsibilities": [
+        {
+          "feature": "Bannerghatta National Park ESZ",
+          "role": "Notification and regulation",
+          "activities": [
+            "ESZ notification",
+            "Conservation guidelines",
+            "Approval of ESZ modifications"
+          ],
+          "note": "Requested Karnataka to retain original 268.96 km² ESZ but reduced to 169 km² by state government"
+        }
+      ],
+      "website": "https://moef.gov.in"
+    },
+    {
+      "authority": "Karnataka State Revenue Department",
+      "type": "State Government Department",
+      "jurisdiction": "State-wide",
+      "environmental_responsibilities": [
+        {
+          "feature": "Lakes",
+          "role": "Ownership",
+          "note": "Owns all lakes, while custody for development/maintenance is with local agencies"
+        }
+      ]
+    }
+  ],
+  "custody_distribution": {
+    "lakes_total": 210,
+    "breakdown": [
+      { "authority": "BBMP", "count": 167, "percentage": 79.5 },
+      { "authority": "BDA", "count": 33, "percentage": 15.7 },
+      { "authority": "Karnataka Forest Department", "count": 5, "percentage": 2.4 },
+      { "authority": "Lake Development Authority", "count": 4, "percentage": 1.9 },
+      { "authority": "BMRCL/Metro", "count": 1, "percentage": 0.5 }
+    ]
+  },
+  "coordination_framework": {
+    "lakes_management": {
+      "ownership": "Karnataka State Revenue Department",
+      "regulatory_authority": "Karnataka Tank Conservation and Development Authority (KTCDA)",
+      "custodians": ["BBMP", "BDA", "Karnataka Forest Department", "LDA", "BMRCL"],
+      "development": ["BDA", "BBMP", "BWSSB"],
+      "pollution_control": "KSPCB",
+      "water_quality_standards": "KSPCB"
+    },
+    "rivers_management": {
+      "pollution_monitoring": "KSPCB",
+      "sewage_treatment": "BWSSB",
+      "sewage_interception": "BWSSB",
+      "industrial_regulation": "KSPCB"
+    },
+    "heritage_gardens": {
+      "management": "Department of Horticulture, GoK",
+      "legal_protection": "Karnataka Government Park (Preservation) Act, 1975"
+    },
+    "protected_areas": {
+      "management": "Karnataka Forest Department",
+      "esz_regulation": "MoEF&CC and Karnataka Forest Department"
+    }
+  },
+  "data_sources": [
+    {
+      "title": "BBMP Lakes Department",
+      "url": "https://site.bbmp.gov.in/departmentwebsites/Lakes/",
+      "type": "Government Department",
+      "coverage": "Lake custody distribution, BBMP lake management activities"
+    },
+    {
+      "title": "BDA Horticulture Section",
+      "url": "https://bda.karnataka.gov.in/157/horticulture-section/en",
+      "type": "Government Department",
+      "coverage": "BDA lake restoration, park development, environmental initiatives"
+    },
+    {
+      "title": "Department of Horticulture - Lalbagh",
+      "url": "https://horticulturedir.karnataka.gov.in/page/Gardens/Lalbagh/en",
+      "type": "Government Department",
+      "coverage": "Lalbagh management, heritage garden administration"
+    },
+    {
+      "title": "Department of Horticulture - Cubbon Park",
+      "url": "https://horticulturedir.karnataka.gov.in/page/Gardens/Cubbon+Park/en",
+      "type": "Government Department",
+      "coverage": "Cubbon Park management and administration"
+    },
+    {
+      "title": "Conservation India - Bannerghatta ESZ Campaign",
+      "url": "https://www.conservationindia.org/campaigns/bnp-esz",
+      "type": "NGO Campaign",
+      "coverage": "ESZ reduction from 268.96 km² to 169 km², conservation concerns"
+    },
+    {
+      "title": "KSPCB - Karnataka State Pollution Control Board",
+      "url": "https://kspcb.karnataka.gov.in/",
+      "type": "Regulatory Agency",
+      "coverage": "River monitoring, pollution control, water quality standards"
+    },
+    {
+      "title": "Karnataka Tank Conservation and Development Authority",
+      "url": "https://karunadu.karnataka.gov.in/ldakarnataka/pages/home.aspx",
+      "type": "Government Authority",
+      "coverage": "State-level lake conservation and development policy"
+    },
+    {
+      "title": "Citizen Matters - Whom do you call to fix your lake?",
+      "url": "https://citizenmatters.in/lake-conservation-authorities-groups-bengaluru/",
+      "type": "Citizen Journalism",
+      "coverage": "Multi-agency lake governance structure, coordination challenges"
+    },
+    {
+      "title": "Lake Conservation & Management - Bengaluru Sustainability Forum",
+      "url": "https://www.bengalurusustainabilityforum.org/bangalore-lake-wetlands-management-conservation/",
+      "type": "NGO Resource",
+      "coverage": "Lake conservation challenges, agency responsibilities"
+    },
+    {
+      "title": "Deccan Herald - How ESZ Rollbacks Threaten Bannerghatta",
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/when-protection-rollbacks-endanger-forest-3821633",
+      "type": "News Media",
+      "coverage": "ESZ reduction controversy, forest department position"
+    }
+  ]
+}

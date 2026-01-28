@@ -1,0 +1,138 @@
+{
+  "metadata": {
+    "title": "BDA Planning Districts - RMP 2015 & RMP 2031",
+    "description": "Planning districts for Revised Master Plans",
+    "sources": [
+      {
+        "title": "RMP 2015 Planning Districts Index Map",
+        "url": "https://data-opencity.sgp1.cdn.digitaloceanspaces.com/Documents/Recent/Bengaluru-BDA-RMP-2015-PD-IndexMap.pdf",
+        "organization": "BDA / OpenCity",
+        "year": 2015
+      },
+      {
+        "title": "RMP 2031 Planning Districts Index Map (Draft)",
+        "url": "https://data-opencity.sgp1.cdn.digitaloceanspaces.com/Documents/Recent/Bengaluru-BDA-RMP-2031-PD-Index-Map.pdf",
+        "organization": "BDA / OpenCity",
+        "year": 2031,
+        "status": "Draft - Withdrawn in 2020"
+      }
+    ],
+    "last_updated": "2026-01-28"
+  },
+  "rmp_2015": {
+    "total_districts": 47,
+    "planning_area_km2": 1306,
+    "status": "Current - Legally in force",
+    "districts": [
+      {"id": 101, "name": "Petta"},
+      {"id": 102, "name": "Majestic"},
+      {"id": 103, "name": "Gandhi Nagar"},
+      {"id": 104, "name": "Vasantnagar"},
+      {"id": 105, "name": "Shivaji Nagar"},
+      {"id": 106, "name": "Richmond Town"},
+      {"id": 107, "name": "Chamarajpet"},
+      {"id": 201, "name": "Kempapura Agrahara"},
+      {"id": 202, "name": "Srirampuram"},
+      {"id": 203, "name": "Malleshwaram"},
+      {"id": 204, "name": "Jayanagar"},
+      {"id": 205, "name": "Baiyyappanahalli"},
+      {"id": 206, "name": "Indiranagar"},
+      {"id": 207, "name": "Unclassified"},
+      {"id": 208, "name": "Koramangala"},
+      {"id": 209, "name": "Shanti Nagar"},
+      {"id": 210, "name": "Jayanagar"},
+      {"id": 211, "name": "Banashankari"},
+      {"id": 212, "name": "Vijaya Nagar"},
+      {"id": 213, "name": "Rajaji Nagar"},
+      {"id": 214, "name": "Peenya"},
+      {"id": 215, "name": "Mathikere"},
+      {"id": 216, "name": "Kaval Byrasandra"},
+      {"id": 217, "name": "Kammanahalli"},
+      {"id": 218, "name": "C V Raman Nagar"},
+      {"id": 301, "name": "Kengeri"},
+      {"id": 302, "name": "Herohalli"},
+      {"id": 303, "name": "Makali"},
+      {"id": 304, "name": "Byatarayanapura"},
+      {"id": 305, "name": "Bavalakere"},
+      {"id": 306, "name": "Hesarghatta"},
+      {"id": 307, "name": "Yelahanka"},
+      {"id": 308, "name": "Bettaalasuru"},
+      {"id": 309, "name": "Tanisandra"},
+      {"id": 310, "name": "Bagaluru"},
+      {"id": 311, "name": "Horamavu"},
+      {"id": 312, "name": "Avalahalli"},
+      {"id": 313, "name": "K R Puram"},
+      {"id": 314, "name": "Sadara Mangala"},
+      {"id": 315, "name": "Whitefield"},
+      {"id": 316, "name": "Varthur"},
+      {"id": 317, "name": "Dommasandra"},
+      {"id": 318, "name": "Begur"},
+      {"id": 319, "name": "Electronic City"},
+      {"id": 320, "name": "Banerghatta"},
+      {"id": 321, "name": "Anjanapura"},
+      {"id": 322, "name": "Kumbalagodu"}
+    ]
+  },
+  "rmp_2031": {
+    "total_districts": 42,
+    "planning_area_km2": 1306,
+    "status": "Draft - Withdrawn in 2020 to integrate TOD Policy",
+    "note": "RMP 2031 uses a different numbering system (1-42) compared to RMP 2015 (101-322)",
+    "districts": [
+      {"id": 1, "name": "Central Core", "wards": ["Jayamahal", "Gayathri Nagar", "Pulikeshi Nagar", "Ulsoor", "Bharathi Nagar", "Shivaji Nagar", "Vasanth Nagar", "Gandhi Nagar", "Subhash Nagar", "Okalipuram", "Dayananda Nagar", "Prakash Nagar", "Chikpete", "Sampangiram Nagar", "Shanthala Nagar", "Sudam Nagar", "Dharmarayaswamy Temple Ward", "Cottonpet", "K.R.Market"]},
+      {"id": 2, "name": "East Zone", "wards": ["Agrahara", "Doddabanahalli", "Veerenahalli", "Shigehalli", "Benniganahalli", "C.V.Raman Nagar", "Hosathippasandra", "Maruthiseva Nagar", "Sarvagna Nagar", "Hoysala Nagar", "Vignana Nagar"]},
+      {"id": 22, "name": "North-East Peripheral", "villages": ["Maragondanahalli", "Kithiganur", "Agrahara", "Huvina Ane", "Hirandahalli", "Halehalli", "Doddagubbi", "Byappanahalli", "Bidarahalli", "Anagalapura"]},
+      {"id": 23, "name": "East Peripheral", "villages": ["Nimbekayapura", "Kurudu Sonnenahalli", "Konadasapura", "Katamanallur", "Kannamangala", "Kajisonnenahalli", "Goravikere"]},
+      {"id": 35, "name": "Bettahalasuru-Hunasamaranahalli"},
+      {"id": 42, "name": "North Peripheral"}
+    ]
+  },
+  "comparison": {
+    "rmp_2015_vs_2031": {
+      "total_districts": {
+        "2015": 47,
+        "2031": 42
+      },
+      "numbering_system": {
+        "2015": "Three-digit (101-322) with ring classification",
+        "2031": "Sequential (1-42) with zone-based naming"
+      },
+      "coverage": {
+        "2015": "1,306 km²",
+        "2031": "1,306 km² (same area, reorganized districts)"
+      },
+      "status_difference": "RMP 2015 is legally in force. RMP 2031 was withdrawn in 2020 before approval."
+    }
+  },
+  "district_categories_2015": {
+    "ring_i_core": {
+      "range": "101-107",
+      "count": 7,
+      "description": "Central core city areas"
+    },
+    "ring_ii_intermediate": {
+      "range": "201-218",
+      "count": 18,
+      "description": "Intermediate ring areas"
+    },
+    "ring_iii_peripheral": {
+      "range": "301-322",
+      "count": 22,
+      "description": "Peripheral development areas"
+    }
+  },
+  "data_availability": {
+    "rmp_2015": {
+      "index_map": "Available (PDF)",
+      "land_use_maps": "Available for all 47 districts",
+      "gis_data": "Partial - Maps in PDF format, digital boundaries not publicly available"
+    },
+    "rmp_2031": {
+      "index_map": "Available (PDF - Draft)",
+      "land_use_maps": "Available for selected districts",
+      "gis_data": "Partial - Draft status",
+      "note": "Plan withdrawn before final approval"
+    }
+  },
+  "note": "Digital GIS boundaries (GeoJSON/KML) for planning districts are not publicly available. Current data based on PDF index maps. For detailed land use within districts, refer to individual planning district land use maps from OpenCity."
+}
