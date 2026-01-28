@@ -1,0 +1,296 @@
+{
+  "metadata": {
+    "title": "BDA Dashboard - Comprehensive Data Sources",
+    "description": "Complete list of data sources, citations, and references for all dashboard data",
+    "last_updated": "2026-01-28"
+  },
+  "source_categories": [
+    {
+      "category": "Government Census & Surveys",
+      "sources": [
+        {
+          "title": "Census of India 2011",
+          "url": "http://censusindia.gov.in/",
+          "organization": "Government of India",
+          "year": 2011,
+          "coverage": "Historical population data, demographics, literacy rates, sex ratio, age distribution",
+          "data_used_in": ["Overview metrics", "Demographics", "Population growth"]
+        },
+        {
+          "title": "Periodic Labour Force Survey (PLFS) Migration Report 2020-21",
+          "url": "https://microdata.gov.in/NADA/index.php/catalog/PLFS",
+          "organization": "Ministry of Statistics & Programme Implementation, GoI",
+          "year": 2021,
+          "coverage": "National and urban migration patterns, reasons for migration, employment statistics",
+          "data_used_in": ["Migration patterns", "Demographics", "Employment data"]
+        },
+        {
+          "title": "PLFS Annual Report 2023-24",
+          "url": "https://dge.gov.in/dge/sites/default/files/2024-10/Annual_Report_Periodic_Labour_Force_Survey_23_24.pdf",
+          "organization": "Directorate General of Employment, GoI",
+          "year": 2024,
+          "coverage": "Labour force participation rate, unemployment rate, employment indicators",
+          "data_used_in": ["Demographics", "Employment trends"]
+        }
+      ]
+    },
+    {
+      "category": "BDA Official Documents",
+      "sources": [
+        {
+          "title": "BDA Approved Layouts List (1972-2025)",
+          "url": "https://bda.karnataka.gov.in",
+          "organization": "Bangalore Development Authority",
+          "year": 2025,
+          "coverage": "Complete list of 1,017 approved layouts with details on location, extent, approval date, use type",
+          "data_used_in": ["Layouts section", "Overview metrics", "Decade-wise analysis"]
+        },
+        {
+          "title": "BDA Layouts - Spatial Data (KML)",
+          "url": "https://data.opencity.in/dataset/bda-layouts",
+          "organization": "OpenCity - Bangalore Open Data Portal",
+          "year": 2024,
+          "coverage": "Geospatial boundaries for 149 BDA layouts with polygon coordinates, layout numbers, areas in acres",
+          "data_used_in": ["Layouts section", "Master Plan map", "Spatial visualization"]
+        },
+        {
+          "title": "Revised Master Plan 2015 (RMP 2015)",
+          "url": "https://bda.karnataka.gov.in",
+          "organization": "Bangalore Development Authority",
+          "year": 2015,
+          "coverage": "Land use planning, zoning regulations, development control rules for Bengaluru Metropolitan Area",
+          "data_used_in": ["Master Plan section", "Land use distribution", "Planning area"]
+        },
+        {
+          "title": "Draft Revised Master Plan 2031 (RMP 2031)",
+          "url": "https://data.opencity.in/dataset/bda-revised-master-plan-2031",
+          "organization": "Bangalore Development Authority",
+          "year": 2020,
+          "coverage": "Proposed land use planning, population projections to 2031, infrastructure planning",
+          "note": "Withdrawn in 2020 to integrate TOD Policy",
+          "data_used_in": ["Master Plan section", "Population projections", "Demographics"]
+        }
+      ]
+    },
+    {
+      "category": "BDA Act & Legislation",
+      "sources": [
+        {
+          "title": "Bangalore Development Authority Act, 1976 (Karnataka Act 12 of 1976)",
+          "url": "https://www.indiacode.nic.in/handle/123456789/7903",
+          "organization": "India Code, Ministry of Law & Justice",
+          "year": 1976,
+          "coverage": "Statutory functions, powers, duties of BDA across planning, development, land acquisition, finance",
+          "data_used_in": ["Functional Areas", "Department responsibilities", "Statutory compliance"]
+        },
+        {
+          "title": "Bangalore Development Authority Act, 1976 (IndianKanoon)",
+          "url": "https://indiankanoon.org/doc/91485225/",
+          "organization": "IndianKanoon Legal Database",
+          "year": 1976,
+          "coverage": "Complete Act text with sections on development schemes, land acquisition, betterment tax, building regulations",
+          "data_used_in": ["Functional Areas", "Department analysis"]
+        },
+        {
+          "title": "Karnataka Town and Country Planning Act, 1961",
+          "url": "https://prsindia.org/files/bills_acts/acts_states/karnataka/1963/1963%20Karnataka11.pdf",
+          "organization": "PRS India",
+          "year": 1961,
+          "coverage": "Planning authority functions, comprehensive development plans, zoning regulations",
+          "data_used_in": ["Master Plan", "Planning functions"]
+        },
+        {
+          "title": "Greater Bengaluru Governance Act, 2024 (Act 36 of 2025)",
+          "url": "https://prsindia.org/files/bills_acts/acts_states/karnataka/2025/Act36of2025KA.pdf",
+          "organization": "PRS India",
+          "year": 2025,
+          "coverage": "Formation of Greater Bengaluru Authority (GBA), reduction of BDA jurisdiction from 1,294 km² to 582 km²",
+          "data_used_in": ["Functional Areas", "Jurisdiction changes", "Overview metrics"]
+        }
+      ]
+    },
+    {
+      "category": "Government Reports & Policy Documents",
+      "sources": [
+        {
+          "title": "EAC-PM Report on Domestic Migration (400 Million Dreams)",
+          "url": "https://eacpm.gov.in/wp-content/uploads/2024/12/FINAL-Internal-Migration-Project.docx-Publication-Version.pdf",
+          "organization": "Economic Advisory Council to the Prime Minister",
+          "year": 2024,
+          "coverage": "Internal migration trends, decline from 37.64% (2011) to 28.88% (2023), urban migration patterns",
+          "data_used_in": ["Demographics", "Migration analysis"]
+        },
+        {
+          "title": "Karnataka Budget Analysis 2024-25",
+          "url": "https://prsindia.org/budgets/states/karnataka-budget-analysis-2024-25",
+          "organization": "PRS India",
+          "year": 2024,
+          "coverage": "State budget allocations, infrastructure spending, urban development funds",
+          "data_used_in": ["Budget context", "Development priorities"]
+        }
+      ]
+    },
+    {
+      "category": "Industry Reports & Research",
+      "sources": [
+        {
+          "title": "CBRE Global Tech Talent Guidebook 2025",
+          "url": "https://indianstartupnews.com/news/indias-silicon-valley-bengaluru-crosses-1-million-tech-workforce-mark-joins-12-global-powerhouse-cities-cbre-9312440",
+          "organization": "CBRE Research",
+          "year": 2025,
+          "coverage": "1M+ tech workforce milestone, 12% tech employment growth (2018-2023), working-age population 75.5%",
+          "data_used_in": ["Demographics", "Migration patterns", "Employment sectors"]
+        },
+        {
+          "title": "ILO India Employment Report 2024 - Youth Employment, Education and Skills",
+          "url": "https://www.ilo.org/sites/default/files/2024-08/India%20Employment%20-%20web_8%20April.pdf",
+          "organization": "International Labour Organization",
+          "year": 2024,
+          "coverage": "Youth employment trends, education migration, skills development, employment opportunities",
+          "data_used_in": ["Demographics", "Education migration", "Employment trends"]
+        },
+        {
+          "title": "Bengaluru Urban Infrastructure Report 2020",
+          "url": "https://content.knightfrank.com/research/2142/documents/en/bengaluru-urban-infrastructure-report-2020-india-urban-infrastructure-report-7671.pdf",
+          "organization": "Knight Frank India",
+          "year": 2020,
+          "coverage": "Infrastructure assessment, development challenges, urban growth analysis",
+          "data_used_in": ["Infrastructure context", "Urban development"]
+        }
+      ]
+    },
+    {
+      "category": "Academic Research & Studies",
+      "sources": [
+        {
+          "title": "Migration Along Bengaluru's Rural–Urban Continuum: Implications for Household Well-being and Climate Change Adaptation",
+          "url": "https://journals.sagepub.com/doi/10.1177/09737030241244572",
+          "organization": "SAGE Publications (Rahman, Singh, Srinivas 2024)",
+          "year": 2024,
+          "coverage": "Bengaluru-specific migration patterns, employment sectors, rural-urban migration, household impacts",
+          "data_used_in": ["Demographics", "Migration patterns", "Employment data"]
+        },
+        {
+          "title": "Analysis of Socio-Economic Conditions and Migration Patterns of Migrant Settlements in Bengaluru",
+          "url": "https://www.researchgate.net/publication/322665731_Analysis_of_socio_economic_conditions_and_migration_patterns_of_migrant_settlements_in_Bengaluru",
+          "organization": "ResearchGate",
+          "year": 2018,
+          "coverage": "Migrant socio-economic conditions, settlement patterns, employment types",
+          "data_used_in": ["Demographics", "Migration analysis"]
+        },
+        {
+          "title": "Is it Push or Pull? Recent Evidence from Migration into Bangalore, India",
+          "url": "https://www.researchgate.net/publication/235926146_Is_it_Push_or_Pull_Recent_Evidence_from_Migration_into_Bangalore_India",
+          "organization": "ResearchGate",
+          "year": 2013,
+          "coverage": "Push vs pull factors in Bengaluru migration, employment opportunities, wage differentials",
+          "data_used_in": ["Migration analysis", "Employment factors"]
+        },
+        {
+          "title": "Evaluation Study of Migration of Labour to and from Karnataka",
+          "url": "https://kmea.karnataka.gov.in/storage/pdf-files/Reports%20and%20other%20docs/Migration%20of%20Labour.pdf",
+          "organization": "Karnataka Monitoring & Evaluation Authority",
+          "year": 2020,
+          "coverage": "Labour migration patterns, interstate migration, employment sectors, working conditions",
+          "data_used_in": ["Demographics", "Employment migration"]
+        }
+      ]
+    },
+    {
+      "category": "Research Organizations & Think Tanks",
+      "sources": [
+        {
+          "title": "BPAC - Rapid Population Growth in Bangalore: Causes and Solutions",
+          "url": "https://bpac.in/bangalore-population-growth-consequences-and-possible-solutions/",
+          "organization": "Bangalore Political Action Committee",
+          "year": 2024,
+          "coverage": "42% migrant population statistic, population growth drivers, urban challenges",
+          "data_used_in": ["Demographics", "Overview metrics", "Migration data"]
+        },
+        {
+          "title": "How India Moves: Understanding Patterns of Migration Within the Country",
+          "url": "https://ceda.ashoka.edu.in/how-india-moves-understanding-patterns-of-migration-within-the-country/",
+          "organization": "CEDA, Ashoka University",
+          "year": 2024,
+          "coverage": "National internal migration patterns, urban destination cities, migration corridors",
+          "data_used_in": ["Demographics", "Migration context"]
+        }
+      ]
+    },
+    {
+      "category": "Environmental Data",
+      "sources": [
+        {
+          "title": "BDA Environmental Database - Water Bodies",
+          "url": "https://bda.karnataka.gov.in",
+          "organization": "Bangalore Development Authority",
+          "year": 2024,
+          "coverage": "87 lakes, 4 major rivers (Arkavathi, Vrishabhavathi, Pinakini, Dakshina Pinakini), 1 reservoir (Thippagondanahalli)",
+          "data_used_in": ["Environment section", "Water bodies"]
+        },
+        {
+          "title": "Bannerghatta National Park Eco-Sensitive Zone Notification",
+          "url": "http://environmentclearance.nic.in/",
+          "organization": "Ministry of Environment, Forest and Climate Change",
+          "year": 2016,
+          "coverage": "25 km² eco-sensitive zone, 10km buffer zone regulations, conservation measures",
+          "data_used_in": ["Environment section", "Eco-sensitive zones"]
+        },
+        {
+          "title": "Heritage Gardens - Lalbagh & Cubbon Park",
+          "url": "https://horticulture.kar.nic.in/",
+          "organization": "Karnataka Horticulture Department",
+          "year": 2024,
+          "coverage": "Lalbagh (96 hectares), Cubbon Park (121 hectares) - heritage garden designations",
+          "data_used_in": ["Environment section", "Green spaces"]
+        }
+      ]
+    },
+    {
+      "category": "Open Data Portals",
+      "sources": [
+        {
+          "title": "OpenCity Bengaluru - BDA Datasets",
+          "url": "https://data.opencity.in/organization/bangalore-development-authority",
+          "organization": "OpenCity - Bangalore Open Data Portal",
+          "year": 2024,
+          "coverage": "23+ BDA datasets including layouts (KML), CA sites, land use maps, master plan documents, cadastral maps",
+          "data_used_in": ["Layouts section", "Master Plan", "Spatial data"]
+        }
+      ]
+    },
+    {
+      "category": "Wikipedia & Reference Sources",
+      "sources": [
+        {
+          "title": "Bangalore Development Authority - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Bangalore_Development_Authority",
+          "organization": "Wikipedia",
+          "year": 2025,
+          "coverage": "BDA history, organizational structure, jurisdiction changes, key statistics",
+          "data_used_in": ["Functional Areas", "Overview", "Historical context"]
+        },
+        {
+          "title": "Greater Bengaluru Authority - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greater_Bengaluru_Authority",
+          "organization": "Wikipedia",
+          "year": 2025,
+          "coverage": "GBA formation, jurisdiction transfer, governance structure",
+          "data_used_in": ["Functional Areas", "Jurisdiction changes"]
+        }
+      ]
+    }
+  ],
+  "data_quality_notes": {
+    "population_projections": "2031 population projection of 20M is from RMP 2031 draft (withdrawn 2020). Actual projection may vary with new Master Plan 2041.",
+    "migration_2024_25": "Migration patterns for 2024-25 are projections based on PLFS 2020-21 urban migration data (47.5% marriage in urban areas), adjusted for Bengaluru's IT/education hub characteristics with 1M+ tech workforce and 3.7M students in Karnataka.",
+    "layouts_data": "Sample of 9 layouts from total 1,017. Complete dataset extraction in progress.",
+    "jurisdiction_change": "BDA jurisdiction reduced from 1,294 km² to 582 km² in 2025 with GBA formation. Data reflects post-reduction jurisdiction unless otherwise noted."
+  },
+  "methodology_notes": {
+    "migration_projection": "2024-25 Bengaluru migration patterns projected from: (1) PLFS 2020-21 urban migration baseline (47.5% marriage, 22% employment), (2) Bengaluru IT sector growth (1M+ tech workers, 12% growth 2018-2023, CBRE 2025), (3) Education hub status (3.7M students in Karnataka, ILO 2024), (4) Research on Bengaluru-specific migration (Rahman et al. 2024). Final projection: Work 52%, Education 18%, Marriage 15%, Family 11%, Other 4%.",
+    "population_growth": "Historical data from Census of India (1971-2011). Projections from RMP 2031 draft. CAGR calculated based on census data.",
+    "tech_workforce": "1M+ tech workforce from CBRE Global Tech Talent Guidebook 2025. Growth rate (12% 2018-2023) from same source.",
+    "migrant_percentage": "42% migrant population from BPAC 2024 study, consistent with Census 2011 finding of 42% population from outside district/state."
+  }
+}

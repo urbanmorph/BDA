@@ -3,18 +3,24 @@
 
 // Global variables
 let layoutsData = [];
+let layoutsBoundariesData = null;
 let departmentsData = null;
+let sourcesData = null;
 let map;
 let charts = {};
+let layoutLayers = [];
 
 // Initialize app on page load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('BDA Dashboard initializing...');
     loadData();
     loadDepartmentsData();
+    loadSourcesData();
+    loadLayoutsBoundaries();
     initializeCharts();
     initializeMap();
     setupEventListeners();
+    setupMobileMenu();
     showSection('overview');
 });
 
@@ -29,6 +35,20 @@ async function loadData() {
         updateCharts(data);
     } catch (error) {
         console.error('Error loading data:', error);
+    }
+}
+
+// Load Layout Boundaries Data
+async function loadLayoutsBoundaries() {
+    try {
+        const response = await fetch('data/layouts-boundaries.json');
+        layoutsBoundariesData = await response.json();
+        console.log(`Loaded ${layoutsBoundariesData.layouts.length} layout boundaries`);
+        if (map) {
+            addLayoutBoundariesToMap();
+        }
+    } catch (error) {
+        console.error('Error loading layout boundaries:', error);
     }
 }
 
@@ -51,13 +71,20 @@ function showSection(sectionName) {
         btn.classList.add('text-earth-700');
     });
 
-    // Highlight active button
-    event.target.classList.add('bg-earth-700', 'text-white');
-    event.target.classList.remove('text-earth-700');
+    // Highlight active button (only if called from an event)
+    if (typeof event !== 'undefined' && event.target) {
+        event.target.classList.add('bg-earth-700', 'text-white');
+        event.target.classList.remove('text-earth-700');
+    }
 
     // Resize map if needed
     if (sectionName === 'master-plan' && map) {
         setTimeout(() => map.invalidateSize(), 100);
+    }
+
+    // Populate departments section if needed
+    if (sectionName === 'departments' && departmentsData) {
+        setTimeout(() => populateDepartmentsSection(), 100);
     }
 }
 
@@ -73,6 +100,11 @@ function initializeMap() {
         attribution: '© OpenStreetMap contributors',
         maxZoom: 18
     }).addTo(map);
+
+    // Add layout boundaries if data is loaded
+    if (layoutsBoundariesData) {
+        addLayoutBoundariesToMap();
+    }
 
     // Add sample layout markers (using sample data)
     if (layoutsData.length > 0) {
@@ -119,6 +151,60 @@ function addLayoutMarkers() {
             </div>
         `);
     });
+}
+
+// Add Layout Boundaries to Map
+function addLayoutBoundariesToMap() {
+    if (!layoutsBoundariesData || !map) return;
+
+    // Clear existing boundary layers
+    layoutLayers.forEach(layer => map.removeLayer(layer));
+    layoutLayers = [];
+
+    console.log(`Adding ${layoutsBoundariesData.layouts.length} layout boundaries to map`);
+
+    layoutsBoundariesData.layouts.forEach(layout => {
+        if (layout.coordinates && layout.coordinates.length > 0) {
+            // Create polygon
+            const polygon = L.polygon(layout.coordinates, {
+                color: earthColors.primary,
+                weight: 2,
+                fillColor: earthColors.secondary,
+                fillOpacity: 0.15,
+                opacity: 0.6
+            });
+
+            // Add popup with layout information
+            polygon.bindPopup(`
+                <div class="p-2">
+                    <p class="font-semibold text-sm text-earth-800">${layout.name}</p>
+                    <p class="text-xs text-earth-600 mt-1">Layout No: ${layout.layout_no || 'N/A'}</p>
+                    <p class="text-xs text-earth-600">Area: ${layout.area_acres ? layout.area_acres.toFixed(2) : 'N/A'} acres</p>
+                    ${layout.taluk ? `<p class="text-xs text-earth-600">Taluk: ${layout.taluk}</p>` : ''}
+                </div>
+            `);
+
+            // Add hover effect
+            polygon.on('mouseover', function() {
+                this.setStyle({
+                    fillOpacity: 0.35,
+                    weight: 3
+                });
+            });
+
+            polygon.on('mouseout', function() {
+                this.setStyle({
+                    fillOpacity: 0.15,
+                    weight: 2
+                });
+            });
+
+            polygon.addTo(map);
+            layoutLayers.push(polygon);
+        }
+    });
+
+    console.log(`Added ${layoutLayers.length} layout boundaries to map`);
 }
 
 // Earthy color palette
@@ -241,10 +327,10 @@ function initializeCharts() {
         charts.migration = new Chart(migrationCtx, {
             type: 'bar',
             data: {
-                labels: ['Work/Employment', 'Marriage', 'Family Move', 'Education', 'Other'],
+                labels: ['Work/Employment', 'Education', 'Marriage', 'Family Move', 'Other'],
                 datasets: [{
                     label: 'Percentage',
-                    data: [35, 25, 15, 12, 13],
+                    data: [52, 18, 15, 11, 4],
                     backgroundColor: earthColors.secondary,
                     borderRadius: 4
                 }]
@@ -462,8 +548,12 @@ function populateDepartmentsSection() {
 // Populate Department Cards
 function populateDepartmentCards() {
     const container = document.getElementById('departmentCardsContainer');
-    if (!container) return;
+    if (!container) {
+        console.error('departmentCardsContainer not found');
+        return;
+    }
 
+    console.log('Populating department cards, departments count:', departmentsData.departments.length);
     container.innerHTML = '';
 
     departmentsData.departments.forEach(dept => {
@@ -642,7 +732,133 @@ function populateSources() {
     });
 }
 
+// Load Sources Data
+async function loadSourcesData() {
+    try {
+        const response = await fetch('data/sources.json');
+        sourcesData = await response.json();
+        console.log('Loaded sources data');
+        populateSourcesSection();
+    } catch (error) {
+        console.error('Error loading sources data:', error);
+    }
+}
+
+// Populate Sources Section
+function populateSourcesSection() {
+    if (!sourcesData) return;
+
+    // Populate source categories
+    const container = document.getElementById('sourceCategoriesContainer');
+    if (container) {
+        container.innerHTML = '';
+
+        sourcesData.source_categories.forEach(category => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'bg-white border border-earth-200 rounded-lg overflow-hidden';
+
+            const sourcesHTML = category.sources.map(source => `
+                <div class="px-6 py-4 border-b border-earth-100 last:border-0">
+                    <div class="flex items-start justify-between mb-2">
+                        <h4 class="font-semibold text-earth-800 text-sm flex-1">${source.title}</h4>
+                        <span class="text-xs text-earth-500 ml-2">${source.year || 'N/A'}</span>
+                    </div>
+                    <p class="text-xs text-earth-600 mb-2">${source.organization}</p>
+                    <p class="text-xs text-earth-700 mb-2">${source.coverage}</p>
+                    ${source.note ? `<p class="text-xs text-terracotta-600 mb-2 italic">${source.note}</p>` : ''}
+                    <div class="flex items-center justify-between mt-2">
+                        <a href="${source.url}" target="_blank" class="text-xs text-sage-600 hover:text-sage-800 underline break-all">
+                            ${source.url.length > 60 ? source.url.substring(0, 60) + '...' : source.url}
+                        </a>
+                    </div>
+                    <p class="text-xs text-earth-500 mt-2">Used in: ${source.data_used_in.join(', ')}</p>
+                </div>
+            `).join('');
+
+            categoryDiv.innerHTML = `
+                <div class="px-6 py-4 bg-earth-50 border-b border-earth-200">
+                    <h3 class="text-lg font-semibold text-earth-800">${category.category}</h3>
+                    <p class="text-xs text-earth-600 mt-1">${category.sources.length} sources</p>
+                </div>
+                <div>
+                    ${sourcesHTML}
+                </div>
+            `;
+
+            container.appendChild(categoryDiv);
+        });
+    }
+
+    // Populate methodology notes
+    const methodologyContainer = document.getElementById('methodologyNotes');
+    if (methodologyContainer && sourcesData.methodology_notes) {
+        methodologyContainer.innerHTML = '';
+
+        Object.entries(sourcesData.methodology_notes).forEach(([key, value]) => {
+            const noteDiv = document.createElement('div');
+            noteDiv.className = 'text-sm';
+            noteDiv.innerHTML = `
+                <h4 class="font-semibold text-earth-700 mb-1">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
+                <p class="text-earth-600">${value}</p>
+            `;
+            methodologyContainer.appendChild(noteDiv);
+        });
+
+        // Add data quality notes
+        if (sourcesData.data_quality_notes) {
+            const qualityDiv = document.createElement('div');
+            qualityDiv.className = 'mt-4 pt-4 border-t border-earth-200';
+            qualityDiv.innerHTML = '<h4 class="font-semibold text-earth-700 mb-2">Data Quality Notes</h4>';
+
+            Object.entries(sourcesData.data_quality_notes).forEach(([key, value]) => {
+                const noteP = document.createElement('p');
+                noteP.className = 'text-sm text-earth-600 mb-2';
+                noteP.innerHTML = `<strong>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> ${value}`;
+                qualityDiv.appendChild(noteP);
+            });
+
+            methodologyContainer.appendChild(qualityDiv);
+        }
+    }
+}
+
+// Export Sources
+function exportSources() {
+    if (!sourcesData) return;
+
+    const dataStr = JSON.stringify(sourcesData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'bda-data-sources.json');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+// Setup Mobile Menu
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a nav item is clicked
+        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    }
+}
+
 // Make functions globally available
 window.showSection = showSection;
 window.togglePlan = togglePlan;
 window.exportLayouts = exportLayouts;
+window.exportSources = exportSources;
