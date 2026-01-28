@@ -3,6 +3,7 @@
 
 // Global variables
 let layoutsData = [];
+let departmentsData = null;
 let map;
 let charts = {};
 
@@ -10,6 +11,7 @@ let charts = {};
 document.addEventListener('DOMContentLoaded', function() {
     console.log('BDA Dashboard initializing...');
     loadData();
+    loadDepartmentsData();
     initializeCharts();
     initializeMap();
     setupEventListeners();
@@ -420,6 +422,224 @@ function downloadCSV(csv, filename) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+}
+
+// Load Departments Data
+async function loadDepartmentsData() {
+    try {
+        const response = await fetch('data/departments.json');
+        departmentsData = await response.json();
+        console.log('Loaded departments data');
+        populateDepartmentsSection();
+    } catch (error) {
+        console.error('Error loading departments data:', error);
+    }
+}
+
+// Populate Departments Section
+function populateDepartmentsSection() {
+    if (!departmentsData) return;
+
+    // Populate department cards
+    populateDepartmentCards();
+
+    // Populate performance highlights
+    populatePerformanceHighlights();
+
+    // Populate critical gaps
+    populateCriticalGaps();
+
+    // Populate detailed analysis
+    populateDepartmentAnalysis();
+
+    // Populate overall assessment
+    populateOverallAssessment();
+
+    // Populate sources
+    populateSources();
+}
+
+// Populate Department Cards
+function populateDepartmentCards() {
+    const container = document.getElementById('departmentCardsContainer');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    departmentsData.departments.forEach(dept => {
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-earth-200 rounded-lg p-6 hover:border-sage-400 transition-colors';
+
+        const functionsCount = dept.statutory_functions.length;
+        const strengthsCount = dept.performance_gap?.strengths?.length || 0;
+        const weaknessesCount = dept.performance_gap?.weaknesses?.length || 0;
+
+        card.innerHTML = `
+            <h3 class="text-lg font-semibold text-earth-800 mb-2">${dept.name}</h3>
+            <p class="text-sm text-earth-600 mb-4">${dept.head}</p>
+            <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-earth-600">Statutory Functions</span>
+                    <span class="font-semibold text-earth-800">${functionsCount}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-sage-600">Strengths</span>
+                    <span class="font-semibold text-sage-700">${strengthsCount}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-terracotta-600">Gaps</span>
+                    <span class="font-semibold text-terracotta-700">${weaknessesCount}</span>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+// Populate Performance Highlights
+function populatePerformanceHighlights() {
+    const container = document.getElementById('performanceHighlights');
+    if (!container || !departmentsData.overall_assessment) return;
+
+    container.innerHTML = '';
+
+    departmentsData.overall_assessment.performance_highlights.forEach(highlight => {
+        const li = document.createElement('li');
+        li.className = 'flex items-start';
+        li.innerHTML = `
+            <svg class="h-5 w-5 text-sage-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm text-earth-700">${highlight}</span>
+        `;
+        container.appendChild(li);
+    });
+}
+
+// Populate Critical Gaps
+function populateCriticalGaps() {
+    const container = document.getElementById('criticalGaps');
+    if (!container || !departmentsData.overall_assessment) return;
+
+    container.innerHTML = '';
+
+    departmentsData.overall_assessment.critical_gaps.forEach(gap => {
+        const li = document.createElement('li');
+        li.className = 'flex items-start';
+        li.innerHTML = `
+            <svg class="h-5 w-5 text-terracotta-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-sm text-earth-700">${gap}</span>
+        `;
+        container.appendChild(li);
+    });
+}
+
+// Populate Department Analysis
+function populateDepartmentAnalysis() {
+    const container = document.getElementById('departmentAnalysisContainer');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    departmentsData.departments.forEach((dept, index) => {
+        const deptSection = document.createElement('div');
+        deptSection.className = 'border border-earth-200 rounded-lg p-6';
+
+        let functionsHTML = dept.statutory_functions.map(func => `
+            <div class="mb-3 pb-3 border-b border-earth-100 last:border-0">
+                <p class="font-medium text-sm text-earth-800 mb-1">${func.function}</p>
+                <p class="text-xs text-earth-600 mb-1">${func.description}</p>
+                <p class="text-xs text-sage-600">Act Section: ${func.act_section}</p>
+            </div>
+        `).join('');
+
+        let strengthsHTML = '';
+        if (dept.performance_gap?.strengths) {
+            strengthsHTML = dept.performance_gap.strengths.map(s => `
+                <li class="text-sm text-earth-700">${s}</li>
+            `).join('');
+        }
+
+        let weaknessesHTML = '';
+        if (dept.performance_gap?.weaknesses) {
+            weaknessesHTML = dept.performance_gap.weaknesses.map(w => `
+                <li class="text-sm text-earth-700">${w}</li>
+            `).join('');
+        }
+
+        deptSection.innerHTML = `
+            <h4 class="text-lg font-semibold text-earth-800 mb-1">${dept.name}</h4>
+            <p class="text-sm text-earth-600 mb-4">${dept.head}</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h5 class="text-sm font-semibold text-earth-700 mb-3">Statutory Functions</h5>
+                    <div class="space-y-2">
+                        ${functionsHTML}
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="text-sm font-semibold text-sage-700 mb-2">Strengths</h5>
+                    <ul class="space-y-1 mb-4 list-disc list-inside">
+                        ${strengthsHTML || '<li class="text-sm text-earth-500">No data</li>'}
+                    </ul>
+
+                    <h5 class="text-sm font-semibold text-terracotta-700 mb-2">Gaps & Weaknesses</h5>
+                    <ul class="space-y-1 list-disc list-inside">
+                        ${weaknessesHTML || '<li class="text-sm text-earth-500">No data</li>'}
+                    </ul>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(deptSection);
+    });
+}
+
+// Populate Overall Assessment
+function populateOverallAssessment() {
+    const ratingEl = document.getElementById('complianceRating');
+    const explanationEl = document.getElementById('complianceExplanation');
+    const recommendationsEl = document.getElementById('recommendations');
+
+    if (!departmentsData.overall_assessment) return;
+
+    const assessment = departmentsData.overall_assessment;
+
+    if (ratingEl) {
+        ratingEl.textContent = assessment.statutory_compliance.rating;
+    }
+
+    if (explanationEl) {
+        explanationEl.textContent = assessment.statutory_compliance.explanation;
+    }
+
+    if (recommendationsEl) {
+        recommendationsEl.innerHTML = '';
+        assessment.recommendations.forEach(rec => {
+            const li = document.createElement('li');
+            li.textContent = rec;
+            recommendationsEl.appendChild(li);
+        });
+    }
+}
+
+// Populate Sources
+function populateSources() {
+    const container = document.getElementById('departmentSources');
+    if (!container || !departmentsData.sources) return;
+
+    container.innerHTML = '';
+
+    departmentsData.sources.forEach(source => {
+        const div = document.createElement('div');
+        div.innerHTML = `<a href="${source.url}" target="_blank" class="text-sage-600 hover:text-sage-800 underline">${source.title}</a> (${source.type})`;
+        container.appendChild(div);
+    });
 }
 
 // Make functions globally available

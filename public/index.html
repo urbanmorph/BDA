@@ -102,6 +102,10 @@
                             class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
                         Environment
                     </button>
+                    <button onclick="showSection('departments')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                        Functional Areas
+                    </button>
                 </nav>
             </div>
         </div>
@@ -469,6 +473,101 @@
                         <h4 class="font-medium text-gray-900 mb-1">Cubbon Park</h4>
                         <p class="text-sm text-gray-600">121 hectares, heritage garden</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Departments Section -->
+        <section id="departments-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-earth-800 mb-2">Functional Areas & Departments</h2>
+                <p class="text-earth-600">BDA departments, statutory responsibilities and performance assessment</p>
+            </div>
+
+            <!-- Jurisdiction Change Alert -->
+            <div class="bg-terracotta-50 border border-terracotta-200 rounded-lg p-4 mb-6">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-terracotta-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-terracotta-800">2025 Jurisdiction Change</h3>
+                        <p class="mt-1 text-sm text-terracotta-700">BDA's area reduced from 1,294 km² to 582 km² with the Greater Bengaluru Authority (GBA) taking over 712 km² of Bengaluru City.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Will be populated by JavaScript -->
+                <div id="departmentCardsContainer"></div>
+            </div>
+
+            <!-- Performance Assessment -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Performance Highlights -->
+                <div class="bg-white border border-earth-200 rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b border-earth-200 bg-sage-50">
+                        <h3 class="text-lg font-semibold text-earth-800">Performance Highlights</h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3" id="performanceHighlights">
+                            <!-- Will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Critical Gaps -->
+                <div class="bg-white border border-earth-200 rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b border-earth-200 bg-terracotta-50">
+                        <h3 class="text-lg font-semibold text-earth-800">Critical Gaps</h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3" id="criticalGaps">
+                            <!-- Will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Department Analysis -->
+            <div class="bg-white border border-earth-200 rounded-lg overflow-hidden mb-8">
+                <div class="px-6 py-4 border-b border-earth-200">
+                    <h3 class="text-lg font-semibold text-earth-800">Department-wise Analysis</h3>
+                    <p class="text-sm text-earth-600 mt-1">Statutory functions vs actual performance</p>
+                </div>
+                <div class="p-6">
+                    <div id="departmentAnalysisContainer" class="space-y-6">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overall Assessment -->
+            <div class="bg-earth-50 border border-earth-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Overall Assessment</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <p class="text-sm font-medium text-earth-600 mb-2">Statutory Compliance</p>
+                        <p class="text-2xl font-bold text-earth-800" id="complianceRating">Moderate</p>
+                        <p class="text-sm text-earth-600 mt-2" id="complianceExplanation"></p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-sm font-medium text-earth-600 mb-2">Recommendations</p>
+                        <ul class="text-sm text-earth-700 space-y-1" id="recommendations">
+                            <!-- Will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sources -->
+            <div class="mt-8 p-4 bg-white border border-earth-200 rounded-lg">
+                <h4 class="text-sm font-semibold text-earth-700 mb-2">Data Sources</h4>
+                <div class="text-xs text-earth-600 space-y-1" id="departmentSources">
+                    <!-- Will be populated by JavaScript -->
                 </div>
             </div>
         </section>
