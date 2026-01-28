@@ -69,6 +69,23 @@
           "coverage": "Proposed land use planning, population projections to 2031, infrastructure planning",
           "note": "Withdrawn in 2020 to integrate TOD Policy",
           "data_used_in": ["Master Plan section", "Population projections", "Demographics"]
+        },
+        {
+          "title": "RMP 2015 Planning Districts Index Map",
+          "url": "https://data-opencity.sgp1.cdn.digitaloceanspaces.com/Documents/Recent/Bengaluru-BDA-RMP-2015-PD-IndexMap.pdf",
+          "organization": "BDA / OpenCity",
+          "year": 2015,
+          "coverage": "47 planning districts with three-ring classification system (Ring I: Core 101-107, Ring II: Intermediate 201-218, Ring III: Peripheral 301-322) covering 1,306 km²",
+          "data_used_in": ["Master Plan section", "Planning districts comparison"]
+        },
+        {
+          "title": "RMP 2031 Planning Districts Index Map (Draft)",
+          "url": "https://data-opencity.sgp1.cdn.digitaloceanspaces.com/Documents/Recent/Bengaluru-BDA-RMP-2031-PD-Index-Map.pdf",
+          "organization": "BDA / OpenCity",
+          "year": 2031,
+          "coverage": "42 planning districts with sequential numbering (1-42) and zone-based naming system covering 1,306 km²",
+          "note": "Draft - Withdrawn in 2020 to integrate TOD Policy",
+          "data_used_in": ["Master Plan section", "Planning districts comparison"]
         }
       ]
     },

@@ -11,7 +11,6 @@ let gbaCorporationData = null;
 let bdaJurisdictionData = null;
 let planningDistrictsData = null;
 let currentPlanVersion = '2015';
-let map; // Master Plan map
 let layoutsMap; // Layouts map
 let charts = {};
 let layoutLayers = [];
@@ -80,7 +79,7 @@ async function loadAdministrativeBoundaries() {
         bdaJurisdictionData = await bdaResponse.json();
         console.log('Loaded BDA jurisdiction boundary');
 
-        if (map) {
+        if (layoutsMap) {
             addAdministrativeBoundariesToMap();
         }
     } catch (error) {
@@ -113,10 +112,7 @@ function showSection(sectionName) {
         event.target.classList.remove('text-earth-700');
     }
 
-    // Resize maps if needed
-    if (sectionName === 'master-plan' && map) {
-        setTimeout(() => map.invalidateSize(), 100);
-    }
+    // Resize layouts map if needed
     if (sectionName === 'layouts' && layoutsMap) {
         setTimeout(() => layoutsMap.invalidateSize(), 100);
     }
@@ -132,21 +128,7 @@ function initializeMap() {
     // Bengaluru coordinates
     const bengaluruCenter = [12.9716, 77.5946];
 
-    // Initialize Master Plan Map
-    map = L.map('map').setView(bengaluruCenter, 11);
-
-    // Add OpenStreetMap tiles (minimalist style)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 18
-    }).addTo(map);
-
-    // Add administrative boundaries if data is loaded
-    if (gbaCorporationData) {
-        addAdministrativeBoundariesToMap();
-    }
-
-    // Initialize Layouts Map
+    // Initialize Layouts Map only (Master Plan map removed)
     layoutsMap = L.map('layoutsMap').setView(bengaluruCenter, 11);
 
     // Add OpenStreetMap tiles to layouts map
@@ -155,18 +137,23 @@ function initializeMap() {
         maxZoom: 18
     }).addTo(layoutsMap);
 
+    // Add administrative boundaries if data is loaded
+    if (gbaCorporationData && bdaJurisdictionData) {
+        addAdministrativeBoundariesToMap();
+    }
+
     // Add layout boundaries if data is loaded
     if (layoutsBoundariesData) {
         addLayoutBoundariesToMap();
     }
 }
 
-// Add Administrative Boundaries to Master Plan Map
+// Add Administrative Boundaries to Layouts Map
 function addAdministrativeBoundariesToMap() {
-    if (!map) return;
+    if (!layoutsMap) return;
 
     // Clear existing boundary layers
-    adminBoundaryLayers.forEach(layer => map.removeLayer(layer));
+    adminBoundaryLayers.forEach(layer => layoutsMap.removeLayer(layer));
     adminBoundaryLayers = [];
 
     // Add BDA jurisdiction boundary (outer peripheral area)
@@ -192,14 +179,14 @@ function addAdministrativeBoundariesToMap() {
                 `);
             }
         });
-        bdaLayer.addTo(map);
+        bdaLayer.addTo(layoutsMap);
         adminBoundaryLayers.push(bdaLayer);
-        console.log('Added BDA jurisdiction boundary to map');
+        console.log('Added BDA jurisdiction boundary to layouts map');
     }
 
     // Add GBA corporation boundaries (core city area)
     if (gbaCorporationData) {
-        console.log(`Adding ${gbaCorporationData.features.length} GBA corporation boundaries to map`);
+        console.log(`Adding ${gbaCorporationData.features.length} GBA corporation boundaries to layouts map`);
 
         // Define colors for each corporation
         const corporationColors = {
@@ -250,11 +237,11 @@ function addAdministrativeBoundariesToMap() {
                 }
             });
 
-            geoJsonLayer.addTo(map);
+            geoJsonLayer.addTo(layoutsMap);
             adminBoundaryLayers.push(geoJsonLayer);
         });
 
-        console.log(`Added ${adminBoundaryLayers.length} administrative boundaries to map`);
+        console.log(`Added ${adminBoundaryLayers.length} administrative boundaries to layouts map`);
     }
 }
 
@@ -596,51 +583,140 @@ async function loadPlanningDistricts() {
         const response = await fetch('data/planning-districts.json');
         planningDistrictsData = await response.json();
         console.log('Loaded planning districts data');
-        displayPlanningDistricts(currentPlanVersion);
+        displayMasterPlanComparison(currentPlanVersion);
     } catch (error) {
         console.error('Error loading planning districts:', error);
     }
 }
 
-// Display Planning Districts
-function displayPlanningDistricts(version) {
+// Display Master Plan Comparison
+function displayMasterPlanComparison(version) {
     if (!planningDistrictsData) return;
 
-    const container = document.getElementById('planningDistrictsContainer');
-    const subtitle = document.getElementById('planningDistrictSubtitle');
-
-    if (!container || !subtitle) return;
-
-    container.innerHTML = '';
+    const container = document.getElementById('masterPlanComparison');
+    if (!container) return;
 
     const planData = version === '2015' ? planningDistrictsData.rmp_2015 : planningDistrictsData.rmp_2031;
+    const comparison = planningDistrictsData.comparison.rmp_2015_vs_2031;
+    const otherVersion = version === '2015' ? '2031' : '2015';
+    const otherPlanData = version === '2015' ? planningDistrictsData.rmp_2031 : planningDistrictsData.rmp_2015;
 
-    // Update subtitle
-    subtitle.textContent = `${planData.total_districts} districts for RMP ${version} - ${planData.status}`;
-
-    // Display districts
-    planData.districts.forEach(district => {
-        const districtCard = document.createElement('div');
-        districtCard.className = 'bg-earth-50 hover:bg-earth-100 border border-earth-200 rounded-lg p-3 cursor-pointer transition-colors';
-
-        const wardInfo = district.wards ? `<p class="text-xs text-earth-500 mt-1">${district.wards.length} wards</p>` : '';
-        const villageInfo = district.villages ? `<p class="text-xs text-earth-500 mt-1">${district.villages.length} villages</p>` : '';
-
-        districtCard.innerHTML = `
-            <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <p class="font-semibold text-earth-800 text-sm">${district.id}</p>
-                    <p class="text-xs text-earth-600 mt-0.5">${district.name}</p>
-                    ${wardInfo}
-                    ${villageInfo}
+    container.innerHTML = `
+        <!-- Overview Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Selected Plan Overview -->
+            <div class="bg-white p-6 border-2 border-earth-300 rounded-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-earth-800">RMP ${version}</h3>
+                    <span class="px-3 py-1 text-xs font-medium rounded-full ${version === '2015' ? 'bg-sage-100 text-sage-800' : 'bg-amber-100 text-amber-800'}">
+                        ${version === '2015' ? 'Current Plan' : 'Draft Plan'}
+                    </span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-earth-100">
+                        <span class="text-earth-600 text-sm">Planning Districts</span>
+                        <span class="font-semibold text-earth-800 text-lg">${planData.total_districts}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-earth-100">
+                        <span class="text-earth-600 text-sm">Planning Area</span>
+                        <span class="font-semibold text-earth-800">${planData.planning_area_km2} km²</span>
+                    </div>
+                    <div class="py-2">
+                        <span class="text-earth-600 text-sm block mb-1">Status</span>
+                        <span class="font-medium ${version === '2015' ? 'text-sage-700' : 'text-amber-700'} text-sm">${planData.status}</span>
+                    </div>
+                    ${planData.note ? `<div class="mt-3 p-3 bg-earth-50 rounded"><p class="text-xs text-earth-600">${planData.note}</p></div>` : ''}
                 </div>
             </div>
-        `;
 
-        container.appendChild(districtCard);
-    });
+            <!-- Comparison with Other Plan -->
+            <div class="bg-earth-50 p-6 border border-earth-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Key Differences</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-sm font-semibold text-earth-700 mb-2">Planning Districts</h4>
+                        <p class="text-sm text-earth-600">
+                            <span class="font-medium">${planData.total_districts}</span> in RMP ${version} vs
+                            <span class="font-medium">${otherPlanData.total_districts}</span> in RMP ${otherVersion}
+                        </p>
+                        <p class="text-xs text-earth-500 mt-1">
+                            ${version === '2015' ? 'RMP 2015 has 5 more districts (47 vs 42) with three-ring classification system' : 'RMP 2031 consolidates into 42 districts with zone-based organization'}
+                        </p>
+                    </div>
 
-    console.log(`Displayed ${planData.districts.length} planning districts for RMP ${version}`);
+                    <div>
+                        <h4 class="text-sm font-semibold text-earth-700 mb-2">Numbering System</h4>
+                        <p class="text-sm text-earth-600">${comparison.numbering_system[version]}</p>
+                        <p class="text-xs text-earth-500 mt-1">vs ${comparison.numbering_system[otherVersion]}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-semibold text-earth-700 mb-2">Coverage Area</h4>
+                        <p class="text-sm text-earth-600">${comparison.coverage[version]}</p>
+                        <p class="text-xs text-earth-500 mt-1">Both plans cover the same geographic area but reorganize district boundaries</p>
+                    </div>
+
+                    <div class="pt-3 border-t border-earth-200">
+                        <p class="text-xs text-earth-600">${comparison.status_difference}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- District Categories for RMP 2015 -->
+        ${version === '2015' ? `
+        <div class="bg-white p-6 border border-earth-200 rounded-lg mb-6">
+            <h3 class="text-lg font-semibold text-earth-800 mb-4">RMP 2015 Ring Classification</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-sage-50 border border-sage-200 rounded">
+                    <p class="font-semibold text-sage-800 mb-1">Ring I - Core</p>
+                    <p class="text-2xl font-bold text-sage-700 mb-1">${planningDistrictsData.district_categories_2015.ring_i_core.count}</p>
+                    <p class="text-xs text-sage-600">Districts ${planningDistrictsData.district_categories_2015.ring_i_core.range}</p>
+                    <p class="text-xs text-sage-700 mt-2">${planningDistrictsData.district_categories_2015.ring_i_core.description}</p>
+                </div>
+                <div class="p-4 bg-earth-50 border border-earth-200 rounded">
+                    <p class="font-semibold text-earth-800 mb-1">Ring II - Intermediate</p>
+                    <p class="text-2xl font-bold text-earth-700 mb-1">${planningDistrictsData.district_categories_2015.ring_ii_intermediate.count}</p>
+                    <p class="text-xs text-earth-600">Districts ${planningDistrictsData.district_categories_2015.ring_ii_intermediate.range}</p>
+                    <p class="text-xs text-earth-700 mt-2">${planningDistrictsData.district_categories_2015.ring_ii_intermediate.description}</p>
+                </div>
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded">
+                    <p class="font-semibold text-amber-800 mb-1">Ring III - Peripheral</p>
+                    <p class="text-2xl font-bold text-amber-700 mb-1">${planningDistrictsData.district_categories_2015.ring_iii_peripheral.count}</p>
+                    <p class="text-xs text-amber-600">Districts ${planningDistrictsData.district_categories_2015.ring_iii_peripheral.range}</p>
+                    <p class="text-xs text-amber-700 mt-2">${planningDistrictsData.district_categories_2015.ring_iii_peripheral.description}</p>
+                </div>
+            </div>
+        </div>
+        ` : ''}
+
+        <!-- Data Availability -->
+        <div class="bg-white p-6 border border-earth-200 rounded-lg">
+            <h3 class="text-lg font-semibold text-earth-800 mb-4">Data Availability for RMP ${version}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <p class="text-sm font-medium text-earth-700 mb-1">Index Map</p>
+                    <p class="text-sm text-earth-600">${planningDistrictsData.data_availability['rmp_' + version].index_map}</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-earth-700 mb-1">Land Use Maps</p>
+                    <p class="text-sm text-earth-600">${planningDistrictsData.data_availability['rmp_' + version].land_use_maps}</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-earth-700 mb-1">GIS Data</p>
+                    <p class="text-sm text-earth-600">${planningDistrictsData.data_availability['rmp_' + version].gis_data}</p>
+                </div>
+            </div>
+            ${planningDistrictsData.data_availability['rmp_' + version].note ? `
+            <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded">
+                <p class="text-xs text-amber-800">${planningDistrictsData.data_availability['rmp_' + version].note}</p>
+            </div>
+            ` : ''}
+        </div>
+
+    `;
+
+    console.log(`Displayed Master Plan comparison for RMP ${version}`);
 }
 
 // Plan version toggle
@@ -658,7 +734,7 @@ function togglePlan(version) {
 
     // Update current plan version and refresh display
     currentPlanVersion = version;
-    displayPlanningDistricts(version);
+    displayMasterPlanComparison(version);
     console.log(`Switched to RMP ${version}`);
 }
 

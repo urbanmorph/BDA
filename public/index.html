@@ -299,101 +299,25 @@
             </div>
 
             <!-- Plan Version Toggle -->
-            <div class="bg-white p-4 border border-gray-200 rounded-lg mb-6">
+            <div class="bg-white p-4 border border-earth-200 rounded-lg mb-6">
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm font-medium text-gray-700">Plan Version:</span>
+                    <span class="text-sm font-medium text-earth-700">Compare Plans:</span>
                     <button onclick="togglePlan('2015')"
                             id="plan-2015"
-                            class="plan-toggle px-4 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg">
+                            class="plan-toggle px-4 py-2 text-sm font-medium bg-earth-700 text-white rounded-lg">
                         RMP 2015 (Current)
                     </button>
                     <button onclick="togglePlan('2031')"
                             id="plan-2031"
-                            class="plan-toggle px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg">
+                            class="plan-toggle px-4 py-2 text-sm font-medium text-earth-700 bg-white border border-earth-200 rounded-lg">
                         RMP 2031 (Draft)
                     </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Map -->
-                <div class="lg:col-span-2 bg-white border border-gray-200 rounded-lg overflow-hidden">
-                    <div id="map"></div>
-                </div>
-
-                <!-- Land Use Breakdown -->
-                <div class="bg-white p-6 border border-gray-200 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Land Use</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-700">Residential</span>
-                                <span class="font-medium text-gray-900">42%</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-gray-900 h-2 rounded-full" style="width: 42%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-700">Industrial</span>
-                                <span class="font-medium text-gray-900">12%</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-gray-900 h-2 rounded-full" style="width: 12%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-700">Commercial</span>
-                                <span class="font-medium text-gray-900">8%</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-gray-900 h-2 rounded-full" style="width: 8%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-700">Parks</span>
-                                <span class="font-medium text-gray-900">6%</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-gray-900 h-2 rounded-full" style="width: 6%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-700">Water Bodies</span>
-                                <span class="font-medium text-gray-900">3%</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-gray-900 h-2 rounded-full" style="width: 3%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-700">Other</span>
-                                <span class="font-medium text-gray-900">29%</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-gray-900 h-2 rounded-full" style="width: 29%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planning Districts -->
-            <div class="mt-8 bg-white border border-earth-200 rounded-lg overflow-hidden">
-                <div class="px-6 py-4 bg-earth-50 border-b border-earth-200">
-                    <h3 class="text-lg font-semibold text-earth-800">Planning Districts</h3>
-                    <p class="text-sm text-earth-600 mt-1" id="planningDistrictSubtitle">47 districts for RMP 2015</p>
-                </div>
-                <div class="p-6">
-                    <div id="planningDistrictsContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
+            <!-- Master Plan Comparison -->
+            <div id="masterPlanComparison">
+                <!-- Content populated by JavaScript -->
             </div>
         </section>
 
