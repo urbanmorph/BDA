@@ -66,6 +66,7 @@
     <style>
         /* Minimal custom styles only for map height */
         #map { height: 600px; }
+        #layoutsMap { height: 600px; }
         .chart-container { position: relative; height: 300px; }
     </style>
 </head>
@@ -83,30 +84,74 @@
                 </div>
                 <nav class="hidden md:flex space-x-1">
                     <button onclick="showSection('overview')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Overview
                     </button>
+                    <button onclick="showSection('departments')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Functional Areas
+                    </button>
                     <button onclick="showSection('master-plan')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Master Plan
                     </button>
                     <button onclick="showSection('layouts')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Layouts
                     </button>
                     <button onclick="showSection('demographics')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Demographics
                     </button>
                     <button onclick="showSection('environment')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Environment
                     </button>
-                    <button onclick="showSection('departments')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
-                        Functional Areas
+                    <button onclick="showSection('sources')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Data Sources
                     </button>
                 </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden px-3 py-2 border border-earth-300 rounded-lg text-earth-700">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <nav id="mobileMenu" class="hidden md:hidden border-t border-earth-200 py-2">
+                <button onclick="showSection('overview')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Overview
+                </button>
+                <button onclick="showSection('departments')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Functional Areas
+                </button>
+                <button onclick="showSection('master-plan')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Master Plan
+                </button>
+                <button onclick="showSection('layouts')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Layouts
+                </button>
+                <button onclick="showSection('demographics')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Demographics
+                </button>
+                <button onclick="showSection('environment')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Environment
+                </button>
+                <button onclick="showSection('sources')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Data Sources
+                </button>
+            </nav>
             </div>
         </div>
     </header>
@@ -150,30 +195,98 @@
                 </div>
             </div>
 
-            <!-- Charts Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <!-- Layout Approvals by Decade -->
-                <div class="bg-white p-6 border border-earth-200 rounded-lg">
-                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Layout Approvals by Decade</h3>
-                    <div class="chart-container">
-                        <canvas id="decadeChart"></canvas>
+            <!-- Functional Areas Highlight -->
+            <div class="bg-earth-50 border border-earth-200 rounded-lg p-8">
+                <div class="flex items-start justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-earth-800 mb-2">BDA Functional Areas</h3>
+                        <p class="text-earth-600">Statutory responsibilities and performance assessment</p>
+                    </div>
+                    <svg class="h-12 w-12 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+
+                <!-- Key Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <p class="text-3xl font-bold text-earth-800">7</p>
+                        <p class="text-xs text-earth-600 mt-1">Departments</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <p class="text-3xl font-bold text-sage-700">76K</p>
+                        <p class="text-xs text-earth-600 mt-1">Sites Allotted</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <p class="text-3xl font-bold text-terracotta-600">18K+</p>
+                        <p class="text-xs text-earth-600 mt-1">Acres (2025)</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <p class="text-3xl font-bold text-earth-700">582</p>
+                        <p class="text-xs text-earth-600 mt-1">km² Jurisdiction</p>
                     </div>
                 </div>
 
-                <!-- Use Type Distribution -->
-                <div class="bg-white p-6 border border-earth-200 rounded-lg">
-                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Use Type Distribution</h3>
-                    <div class="chart-container">
-                        <canvas id="useTypeChart"></canvas>
+                <!-- Highlights -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <!-- Performance Highlights -->
+                    <div class="bg-white rounded-lg p-5 border border-sage-200">
+                        <h4 class="font-semibold text-sage-800 mb-3 flex items-center">
+                            <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Key Achievements
+                        </h4>
+                        <ul class="space-y-2 text-sm text-earth-700">
+                            <li class="flex items-start">
+                                <span class="text-sage-600 mr-2">•</span>
+                                1,017 layouts approved since 1972
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-sage-600 mr-2">•</span>
+                                76,000 residential sites allotted
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-sage-600 mr-2">•</span>
+                                18,000+ acres acquisition in 2025
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Critical Gaps -->
+                    <div class="bg-white rounded-lg p-5 border border-terracotta-200">
+                        <h4 class="font-semibold text-terracotta-800 mb-3 flex items-center">
+                            <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            Areas for Improvement
+                        </h4>
+                        <ul class="space-y-2 text-sm text-earth-700">
+                            <li class="flex items-start">
+                                <span class="text-terracotta-600 mr-2">•</span>
+                                5-year gap in Master Plan updates
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-terracotta-600 mr-2">•</span>
+                                Declining layout approvals trend
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-terracotta-600 mr-2">•</span>
+                                Limited performance transparency
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
 
-            <!-- Population Growth -->
-            <div class="bg-white p-6 border border-earth-200 rounded-lg">
-                <h3 class="text-lg font-semibold text-earth-800 mb-4">Population Growth Trend</h3>
-                <div class="chart-container" style="height: 400px;">
-                    <canvas id="populationChart"></canvas>
+                <!-- CTA Button -->
+                <div class="flex justify-center">
+                    <button onclick="showSection('departments')"
+                            class="inline-flex items-center px-6 py-3 bg-earth-700 text-white font-medium rounded-lg hover:bg-earth-800 transition-colors">
+                        View Detailed Department Analysis
+                        <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>
@@ -278,6 +391,34 @@
                 <p class="text-gray-600">All approved layouts from 1972 to 2025</p>
             </div>
 
+            <!-- Layout Map -->
+            <div class="bg-white border border-earth-200 rounded-lg overflow-hidden mb-8">
+                <div class="px-6 py-4 bg-earth-50 border-b border-earth-200">
+                    <h3 class="text-lg font-semibold text-earth-800">Layout Boundaries Map</h3>
+                    <p class="text-sm text-earth-600 mt-1">Showing 149 layouts with complete boundary data</p>
+                </div>
+                <div id="layoutsMap"></div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Layout Approvals by Decade -->
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Layout Approvals by Decade</h3>
+                    <div class="chart-container">
+                        <canvas id="decadeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Use Type Distribution -->
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Use Type Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="useTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <!-- Filters -->
             <div class="bg-white p-4 border border-gray-200 rounded-lg mb-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -373,10 +514,19 @@
                 </div>
             </div>
 
+            <!-- Population Growth Trend -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Population Growth Trend</h3>
+                <div class="chart-container" style="height: 400px;">
+                    <canvas id="populationChart"></canvas>
+                </div>
+            </div>
+
             <!-- Charts -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-white p-6 border border-gray-200 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Migration Patterns (2001)</h3>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Migration Patterns (2024-25 Projection)</h3>
+                    <p class="text-xs text-earth-600 mb-3">Based on PLFS 2020-21 and Bengaluru urban migration trends</p>
                     <div class="chart-container">
                         <canvas id="migrationChart"></canvas>
                     </div>
@@ -414,66 +564,321 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Migration Insights 2024-25 -->
+            <div class="bg-earth-50 border border-earth-200 rounded-lg p-6 mt-8 mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Migration Trends: 2001 vs 2024-25</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-sm font-semibold text-earth-700 mb-2">Key Changes</h4>
+                        <ul class="text-sm text-earth-600 space-y-2">
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-sage-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                                Work/employment migration: 35% → 52% (driven by IT boom)
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-sage-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                                Education migration: 12% → 18% (Karnataka hosts 3.7M students)
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-terracotta-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                                Marriage-based: 25% → 15% (declining in urban areas)
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold text-earth-700 mb-2">Tech Sector Impact (2024)</h4>
+                        <ul class="text-sm text-earth-600 space-y-2">
+                            <li>• 1M+ tech workforce milestone achieved</li>
+                            <li>• 12% tech employment growth (2018-2023)</li>
+                            <li>• 75.5% working-age population</li>
+                            <li>• 34% of India's total IT exports</li>
+                            <li>• Expected to reach 8M IT professionals soon</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link to Data Sources -->
+            <div class="mt-6 text-center">
+                <button onclick="showSection('sources')" class="inline-flex items-center px-6 py-3 bg-earth-100 text-earth-800 font-medium rounded-lg hover:bg-earth-200 transition-colors border border-earth-300">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    View Complete Data Sources & Citations
+                </button>
+            </div>
         </section>
 
         <!-- Environment Section -->
         <section id="environment-section" class="section-content hidden">
             <div class="mb-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">Environmental & Sensitive Areas</h2>
-                <p class="text-gray-600">Conservation zones and environmental features</p>
+                <h2 class="text-2xl font-bold text-earth-800 mb-2">Environmental & Sensitive Areas</h2>
+                <p class="text-earth-600">Conservation zones and managing authorities</p>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-white p-6 border border-gray-200 rounded-lg">
-                    <p class="text-sm font-medium text-gray-500 mb-1">Lakes</p>
-                    <p class="text-3xl font-bold text-gray-900">87</p>
-                </div>
-                <div class="bg-white p-6 border border-gray-200 rounded-lg">
-                    <p class="text-sm font-medium text-gray-500 mb-1">Major Rivers</p>
-                    <p class="text-3xl font-bold text-gray-900">4</p>
-                </div>
-                <div class="bg-white p-6 border border-gray-200 rounded-lg">
-                    <p class="text-sm font-medium text-gray-500 mb-1">Reservoirs</p>
-                    <p class="text-3xl font-bold text-gray-900">1</p>
-                </div>
-                <div class="bg-white p-6 border border-gray-200 rounded-lg">
-                    <p class="text-sm font-medium text-gray-500 mb-1">Bannerghatta ESZ</p>
-                    <p class="text-3xl font-bold text-gray-900">25 km²</p>
+            <!-- Legend -->
+            <div class="bg-earth-50 border border-earth-200 rounded-lg p-4 mb-6">
+                <div class="flex items-center gap-6 flex-wrap text-sm">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-sage-600 rounded mr-2"></div>
+                        <span class="text-earth-700">BDA Managed</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-earth-400 rounded mr-2"></div>
+                        <span class="text-earth-700">Other Agencies</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Features List -->
-            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900">Major Environmental Features</h3>
+            <!-- Stats Grid with Authorities -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-white p-6 border-l-4 border-sage-600 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="text-sm font-medium text-earth-600 mb-1">Lakes (BDA Custody)</p>
+                            <p class="text-3xl font-bold text-earth-900">33</p>
+                            <p class="text-xs text-earth-500 mt-1">Out of 210 total in Bengaluru</p>
+                        </div>
+                        <span class="px-2 py-1 bg-sage-100 text-sage-800 text-xs font-medium rounded">BDA</span>
+                    </div>
+                    <p class="text-xs text-earth-600 mt-3">
+                        <strong>Authority:</strong> Bangalore Development Authority
+                    </p>
+                    <p class="text-xs text-earth-500 mt-1">Role: Lake restoration, sewage treatment plants, conservation projects</p>
                 </div>
-                <div class="divide-y divide-gray-200">
-                    <div class="px-6 py-4">
-                        <h4 class="font-medium text-gray-900 mb-1">Arkavathi River</h4>
-                        <p class="text-sm text-gray-600">Major river basin with 30m buffer zone</p>
+
+                <div class="bg-white p-6 border-l-4 border-earth-400 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="text-sm font-medium text-earth-600 mb-1">Lakes (Other Authorities)</p>
+                            <p class="text-3xl font-bold text-earth-900">177</p>
+                            <p class="text-xs text-earth-500 mt-1">BBMP: 167 | KFD: 5 | LDA: 4 | BMRCL: 1</p>
+                        </div>
                     </div>
-                    <div class="px-6 py-4">
-                        <h4 class="font-medium text-gray-900 mb-1">Vrishabhavathi River</h4>
-                        <p class="text-sm text-gray-600">Primary drainage system</p>
+                    <p class="text-xs text-earth-600 mt-3">
+                        <strong>Primary Authority:</strong> BBMP (Bruhat Bengaluru Mahanagara Palike)
+                    </p>
+                    <p class="text-xs text-earth-500 mt-1">Regulatory oversight: KTCDA (Karnataka Tank Conservation Authority)</p>
+                </div>
+
+                <div class="bg-white p-6 border-l-4 border-earth-400 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="text-sm font-medium text-earth-600 mb-1">Major Rivers</p>
+                            <p class="text-3xl font-bold text-earth-900">4</p>
+                            <p class="text-xs text-earth-500 mt-1">Arkavathi, Vrishabhavathi, Pinakini, Dakshina Pinakini</p>
+                        </div>
                     </div>
-                    <div class="px-6 py-4">
-                        <h4 class="font-medium text-gray-900 mb-1">Thippagondanahalli Reservoir</h4>
-                        <p class="text-sm text-gray-600">Historical water source, conservation zone</p>
+                    <p class="text-xs text-earth-600 mt-3">
+                        <strong>Pollution Control:</strong> KSPCB (Karnataka State Pollution Control Board)
+                    </p>
+                    <p class="text-xs text-earth-500 mt-1">Sewage Treatment: BWSSB (Bangalore Water Supply & Sewerage Board)</p>
+                </div>
+
+                <div class="bg-white p-6 border-l-4 border-earth-400 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="text-sm font-medium text-earth-600 mb-1">Reservoirs</p>
+                            <p class="text-3xl font-bold text-earth-900">1</p>
+                            <p class="text-xs text-earth-500 mt-1">Thippagondanahalli Reservoir</p>
+                        </div>
                     </div>
-                    <div class="px-6 py-4">
-                        <h4 class="font-medium text-gray-900 mb-1">Bannerghatta National Park ESZ</h4>
-                        <p class="text-sm text-gray-600">25 km² eco-sensitive zone with 10km buffer</p>
+                    <p class="text-xs text-earth-600 mt-3">
+                        <strong>Authority:</strong> BWSSB
+                    </p>
+                    <p class="text-xs text-earth-500 mt-1">Status: Historical water source, conservation zone</p>
+                </div>
+
+                <div class="bg-white p-6 border-l-4 border-earth-400 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="text-sm font-medium text-earth-600 mb-1">Heritage Gardens</p>
+                            <p class="text-3xl font-bold text-earth-900">2</p>
+                            <p class="text-xs text-earth-500 mt-1">Lalbagh (96 ha) | Cubbon Park (121 ha)</p>
+                        </div>
                     </div>
-                    <div class="px-6 py-4">
-                        <h4 class="font-medium text-gray-900 mb-1">Lalbagh Botanical Gardens</h4>
-                        <p class="text-sm text-gray-600">96 hectares, heritage garden</p>
+                    <p class="text-xs text-earth-600 mt-3">
+                        <strong>Authority:</strong> Department of Horticulture, GoK
+                    </p>
+                    <p class="text-xs text-earth-500 mt-1">Protected under Karnataka Government Park (Preservation) Act, 1975</p>
+                </div>
+
+                <div class="bg-white p-6 border-l-4 border-earth-400 rounded-lg shadow-sm">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <p class="text-sm font-medium text-earth-600 mb-1">Bannerghatta National Park ESZ</p>
+                            <p class="text-3xl font-bold text-earth-900">169 km²</p>
+                            <p class="text-xs text-terracotta-600 mt-1">Reduced from 268.96 km² (2016)</p>
+                        </div>
                     </div>
+                    <p class="text-xs text-earth-600 mt-3">
+                        <strong>Authority:</strong> Karnataka Forest Department
+                    </p>
+                    <p class="text-xs text-earth-500 mt-1">Regulation: MoEF&CC | Park area: 260.51 km²</p>
+                </div>
+            </div>
+
+            <!-- Features List with Managing Authorities -->
+            <div class="bg-white border border-earth-200 rounded-lg overflow-hidden">
+                <div class="px-6 py-4 border-b border-earth-200 bg-earth-50">
+                    <h3 class="text-lg font-semibold text-earth-800">Major Environmental Features & Managing Authorities</h3>
+                </div>
+                <div class="divide-y divide-earth-100">
+                    <!-- BDA Managed -->
+                    <div class="px-6 py-4 bg-sage-50">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h4 class="font-semibold text-earth-900">33 Lakes</h4>
+                                    <span class="px-2 py-0.5 bg-sage-600 text-white text-xs font-medium rounded">BDA MANAGED</span>
+                                </div>
+                                <p class="text-sm text-earth-700 mb-2">Lakes under BDA custody in peripheral Bengaluru (15.7% of total)</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Managing Authority:</strong> Bangalore Development Authority</p>
+                                    <p><strong>Responsibilities:</strong> Lake restoration projects (NLCP), sewage treatment plants, inlet/outlet remodeling, green cover enhancement</p>
+                                    <p><strong>Regulatory Oversight:</strong> Karnataka Tank Conservation and Development Authority (KTCDA)</p>
+                                    <p><strong>Water Quality Standards:</strong> Karnataka State Pollution Control Board (KSPCB)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Authorities -->
                     <div class="px-6 py-4">
-                        <h4 class="font-medium text-gray-900 mb-1">Cubbon Park</h4>
-                        <p class="text-sm text-gray-600">121 hectares, heritage garden</p>
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-earth-900 mb-1">Arkavathi River</h4>
+                                <p class="text-sm text-earth-700 mb-2">Major river basin with 30m buffer zone</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Pollution Monitoring:</strong> KSPCB (6 monitoring points)</p>
+                                    <p><strong>Pollution Classification:</strong> Priority level three (BOD 10-20 mg/l)</p>
+                                    <p><strong>Role:</strong> Water quality monitoring, industrial pollution control</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-earth-900 mb-1">Vrishabhavathi River</h4>
+                                <p class="text-sm text-earth-700 mb-2">Primary drainage system carrying city sewage</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Pollution Monitoring:</strong> KSPCB (15 monitoring points)</p>
+                                    <p><strong>Sewage Treatment:</strong> BWSSB (Vrishabhavathi Valley Tertiary Treatment Plant - 60 MLD)</p>
+                                    <p><strong>Challenges:</strong> Domestic sewage + industrial effluents from Peenya, Yeshwanthpura, Kumbalgodu, Bidadi, Harohalli</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-earth-900 mb-1">Thippagondanahalli Reservoir</h4>
+                                <p class="text-sm text-earth-700 mb-2">Historical water source, conservation zone</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Managing Authority:</strong> Bangalore Water Supply and Sewerage Board (BWSSB)</p>
+                                    <p><strong>Status:</strong> Conservation zone (historical water source for Bengaluru)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-earth-900 mb-1">Bannerghatta National Park & ESZ</h4>
+                                <p class="text-sm text-earth-700 mb-2">Park: 260.51 km² | ESZ: 169 km² (reduced from 268.96 km² in 2020)</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Managing Authority:</strong> Karnataka Forest Department</p>
+                                    <p><strong>Management Structure:</strong> 31 Beats under 6 ranges (13 reserve forests)</p>
+                                    <p><strong>ESZ Regulation:</strong> Ministry of Environment, Forest & Climate Change (MoEF&CC)</p>
+                                    <p class="text-terracotta-600"><strong>Note:</strong> ESZ reduced by 30% in 2020 despite MoEF request to retain original area</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-earth-900 mb-1">Lalbagh Botanical Gardens</h4>
+                                <p class="text-sm text-earth-700 mb-2">96 hectares, heritage garden (est. 1760)</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Managing Authority:</strong> Department of Horticulture, Government of Karnataka</p>
+                                    <p><strong>Legal Protection:</strong> Karnataka Government Park (Preservation) Act, 1975</p>
+                                    <p><strong>Status:</strong> Government Botanical Garden since 1856</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-earth-900 mb-1">Cubbon Park</h4>
+                                <p class="text-sm text-earth-700 mb-2">121 hectares, heritage garden (est. 1870)</p>
+                                <div class="text-xs text-earth-600 space-y-1">
+                                    <p><strong>Managing Authority:</strong> Department of Horticulture, Government of Karnataka</p>
+                                    <p><strong>Management Officer:</strong> Deputy Director of Horticulture (Cubbon Park)</p>
+                                    <p><strong>Legal Protection:</strong> Karnataka Government Park (Preservation) Act, 1975</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Coordination Framework -->
+            <div class="mt-8 bg-earth-50 border border-earth-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Multi-Agency Coordination Framework</h3>
+                <div class="grid md:grid-cols-3 gap-6 text-sm">
+                    <div>
+                        <h4 class="font-semibold text-earth-700 mb-2">Lakes Management</h4>
+                        <ul class="text-earth-600 space-y-1 text-xs">
+                            <li>• <strong>Ownership:</strong> Revenue Dept</li>
+                            <li>• <strong>Regulatory:</strong> KTCDA</li>
+                            <li>• <strong>Custodians:</strong> BBMP (167), BDA (33), KFD (5), LDA (4), BMRCL (1)</li>
+                            <li>• <strong>Development:</strong> BDA, BBMP, BWSSB</li>
+                            <li>• <strong>Pollution Control:</strong> KSPCB</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-earth-700 mb-2">Rivers Management</h4>
+                        <ul class="text-earth-600 space-y-1 text-xs">
+                            <li>• <strong>Monitoring:</strong> KSPCB</li>
+                            <li>• <strong>Sewage Treatment:</strong> BWSSB</li>
+                            <li>• <strong>Industrial Regulation:</strong> KSPCB</li>
+                            <li>• <strong>Storm Water Drains:</strong> BBMP</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-earth-700 mb-2">Protected Areas</h4>
+                        <ul class="text-earth-600 space-y-1 text-xs">
+                            <li>• <strong>National Parks:</strong> Karnataka Forest Dept</li>
+                            <li>• <strong>ESZ Regulation:</strong> MoEF&CC, KFD</li>
+                            <li>• <strong>Heritage Gardens:</strong> Horticulture Dept, GoK</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link to Full Details -->
+            <div class="mt-6 text-center">
+                <button onclick="showSection('sources')" class="inline-flex items-center px-6 py-3 bg-earth-100 text-earth-800 font-medium rounded-lg hover:bg-earth-200 transition-colors border border-earth-300">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    View Complete Department Details & Citations
+                </button>
             </div>
         </section>
 
@@ -500,9 +905,8 @@
             </div>
 
             <!-- Department Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div id="departmentCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <!-- Will be populated by JavaScript -->
-                <div id="departmentCardsContainer"></div>
             </div>
 
             <!-- Performance Assessment -->
@@ -569,6 +973,37 @@
                 <div class="text-xs text-earth-600 space-y-1" id="departmentSources">
                     <!-- Will be populated by JavaScript -->
                 </div>
+            </div>
+        </section>
+
+        <!-- Data Sources Section -->
+        <section id="sources-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-earth-800 mb-2">Data Sources & Citations</h2>
+                <p class="text-earth-600">Comprehensive list of all data sources used in this dashboard</p>
+            </div>
+
+            <!-- Source Categories -->
+            <div id="sourceCategoriesContainer" class="space-y-6">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Methodology Notes -->
+            <div class="mt-8 bg-earth-50 border border-earth-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Methodology & Data Quality Notes</h3>
+                <div id="methodologyNotes" class="space-y-4">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Download Options -->
+            <div class="mt-6 flex justify-center">
+                <button onclick="exportSources()" class="inline-flex items-center px-6 py-3 bg-earth-700 text-white font-medium rounded-lg hover:bg-earth-800 transition-colors">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Download Sources List (JSON)
+                </button>
             </div>
         </section>
 

@@ -6,7 +6,8 @@ let layoutsData = [];
 let layoutsBoundariesData = null;
 let departmentsData = null;
 let sourcesData = null;
-let map;
+let map; // Master Plan map
+let layoutsMap; // Layouts map
 let charts = {};
 let layoutLayers = [];
 
@@ -44,7 +45,7 @@ async function loadLayoutsBoundaries() {
         const response = await fetch('data/layouts-boundaries.json');
         layoutsBoundariesData = await response.json();
         console.log(`Loaded ${layoutsBoundariesData.layouts.length} layout boundaries`);
-        if (map) {
+        if (layoutsMap) {
             addLayoutBoundariesToMap();
         }
     } catch (error) {
@@ -77,9 +78,12 @@ function showSection(sectionName) {
         event.target.classList.remove('text-earth-700');
     }
 
-    // Resize map if needed
+    // Resize maps if needed
     if (sectionName === 'master-plan' && map) {
         setTimeout(() => map.invalidateSize(), 100);
+    }
+    if (sectionName === 'layouts' && layoutsMap) {
+        setTimeout(() => layoutsMap.invalidateSize(), 100);
     }
 
     // Populate departments section if needed
@@ -93,6 +97,7 @@ function initializeMap() {
     // Bengaluru coordinates
     const bengaluruCenter = [12.9716, 77.5946];
 
+    // Initialize Master Plan Map
     map = L.map('map').setView(bengaluruCenter, 11);
 
     // Add OpenStreetMap tiles (minimalist style)
@@ -101,67 +106,42 @@ function initializeMap() {
         maxZoom: 18
     }).addTo(map);
 
+    // Add BDA jurisdiction boundary (approximate - 582 km² post-GBA)
+    const bdaBounds = [
+        [12.7342, 77.3791],
+        [13.1734, 77.8746]
+    ];
+    L.rectangle(bdaBounds, {
+        color: earthColors.primary,
+        weight: 2,
+        fillOpacity: 0.05,
+        dashArray: '5, 10'
+    }).addTo(map).bindPopup('<div class="p-2"><p class="font-semibold text-sm">BDA Jurisdiction</p><p class="text-xs">582 km² (Post-GBA 2025)</p></div>');
+
+    // Initialize Layouts Map
+    layoutsMap = L.map('layoutsMap').setView(bengaluruCenter, 11);
+
+    // Add OpenStreetMap tiles to layouts map
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18
+    }).addTo(layoutsMap);
+
     // Add layout boundaries if data is loaded
     if (layoutsBoundariesData) {
         addLayoutBoundariesToMap();
     }
-
-    // Add sample layout markers (using sample data)
-    if (layoutsData.length > 0) {
-        addLayoutMarkers();
-    }
-
-    // Add city boundary (approximate)
-    const cityBounds = [
-        [12.7342, 77.3791],
-        [13.1734, 77.8746]
-    ];
-    L.rectangle(cityBounds, {
-        color: '#000',
-        weight: 2,
-        fillOpacity: 0.05
-    }).addTo(map);
-}
-
-function addLayoutMarkers() {
-    // For demo, add markers for sample layouts at approximate locations
-    const sampleLocations = [
-        { name: 'Wilson Garden HBCS', lat: 12.9352, lng: 77.6245, type: 'Residential' },
-        { name: 'UAS Employee HBCS', lat: 13.0294, lng: 77.5518, type: 'Residential' },
-        { name: 'KSRTC Employees', lat: 12.9141, lng: 77.5637, type: 'Residential' },
-        { name: 'PSR Bhat Artha Feeds', lat: 12.9089, lng: 77.5747, type: 'Industrial' },
-        { name: 'Icon Developers', lat: 12.9234, lng: 77.7567, type: 'Residential' }
-    ];
-
-    sampleLocations.forEach(location => {
-        const markerColor = location.type === 'Industrial' ? 'red' : 'blue';
-        const marker = L.circleMarker([location.lat, location.lng], {
-            radius: 6,
-            fillColor: markerColor,
-            color: '#fff',
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        }).addTo(map);
-
-        marker.bindPopup(`
-            <div class="p-2">
-                <p class="font-semibold text-sm">${location.name}</p>
-                <p class="text-xs text-gray-600">${location.type}</p>
-            </div>
-        `);
-    });
 }
 
 // Add Layout Boundaries to Map
 function addLayoutBoundariesToMap() {
-    if (!layoutsBoundariesData || !map) return;
+    if (!layoutsBoundariesData || !layoutsMap) return;
 
     // Clear existing boundary layers
-    layoutLayers.forEach(layer => map.removeLayer(layer));
+    layoutLayers.forEach(layer => layoutsMap.removeLayer(layer));
     layoutLayers = [];
 
-    console.log(`Adding ${layoutsBoundariesData.layouts.length} layout boundaries to map`);
+    console.log(`Adding ${layoutsBoundariesData.layouts.length} layout boundaries to layoutsMap`);
 
     layoutsBoundariesData.layouts.forEach(layout => {
         if (layout.coordinates && layout.coordinates.length > 0) {
@@ -199,12 +179,12 @@ function addLayoutBoundariesToMap() {
                 });
             });
 
-            polygon.addTo(map);
+            polygon.addTo(layoutsMap);
             layoutLayers.push(polygon);
         }
     });
 
-    console.log(`Added ${layoutLayers.length} layout boundaries to map`);
+    console.log(`Added ${layoutLayers.length} layout boundaries to layoutsMap`);
 }
 
 // Earthy color palette
