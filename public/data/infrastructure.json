@@ -1,0 +1,262 @@
+{
+  "metadata": {
+    "title": "Infrastructure & Transportation",
+    "description": "Transportation networks, utilities, and infrastructure development in BDA jurisdiction",
+    "last_updated": "2026-01-28",
+    "sources": [
+      "BDA Environment Departments Data",
+      "BDA Engineering Department",
+      "Master Plan Documents"
+    ],
+    "note": "Comprehensive infrastructure data often managed by multiple agencies (BMRCL, BWSSB, GBA, etc.)"
+  },
+  "water_infrastructure": {
+    "water_supply_authority": "Bangalore Water Supply and Sewerage Board (BWSSB)",
+    "coverage_area": "Bengaluru Metropolitan Area",
+    "jurisdiction": "Both BDA (582 km²) and GBA (712 km²) areas",
+    "major_sources": [
+      "Cauvery River",
+      "Arkavathi River",
+      "Thippagondanahalli Reservoir"
+    ]
+  },
+  "sewage_infrastructure": {
+    "managing_authority": "BWSSB",
+    "treatment_plants": [
+      {
+        "name": "Vrishabhavathi Valley Tertiary Treatment Plant",
+        "capacity_mld": 60,
+        "location": "Vrishabhavathi Valley",
+        "type": "Tertiary Treatment"
+      }
+    ],
+    "underground_network": {
+      "works_count": 145,
+      "coverage": "Metropolitan area",
+      "description": "Underground sewage network across Bengaluru"
+    },
+    "lake_stp_projects": {
+      "description": "STP construction at lakes under BWSSB management",
+      "purpose": "Treat sewage before discharge into water bodies"
+    },
+    "monitoring": {
+      "agency": "KSPCB (Karnataka State Pollution Control Board)",
+      "activity": "Joint surveys with BWSSB to prevent sewage entering natural drains"
+    }
+  },
+  "drainage_systems": {
+    "storm_water_drains": {
+      "managing_authority": "GBA/BBMP (within city limits)",
+      "master_plan": "SWD Master Plan exists for city areas",
+      "status": "Network development ongoing"
+    },
+    "natural_drainage": {
+      "primary_streams": {
+        "buffer_zone_meters": 30,
+        "description": "Major natural watercourses"
+      },
+      "secondary_streams": {
+        "buffer_zone_meters": 15,
+        "description": "Secondary drainage channels"
+      },
+      "tertiary_streams": {
+        "buffer_zone_meters": 10,
+        "description": "Minor drainage channels"
+      }
+    },
+    "rivers": [
+      {
+        "name": "Arkavathi River",
+        "monitoring_points": 6,
+        "role": "Water supply and drainage"
+      },
+      {
+        "name": "Vrishabhavathi River",
+        "monitoring_points": 15,
+        "issues": "Carries domestic sewage and industrial effluents",
+        "role": "Major drainage channel"
+      },
+      {
+        "name": "Kumudavathi River",
+        "role": "Natural drainage"
+      },
+      {
+        "name": "South Pennar",
+        "role": "Natural drainage"
+      }
+    ]
+  },
+  "water_bodies": {
+    "total_lakes_bda_jurisdiction": 33,
+    "total_lakes_gba": 167,
+    "lake_conservation": {
+      "program": "National Lake Conservation Programme (NLCP)",
+      "activities": [
+        "Lake restoration projects",
+        "Sewage interception and diversion systems",
+        "Remodeling inlet/outlet channels",
+        "Master plan preparation as per MoEF guidelines"
+      ]
+    }
+  },
+  "transportation_networks": {
+    "metro_rail": {
+      "managing_authority": "Bangalore Metro Rail Corporation Limited (BMRCL)",
+      "operational_lines": 2,
+      "under_construction": 3,
+      "proposed_lines": 4,
+      "total_stations": 85,
+      "coverage_1km": "42% of Bengaluru Metropolitan Area within 1km",
+      "coverage_2km": "68% of Bengaluru Metropolitan Area within 2km",
+      "example_line": {
+        "name": "Purple Line (Namma Metro)",
+        "length_km": 18.2,
+        "stations": 17,
+        "status": "Operational"
+      }
+    },
+    "road_network": {
+      "major_projects": [
+        {
+          "name": "Peripheral Ring Road 2 (PRR-2)",
+          "status": "Under development",
+          "associated_layouts": 6,
+          "layout_area_acres": 6217,
+          "description": "Major ring road with integrated layout development"
+        },
+        {
+          "name": "Outer Ring Road (ORR)",
+          "status": "Operational",
+          "description": "Major circumferential road"
+        }
+      ],
+      "road_types": [
+        "National Highways (NH)",
+        "State Highways (SH)",
+        "Ring Roads (ORR, PRR)",
+        "Arterial Roads",
+        "Local Roads"
+      ],
+      "note": "Detailed road network data managed by PWD Karnataka and NHAI"
+    },
+    "public_transport": {
+      "bus_transit_coverage": "85% of BMA within 500m of bus stops",
+      "managing_authority": "BMTC (Bangalore Metropolitan Transport Corporation)",
+      "note": "Route and schedule data not included in this dataset"
+    },
+    "railway": {
+      "major_stations": 4,
+      "managing_authority": "South Western Railways",
+      "note": "Station locations and connectivity data to be integrated"
+    },
+    "airport": {
+      "name": "Kempegowda International Airport",
+      "location": "Devanahalli",
+      "count": 1,
+      "managing_authority": "KIAL (Kempegowda International Airport Limited)"
+    }
+  },
+  "layout_infrastructure_requirements": {
+    "mandatory_provisions": {
+      "parks_playgrounds": {
+        "percentage": 15,
+        "description": "Minimum 15% reservation for parks and open spaces in all layouts"
+      },
+      "civic_amenities": {
+        "percentage": 10,
+        "description": "Reservation for schools, community centers, health facilities"
+      },
+      "streets": {
+        "requirement": "Street formation and construction",
+        "responsibility": "BDA Engineering Department"
+      },
+      "drainage": {
+        "requirement": "Drainage system installation",
+        "responsibility": "BDA Engineering Department"
+      },
+      "water_supply": {
+        "requirement": "Water supply connections",
+        "responsibility": "BDA Engineering Department / BWSSB"
+      },
+      "street_lighting": {
+        "requirement": "Street lighting installation",
+        "responsibility": "BDA Engineering Department / GBA"
+      }
+    }
+  },
+  "engineering_department": {
+    "department_id": 2,
+    "statutory_functions": [
+      "Infrastructure Development in Layouts (water, drainage, electricity, streets)",
+      "Development Schemes with government approval",
+      "Large-scale infrastructure planning for new layouts"
+    ],
+    "recent_projects_2025": {
+      "total_area_acres": 18000,
+      "projects": [
+        "Swift City infrastructure",
+        "KWIN City infrastructure",
+        "Nadaprabhu Kempegowda Layout",
+        "PRR-2 corridor development"
+      ]
+    },
+    "data_gaps": {
+      "note": "Detailed engineering data not publicly available",
+      "missing_data": [
+        "Sites with completed infrastructure",
+        "Total roads constructed (length/count)",
+        "Drainage systems extent",
+        "Water supply connection statistics"
+      ]
+    }
+  },
+  "utility_management": {
+    "electricity": {
+      "authority": "BESCOM (Bangalore Electricity Supply Company)",
+      "coverage": "Bengaluru Metropolitan Area",
+      "note": "Infrastructure data not included in BDA datasets"
+    },
+    "telecommunications": {
+      "providers": "Multiple private operators",
+      "note": "Network data not in public domain"
+    }
+  },
+  "planning_districts_infrastructure": {
+    "ring_i_core": {
+      "districts": "101-107",
+      "count": 7,
+      "infrastructure_status": "Established infrastructure with ongoing upgrades"
+    },
+    "ring_ii_intermediate": {
+      "districts": "201-218",
+      "count": 18,
+      "infrastructure_status": "Mixed - some areas well-developed, others developing"
+    },
+    "ring_iii_peripheral": {
+      "districts": "301-322",
+      "count": 22,
+      "infrastructure_status": "New infrastructure development areas",
+      "focus": "Infrastructure-led growth and new layout development"
+    }
+  },
+  "future_development": {
+    "focus_areas": [
+      "Metro rail network expansion",
+      "PRR-2 completion and corridor development",
+      "Sewage treatment capacity enhancement",
+      "Lake restoration and water body conservation",
+      "Underground utility corridors",
+      "Smart city infrastructure integration"
+    ]
+  },
+  "data_integration_opportunities": {
+    "potential_sources": [
+      "BMRCL for metro rail detailed data",
+      "BWSSB for water/sewage network maps",
+      "GBA for storm water drain network",
+      "PWD Karnataka for road network",
+      "BMTC for public transport routes",
+      "BESCOM for electricity infrastructure"
+    ]
+  }
+}

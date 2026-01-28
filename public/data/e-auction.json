@@ -1,0 +1,155 @@
+{
+  "metadata": {
+    "title": "E-Auction & Land Management",
+    "description": "BDA land auctions, property management, and land bank information",
+    "last_updated": "2026-01-28",
+    "sources": [
+      "BDA E-Auction Portal",
+      "BDA Departments Data",
+      "Layouts Database"
+    ]
+  },
+  "current_auction": {
+    "auction_id": "BDA_E_AUCTION_FEB_2026",
+    "title": "BDA E-Auction February 2026",
+    "total_sites": 83,
+    "auction_month": "February 2026",
+    "status": "Upcoming",
+    "document_url": "https://www.bdakarnataka.in/api/media/e-auction/pdf_press_release/BDA_E_Auction_Feb-2026_(83site)_1769160495340_cb6e648d.pdf",
+    "gis_viewer_url": "https://gismap-data-view-openlayer.on.drv.tw/BDA/E_Aution/E_Auction_02_2026_83site/",
+    "note": "Site details available in PDF document and GIS viewer"
+  },
+  "site_statistics": {
+    "total_sites_allotted_historical": 76000,
+    "civic_amenity_sites": 800,
+    "commercial_sites_allotted": "Data available",
+    "note": "Historical data since BDA inception in 1976"
+  },
+  "land_bank": {
+    "bda_jurisdiction_area_km2": 582,
+    "reduced_from_km2": 1294,
+    "reduction_year": 2025,
+    "reason": "GBA formation and jurisdiction transfer",
+    "gba_transferred_area_km2": 712
+  },
+  "recent_acquisitions_2025": {
+    "total_area_acres": 18000,
+    "major_projects": [
+      {
+        "name": "Swift City",
+        "location": "Sarjapur",
+        "description": "Mixed-use integrated township development",
+        "status": "Acquisition phase"
+      },
+      {
+        "name": "KWIN City",
+        "location": "North Bangalore",
+        "description": "Integrated city development project",
+        "status": "Acquisition phase"
+      },
+      {
+        "name": "Nadaprabhu Kempegowda Layout",
+        "location": "Various",
+        "description": "Large-scale layout development",
+        "status": "Acquisition phase"
+      },
+      {
+        "name": "PRR-2 Corridor Layouts",
+        "location": "Along Peripheral Ring Road 2",
+        "area_acres": 6217,
+        "layouts_count": 6,
+        "description": "Infrastructure-led development along transport corridor",
+        "status": "Acquisition phase"
+      }
+    ]
+  },
+  "land_inventory_by_use": {
+    "total_approved_layouts": 1017,
+    "by_category": {
+      "residential": {
+        "layouts": 1008,
+        "percentage": 99.1
+      },
+      "industrial": {
+        "layouts": 7,
+        "percentage": 0.7
+      },
+      "commercial": {
+        "layouts": 2,
+        "percentage": 0.2
+      }
+    }
+  },
+  "land_inventory_by_taluk": {
+    "Bangalore South": 428,
+    "Bangalore North": 274,
+    "Bangalore East": 171,
+    "Anekal": 123,
+    "Yelahanka": 21
+  },
+  "property_management": {
+    "departments": [
+      {
+        "name": "Estate & TDR Cell",
+        "department_id": 6,
+        "key_functions": [
+          "Issue Transfer of Development Rights (TDR) Certificates",
+          "Property Assessment and Valuation",
+          "Managing surrendered land and development rights"
+        ]
+      },
+      {
+        "name": "Allotment & Administration",
+        "department_id": 3,
+        "key_functions": [
+          "Site allotment to eligible applicants",
+          "Revenue collection (site sales proceeds)",
+          "Rent collection from BDA-developed properties",
+          "Property tax and betterment tax collection"
+        ]
+      },
+      {
+        "name": "Land Acquisition",
+        "department_id": 4,
+        "key_functions": [
+          "Land acquisition for development schemes",
+          "Property vesting procedures",
+          "Encumbrance removal and legal clearances",
+          "Land disposal management"
+        ]
+      }
+    ]
+  },
+  "revenue_sources": {
+    "site_sales_proceeds": "Primary revenue from land auctions and allotments",
+    "property_rent": "Annual/monthly rent from BDA-developed commercial properties",
+    "property_tax": "Tax collection from BDA properties",
+    "betterment_tax": "One-third of increased land value due to development",
+    "fund": "Bangalore Development Fund managed by Finance Department"
+  },
+  "allotment_process": {
+    "eligibility_criteria": "Based on BDA Act 1976 and allotment rules",
+    "application_process": "Online and offline applications",
+    "selection_method": "Lottery system for residential sites, auction for commercial/premium sites",
+    "documentation": "Eligibility verification, document submission, legal clearances"
+  },
+  "tdr_program": {
+    "name": "Transfer of Development Rights",
+    "description": "Property owners can surrender land for development rights certificates",
+    "managed_by": "Estate & TDR Cell",
+    "benefits": "Alternative compensation mechanism for land acquisition",
+    "tradability": "TDR certificates can be traded in the market"
+  },
+  "auction_history": {
+    "note": "Historical auction data to be populated from BDA records",
+    "recent_trend": "Quarterly e-auctions conducted for various site categories",
+    "success_rate": "Data to be integrated",
+    "price_realization": "Average realization vs reserve price - data pending"
+  },
+  "upcoming_features": {
+    "live_auction_tracking": "Real-time bidding status during auctions",
+    "site_search": "Search by location, category, size, price range",
+    "gis_integration": "Interactive map showing auction site locations",
+    "historical_analytics": "Auction trends, price movements, success rates"
+  }
+}

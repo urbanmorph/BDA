@@ -1,0 +1,190 @@
+{
+  "metadata": {
+    "title": "Economic Development & Industrial Areas",
+    "description": "Economic indicators, employment statistics, and industrial infrastructure in BDA jurisdiction",
+    "last_updated": "2026-01-28",
+    "sources": [
+      "CBRE Global Tech Talent Guidebook 2025",
+      "RMP 2015/2031 Master Plans",
+      "Demographics & Employment Data 2024",
+      "BDA Layouts Database"
+    ]
+  },
+  "employment_sectors": {
+    "total_workforce_estimate": 4500000,
+    "working_age_population_percent": 75.5,
+    "sectors": [
+      {
+        "name": "IT & Software",
+        "percentage": 45,
+        "workforce_estimate": 2025000,
+        "key_locations": ["Electronic City", "Whitefield", "Marathahalli", "Outer Ring Road"],
+        "growth_rate_2018_2023": 12,
+        "description": "Technology and software services sector, including IT/ITES companies"
+      },
+      {
+        "name": "Construction",
+        "percentage": 18,
+        "workforce_estimate": 810000,
+        "key_locations": ["Across BDA jurisdiction"],
+        "description": "Building construction, infrastructure development, and real estate"
+      },
+      {
+        "name": "Services & Retail",
+        "percentage": 15,
+        "workforce_estimate": 675000,
+        "key_locations": ["Central Business Districts", "Commercial areas"],
+        "description": "Retail, hospitality, professional services, and trade"
+      },
+      {
+        "name": "Manufacturing",
+        "percentage": 12,
+        "workforce_estimate": 540000,
+        "key_locations": ["Peenya", "Rajajinagar Industrial Area", "Bommanahalli"],
+        "description": "Traditional manufacturing, light industries, and industrial estates"
+      },
+      {
+        "name": "Other",
+        "percentage": 10,
+        "workforce_estimate": 450000,
+        "key_locations": ["Varied"],
+        "description": "Agriculture, government services, education, healthcare, and other sectors"
+      }
+    ]
+  },
+  "it_sector_highlights": {
+    "tech_workforce": 1000000,
+    "milestone": "Crossed 1 million tech workforce mark in 2025",
+    "global_ranking": "One of 12 global powerhouse tech cities",
+    "growth_rate_annual": 12,
+    "contribution_to_india_it_exports": 34,
+    "key_hubs": [
+      {
+        "name": "Electronic City",
+        "planning_district_id": 319,
+        "description": "Major IT/ITES hub in South Bangalore",
+        "major_companies": "Infosys, Wipro, TCS, Tech Mahindra"
+      },
+      {
+        "name": "Whitefield",
+        "planning_district_id": 315,
+        "description": "IT corridor with international tech parks",
+        "major_companies": "International Tech Park Bangalore (ITPB)"
+      },
+      {
+        "name": "Outer Ring Road (ORR) Corridor",
+        "description": "Emerging IT/tech corridor",
+        "areas": ["Bellandur", "Marathahalli", "Sarjapur"]
+      }
+    ]
+  },
+  "industrial_infrastructure": {
+    "industrial_layouts_bda": {
+      "total": 7,
+      "layouts": [
+        {
+          "name": "Rajajinagar Industrial HBCS",
+          "taluk": "Bangalore North",
+          "use_type": "Industrial",
+          "description": "Industrial housing cooperative society"
+        },
+        {
+          "name": "M M Industrial Estates",
+          "taluk": "Bangalore South",
+          "use_type": "Industrial",
+          "description": "Manufacturing and industrial estate"
+        },
+        {
+          "name": "Industrial Hi-tech Layout",
+          "use_type": "Industrial",
+          "description": "Non-residential high-tech industrial development"
+        },
+        {
+          "name": "Peenya Industrial Area",
+          "planning_district_id": 214,
+          "description": "Largest industrial area in Bengaluru with manufacturing units"
+        }
+      ]
+    },
+    "master_plan_industrial_allocation": {
+      "rmp_2015": {
+        "percentage": 12,
+        "area_km2": 156.72,
+        "description": "Industrial land use allocation in RMP 2015"
+      },
+      "rmp_2031": {
+        "percentage": 10,
+        "area_km2": 130.6,
+        "description": "Proposed industrial land use in RMP 2031 (Draft - Withdrawn)",
+        "note": "Shift towards service-oriented economy reflected in reduced industrial allocation"
+      }
+    },
+    "special_economic_zones": {
+      "note": "SEZ data to be integrated from KIADB (Karnataka Industrial Areas Development Board)",
+      "known_sezs": [
+        "Electronic City SEZ",
+        "Whitefield IT SEZ"
+      ]
+    }
+  },
+  "economic_indicators": {
+    "employment_migration": {
+      "work_related_migration_2024": 52,
+      "work_related_migration_2001": 35,
+      "trend": "Significant increase in work-driven migration, indicating strong job market"
+    },
+    "education_migration": {
+      "education_migration_2024": 18,
+      "description": "Students migrating to Bengaluru for higher education and skill development",
+      "student_population_karnataka": 3700000
+    },
+    "key_economic_drivers": [
+      "Technology and IT services (1M+ workforce)",
+      "Education and skill development hub",
+      "Startup ecosystem and innovation",
+      "Infrastructure development and construction",
+      "Manufacturing and traditional industries"
+    ]
+  },
+  "sectoral_distribution_land_use": {
+    "commercial": {
+      "rmp_2015_percent": 8,
+      "rmp_2031_percent": 10,
+      "bda_approved_layouts": 2,
+      "description": "Commercial office spaces, retail, and business districts"
+    },
+    "industrial": {
+      "rmp_2015_percent": 12,
+      "rmp_2031_percent": 10,
+      "bda_approved_layouts": 7,
+      "description": "Manufacturing, industrial estates, and production facilities"
+    },
+    "residential": {
+      "bda_approved_layouts": 1008,
+      "description": "Residential layouts supporting workforce housing needs"
+    }
+  },
+  "future_projects": {
+    "under_development_2025": [
+      {
+        "name": "Swift City",
+        "location": "Sarjapur",
+        "area_acres": "Part of 18,000+ acre acquisition",
+        "focus": "Mixed-use development with commercial and residential"
+      },
+      {
+        "name": "KWIN City",
+        "location": "North Bangalore",
+        "area_acres": "Part of 18,000+ acre acquisition",
+        "focus": "Integrated township development"
+      },
+      {
+        "name": "PRR-2 Corridor Layouts",
+        "location": "Along Peripheral Ring Road 2",
+        "area_acres": 6217,
+        "layouts_count": 6,
+        "focus": "Infrastructure-led development along major transport corridor"
+      }
+    ]
+  }
+}

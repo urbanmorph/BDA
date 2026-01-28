@@ -10,6 +10,9 @@ let administrativeBoundariesData = null;
 let gbaCorporationData = null;
 let bdaJurisdictionData = null;
 let planningDistrictsData = null;
+let economicData = null;
+let eAuctionData = null;
+let infrastructureData = null;
 let currentPlanVersion = '2015';
 let layoutsMap; // Layouts map
 let charts = {};
@@ -25,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
     loadLayoutsBoundaries();
     loadAdministrativeBoundaries();
     loadPlanningDistricts();
+    loadEconomicData();
+    loadEAuctionData();
+    loadInfrastructureData();
     initializeCharts();
     initializeMap();
     setupEventListeners();
@@ -84,6 +90,42 @@ async function loadAdministrativeBoundaries() {
         }
     } catch (error) {
         console.error('Error loading administrative boundaries:', error);
+    }
+}
+
+// Load Economic Development Data
+async function loadEconomicData() {
+    try {
+        const response = await fetch('data/economic-development.json');
+        economicData = await response.json();
+        console.log('Loaded economic development data');
+        populateEconomicSection();
+    } catch (error) {
+        console.error('Error loading economic data:', error);
+    }
+}
+
+// Load E-Auction Data
+async function loadEAuctionData() {
+    try {
+        const response = await fetch('data/e-auction.json');
+        eAuctionData = await response.json();
+        console.log('Loaded e-auction data');
+        populateEAuctionSection();
+    } catch (error) {
+        console.error('Error loading e-auction data:', error);
+    }
+}
+
+// Load Infrastructure Data
+async function loadInfrastructureData() {
+    try {
+        const response = await fetch('data/infrastructure.json');
+        infrastructureData = await response.json();
+        console.log('Loaded infrastructure data');
+        populateInfrastructureSection();
+    } catch (error) {
+        console.error('Error loading infrastructure data:', error);
     }
 }
 
@@ -1108,6 +1150,314 @@ function setupMobileMenu() {
                 mobileMenu.classList.add('hidden');
             });
         });
+    }
+}
+
+// Populate Economic Development Section
+function populateEconomicSection() {
+    if (!economicData) return;
+
+    // Populate IT Highlights
+    const itHighlights = document.getElementById('itHighlights');
+    if (itHighlights && economicData.it_sector_highlights) {
+        const highlights = economicData.it_sector_highlights;
+        itHighlights.innerHTML = `
+            <div class="bg-white p-4 rounded-lg border border-sage-200">
+                <p class="text-sm text-sage-600 mb-1">Tech Workforce Milestone</p>
+                <p class="font-semibold text-sage-800">${highlights.milestone}</p>
+                <p class="text-xs text-sage-500 mt-1">One of 12 global powerhouse cities</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border border-sage-200">
+                <p class="text-sm text-sage-600 mb-1">India IT Exports</p>
+                <p class="text-2xl font-bold text-sage-800">${highlights.contribution_to_india_it_exports}%</p>
+                <p class="text-xs text-sage-500 mt-1">Contribution to national IT exports</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border border-sage-200">
+                <p class="text-sm text-sage-600 mb-1">Key IT Hubs</p>
+                <p class="font-semibold text-sage-800">${highlights.key_hubs.length} Major Locations</p>
+                <p class="text-xs text-sage-500 mt-1">${highlights.key_hubs.map(h => h.name).join(', ')}</p>
+            </div>
+        `;
+    }
+
+    // Populate Industrial Infrastructure
+    const industrialInfra = document.getElementById('industrialInfrastructure');
+    if (industrialInfra && economicData.industrial_infrastructure) {
+        const infra = economicData.industrial_infrastructure;
+        industrialInfra.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">BDA Industrial Layouts</h4>
+                    <ul class="space-y-2">
+                        ${infra.industrial_layouts_bda.layouts.map(layout => `
+                            <li class="text-sm text-earth-600 flex items-start">
+                                <span class="text-sage-600 mr-2">→</span>
+                                <div>
+                                    <span class="font-medium text-earth-800">${layout.name}</span>
+                                    ${layout.taluk ? `<span class="text-earth-500"> (${layout.taluk})</span>` : ''}
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">Master Plan Industrial Allocation</h4>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-earth-50 rounded">
+                            <p class="text-xs text-earth-500">RMP 2015</p>
+                            <p class="text-lg font-bold text-earth-800">${infra.master_plan_industrial_allocation.rmp_2015.percentage}%</p>
+                            <p class="text-xs text-earth-600">${infra.master_plan_industrial_allocation.rmp_2015.area_km2} km²</p>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded">
+                            <p class="text-xs text-amber-600">RMP 2031 (Draft - Withdrawn)</p>
+                            <p class="text-lg font-bold text-amber-800">${infra.master_plan_industrial_allocation.rmp_2031.percentage}%</p>
+                            <p class="text-xs text-amber-700">${infra.master_plan_industrial_allocation.rmp_2031.area_km2} km²</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Create Employment Sector Chart
+    const employmentChartCtx = document.getElementById('employmentSectorChart');
+    if (employmentChartCtx && economicData.employment_sectors) {
+        const sectors = economicData.employment_sectors.sectors;
+        charts.employmentSector = new Chart(employmentChartCtx, {
+            type: 'bar',
+            data: {
+                labels: sectors.map(s => s.name),
+                datasets: [{
+                    label: 'Employment Percentage',
+                    data: sectors.map(s => s.percentage),
+                    backgroundColor: [
+                        '#7a8c5e', // sage for IT
+                        '#8b6f47', // earth for construction
+                        '#c85a36', // terracotta for services
+                        '#5f6e49', // dark sage for manufacturing
+                        '#bfa890'  // light earth for other
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 50,
+                        ticks: {
+                            color: earthColors.primary,
+                            callback: value => value + '%'
+                        },
+                        grid: { color: earthColors.light }
+                    },
+                    y: {
+                        ticks: { color: earthColors.primary },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    }
+}
+
+// Populate E-Auction Section
+function populateEAuctionSection() {
+    if (!eAuctionData) return;
+
+    // Populate Current Auction
+    const currentAuction = document.getElementById('currentAuction');
+    if (currentAuction && eAuctionData.current_auction) {
+        const auction = eAuctionData.current_auction;
+        currentAuction.innerHTML = `
+            <p class="text-lg font-semibold text-terracotta-800 mb-2">${auction.title}</p>
+            <p class="text-sm text-terracotta-700 mb-3">${auction.total_sites} sites available | Status: ${auction.status}</p>
+            <div class="flex flex-wrap gap-3">
+                <a href="${auction.document_url}" target="_blank"
+                   class="inline-flex items-center px-4 py-2 bg-terracotta-600 text-white text-sm font-medium rounded-lg hover:bg-terracotta-700 transition-colors">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    View Auction Document (PDF)
+                </a>
+                <a href="${auction.gis_viewer_url}" target="_blank"
+                   class="inline-flex items-center px-4 py-2 bg-sage-600 text-white text-sm font-medium rounded-lg hover:bg-sage-700 transition-colors">
+                    <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                    View GIS Map
+                </a>
+            </div>
+        `;
+    }
+
+    // Populate Recent Acquisitions
+    const recentAcq = document.getElementById('recentAcquisitions');
+    if (recentAcq && eAuctionData.recent_acquisitions_2025) {
+        const acq = eAuctionData.recent_acquisitions_2025;
+        recentAcq.innerHTML = `
+            <p class="text-sm text-earth-600 mb-4">Total area under acquisition: <span class="font-semibold text-earth-800">${acq.total_area_acres.toLocaleString()} acres</span></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${acq.major_projects.map(project => `
+                    <div class="p-4 border border-earth-200 rounded-lg hover:border-sage-400 transition-colors">
+                        <p class="font-semibold text-earth-800 mb-1">${project.name}</p>
+                        <p class="text-sm text-earth-600 mb-2">${project.location}</p>
+                        <p class="text-xs text-earth-500">${project.description}</p>
+                        ${project.area_acres ? `<p class="text-xs text-sage-600 mt-2">Area: ${project.area_acres.toLocaleString()} acres</p>` : ''}
+                        <p class="text-xs text-amber-600 mt-1">Status: ${project.status}</p>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Populate Property Management
+    const propMgmt = document.getElementById('propertyManagement');
+    if (propMgmt && eAuctionData.property_management) {
+        const depts = eAuctionData.property_management.departments;
+        propMgmt.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                ${depts.map(dept => `
+                    <div class="p-4 bg-earth-50 border border-earth-200 rounded-lg">
+                        <p class="font-semibold text-earth-800 mb-3">${dept.name}</p>
+                        <ul class="space-y-2">
+                            ${dept.key_functions.map(func => `
+                                <li class="text-xs text-earth-600 flex items-start">
+                                    <span class="text-sage-600 mr-1">•</span>
+                                    <span>${func}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    // Create Land Inventory Chart
+    const landChartCtx = document.getElementById('landInventoryChart');
+    if (landChartCtx && eAuctionData.land_inventory_by_use) {
+        const inventory = eAuctionData.land_inventory_by_use.by_category;
+        charts.landInventory = new Chart(landChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Residential', 'Industrial', 'Commercial'],
+                datasets: [{
+                    data: [
+                        inventory.residential.layouts,
+                        inventory.industrial.layouts,
+                        inventory.commercial.layouts
+                    ],
+                    backgroundColor: [earthColors.secondary, earthColors.primary, earthColors.accent],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: earthColors.primary, padding: 15 }
+                    }
+                }
+            }
+        });
+    }
+}
+
+// Populate Infrastructure Section
+function populateInfrastructureSection() {
+    if (!infrastructureData) return;
+
+    // Populate Transportation Networks
+    const transport = document.getElementById('transportationNetworks');
+    if (transport && infrastructureData.transportation_networks) {
+        const networks = infrastructureData.transportation_networks;
+        transport.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">Metro Rail Network</h4>
+                    <div class="space-y-2">
+                        <p class="text-sm text-earth-600">
+                            <span class="font-medium text-earth-800">${networks.metro_rail.operational_lines}</span> operational lines,
+                            <span class="font-medium text-earth-800">${networks.metro_rail.under_construction}</span> under construction,
+                            <span class="font-medium text-earth-800">${networks.metro_rail.proposed_lines}</span> proposed
+                        </p>
+                        <p class="text-sm text-earth-600">
+                            <span class="font-medium text-earth-800">${networks.metro_rail.total_stations}</span> total stations
+                        </p>
+                        <p class="text-xs text-sage-600 mt-2">
+                            Coverage: ${networks.metro_rail.coverage_1km} within 1km, ${networks.metro_rail.coverage_2km} within 2km
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">Road Network</h4>
+                    <ul class="space-y-2">
+                        ${networks.road_network.major_projects.map(project => `
+                            <li class="text-sm text-earth-600">
+                                <span class="font-medium text-earth-800">${project.name}</span>
+                                <span class="text-xs text-sage-600 ml-2">(${project.status})</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+        `;
+    }
+
+    // Populate Utilities Infrastructure
+    const utilities = document.getElementById('utilitiesInfrastructure');
+    if (utilities && infrastructureData.water_infrastructure) {
+        utilities.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">Water Supply</h4>
+                    <p class="text-xs text-earth-600 mb-2">Authority: <span class="font-medium text-earth-800">${infrastructureData.water_infrastructure.water_supply_authority}</span></p>
+                    <p class="text-xs text-earth-500">${infrastructureData.water_infrastructure.major_sources.join(', ')}</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">Sewage Treatment</h4>
+                    <p class="text-xs text-earth-600 mb-2">STPs: <span class="font-medium text-earth-800">${infrastructureData.sewage_infrastructure.treatment_plants.length}</span></p>
+                    <p class="text-xs text-earth-500">Network: ${infrastructureData.sewage_infrastructure.underground_network.works_count} works</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-earth-700 mb-3">Water Bodies</h4>
+                    <p class="text-xs text-earth-600 mb-2">Lakes (BDA): <span class="font-medium text-earth-800">${infrastructureData.water_bodies.total_lakes_bda_jurisdiction}</span></p>
+                    <p class="text-xs text-earth-500">Rivers: ${infrastructureData.drainage_systems.rivers.length} monitored</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // Populate Layout Infrastructure Requirements
+    const layoutInfra = document.getElementById('layoutInfrastructure');
+    if (layoutInfra && infrastructureData.layout_infrastructure_requirements) {
+        const reqs = infrastructureData.layout_infrastructure_requirements.mandatory_provisions;
+        layoutInfra.innerHTML = `
+            <p class="text-sm text-earth-600 mb-4">All BDA layouts must comply with mandatory infrastructure provisions:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${Object.entries(reqs).map(([key, value]) => `
+                    <div class="flex items-start space-x-3">
+                        <svg class="h-5 w-5 text-sage-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-earth-800">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                            <p class="text-xs text-earth-600">${value.description || value.requirement}</p>
+                            ${value.percentage ? `<p class="text-xs text-sage-600 mt-1">${value.percentage}% reservation</p>` : ''}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
     }
 }
 

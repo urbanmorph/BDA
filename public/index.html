@@ -106,6 +106,18 @@
                             class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Environment
                     </button>
+                    <button onclick="showSection('economic')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Economic
+                    </button>
+                    <button onclick="showSection('e-auction')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        E-Auction
+                    </button>
+                    <button onclick="showSection('infrastructure')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Infrastructure
+                    </button>
                     <button onclick="showSection('sources')"
                             class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Data Sources
@@ -145,6 +157,18 @@
                 <button onclick="showSection('environment')"
                         class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
                     Environment
+                </button>
+                <button onclick="showSection('economic')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Economic
+                </button>
+                <button onclick="showSection('e-auction')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    E-Auction
+                </button>
+                <button onclick="showSection('infrastructure')"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Infrastructure
                 </button>
                 <button onclick="showSection('sources')"
                         class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
@@ -907,6 +931,187 @@
             <div class="mt-8 p-4 bg-white border border-earth-200 rounded-lg">
                 <h4 class="text-sm font-semibold text-earth-700 mb-2">Data Sources</h4>
                 <div class="text-xs text-earth-600 space-y-1" id="departmentSources">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Economic Development Section -->
+        <section id="economic-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Economic Development & Industrial Areas</h2>
+                <p class="text-gray-600">Employment sectors, IT industry, and industrial infrastructure</p>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Tech Workforce</p>
+                    <p class="text-3xl font-bold text-earth-800" id="techWorkforce">1M+</p>
+                    <p class="text-xs text-sage-600 mt-1">12% annual growth</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">IT Employment</p>
+                    <p class="text-3xl font-bold text-earth-800" id="itEmployment">45%</p>
+                    <p class="text-xs text-sage-600 mt-1">Of total workforce</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Industrial Layouts</p>
+                    <p class="text-3xl font-bold text-earth-800" id="industrialLayouts">7</p>
+                    <p class="text-xs text-sage-600 mt-1">BDA approved</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Working Age Pop.</p>
+                    <p class="text-3xl font-bold text-earth-800" id="workingAgePop">75.5%</p>
+                    <p class="text-xs text-sage-600 mt-1">Productive workforce</p>
+                </div>
+            </div>
+
+            <!-- Employment Sector Chart -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Employment by Sector</h3>
+                <div class="chart-container">
+                    <canvas id="employmentSectorChart"></canvas>
+                </div>
+            </div>
+
+            <!-- IT Sector Highlights -->
+            <div class="bg-gradient-to-r from-sage-50 to-earth-50 p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">IT Sector Highlights</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="itHighlights">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Industrial Infrastructure -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Industrial Infrastructure</h3>
+                <div id="industrialInfrastructure">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- E-Auction Section -->
+        <section id="e-auction-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">E-Auction & Land Management</h2>
+                <p class="text-gray-600">Property auctions, land bank, and allotment information</p>
+            </div>
+
+            <!-- Current Auction Alert -->
+            <div class="bg-terracotta-50 border-l-4 border-terracotta-500 p-6 mb-8 rounded-r-lg">
+                <div class="flex items-center mb-2">
+                    <svg class="h-6 w-6 text-terracotta-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-terracotta-800">Current Auction</h3>
+                </div>
+                <div id="currentAuction">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Key Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Current Auction Sites</p>
+                    <p class="text-3xl font-bold text-earth-800" id="auctionSites">83</p>
+                    <p class="text-xs text-sage-600 mt-1">February 2026</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Sites Allotted</p>
+                    <p class="text-3xl font-bold text-earth-800" id="sitesAllotted">76,000+</p>
+                    <p class="text-xs text-sage-600 mt-1">Since inception</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">BDA Jurisdiction</p>
+                    <p class="text-3xl font-bold text-earth-800" id="bdaJurisdiction">582</p>
+                    <p class="text-xs text-sage-600 mt-1">km² area</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Total Layouts</p>
+                    <p class="text-3xl font-bold text-earth-800" id="totalLayouts">1,017</p>
+                    <p class="text-xs text-sage-600 mt-1">Approved layouts</p>
+                </div>
+            </div>
+
+            <!-- Land Inventory Chart -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Land Inventory by Category</h3>
+                <div class="chart-container">
+                    <canvas id="landInventoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Acquisitions -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Recent Land Acquisitions (2025)</h3>
+                <div id="recentAcquisitions">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Property Management -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Property Management Departments</h3>
+                <div id="propertyManagement">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Infrastructure Section -->
+        <section id="infrastructure-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Infrastructure & Transportation</h2>
+                <p class="text-gray-600">Utilities, transportation networks, and infrastructure development</p>
+            </div>
+
+            <!-- Key Infrastructure Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Metro Stations</p>
+                    <p class="text-3xl font-bold text-earth-800">85</p>
+                    <p class="text-xs text-sage-600 mt-1">9 lines (operational + planned)</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Lakes (BDA)</p>
+                    <p class="text-3xl font-bold text-earth-800">33</p>
+                    <p class="text-xs text-sage-600 mt-1">Under conservation</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">SWD Works</p>
+                    <p class="text-3xl font-bold text-earth-800">145</p>
+                    <p class="text-xs text-sage-600 mt-1">Underground sewage network</p>
+                </div>
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <p class="text-sm text-earth-600">Major Rivers</p>
+                    <p class="text-3xl font-bold text-earth-800">4</p>
+                    <p class="text-xs text-sage-600 mt-1">Monitored watercourses</p>
+                </div>
+            </div>
+
+            <!-- Transportation Networks -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Transportation Networks</h3>
+                <div id="transportationNetworks">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Utilities Infrastructure -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg mb-8">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Utilities Infrastructure</h3>
+                <div id="utilitiesInfrastructure">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Layout Infrastructure Requirements -->
+            <div class="bg-earth-50 p-6 border border-earth-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Layout Infrastructure Requirements</h3>
+                <div id="layoutInfrastructure">
                     <!-- Will be populated by JavaScript -->
                 </div>
             </div>
