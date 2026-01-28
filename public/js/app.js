@@ -19,6 +19,18 @@ let charts = {};
 let layoutLayers = [];
 let adminBoundaryLayers = [];
 
+// Navigation configuration
+const navigationConfig = {
+    development: {
+        defaultSection: 'master-plan',
+        subsections: ['master-plan', 'layouts', 'e-auction', 'departments']
+    },
+    analytics: {
+        defaultSection: 'demographics',
+        subsections: ['demographics', 'economic', 'infrastructure', 'environment']
+    }
+};
+
 // Initialize app on page load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('BDA Dashboard initializing...');
@@ -36,6 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     setupMobileMenu();
     showSection('overview');
+
+    // Close dropdowns when clicking outside navigation
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.nav-category-wrapper')) {
+            document.querySelectorAll('.nav-dropdown').forEach(dd => dd.classList.add('hidden'));
+        }
+    });
 });
 
 // Load JSON data
@@ -130,7 +149,12 @@ async function loadInfrastructureData() {
 }
 
 // Section navigation
-function showSection(sectionName) {
+function showSection(sectionName, categoryName) {
+    // Auto-determine category if not provided
+    if (!categoryName) {
+        categoryName = getCategoryForSection(sectionName);
+    }
+
     // Hide all sections
     document.querySelectorAll('.section-content').forEach(section => {
         section.classList.add('hidden');
@@ -142,17 +166,9 @@ function showSection(sectionName) {
         selectedSection.classList.remove('hidden');
     }
 
-    // Update nav button styles
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-earth-700', 'text-white');
-        btn.classList.add('text-earth-700');
-    });
-
-    // Highlight active button (only if called from an event)
-    if (typeof event !== 'undefined' && event.target) {
-        event.target.classList.add('bg-earth-700', 'text-white');
-        event.target.classList.remove('text-earth-700');
-    }
+    // Update active states
+    updateActiveStates(sectionName, categoryName);
+    updateMobileActiveStates(sectionName, categoryName);
 
     // Resize layouts map if needed
     if (sectionName === 'layouts' && layoutsMap) {
@@ -162,6 +178,148 @@ function showSection(sectionName) {
     // Populate departments section if needed
     if (sectionName === 'departments' && departmentsData) {
         setTimeout(() => populateDepartmentsSection(), 100);
+    }
+}
+
+// Update active states for desktop navigation
+function updateActiveStates(sectionName, categoryName) {
+    // Reset all navigation buttons
+    document.querySelectorAll('.nav-btn, .nav-category, .nav-subsection').forEach(btn => {
+        btn.classList.remove('active-nav', 'active-category', 'active-subsection');
+    });
+
+    // Highlight standalone sections (overview, sources)
+    if (!categoryName) {
+        const standaloneBtn = document.querySelector(`.nav-btn[data-section="${sectionName}"]`);
+        if (standaloneBtn) {
+            standaloneBtn.classList.add('active-nav');
+        }
+    } else {
+        // Highlight category
+        const categoryBtn = document.querySelector(`.nav-category[data-category="${categoryName}"]`);
+        if (categoryBtn) {
+            categoryBtn.classList.add('active-category');
+        }
+
+        // Highlight subsection
+        const subsectionBtn = document.querySelector(`.nav-subsection[data-section="${sectionName}"][data-category="${categoryName}"]`);
+        if (subsectionBtn) {
+            subsectionBtn.classList.add('active-subsection');
+        }
+    }
+}
+
+// Get category for a section
+function getCategoryForSection(sectionName) {
+    if (navigationConfig.development.subsections.includes(sectionName)) {
+        return 'development';
+    }
+    if (navigationConfig.analytics.subsections.includes(sectionName)) {
+        return 'analytics';
+    }
+    return null; // standalone section
+}
+
+// Toggle dropdown visibility
+function toggleDropdown(categoryName, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+
+    const wrapper = event?.target.closest('.nav-category-wrapper');
+    if (!wrapper) return;
+
+    const dropdown = wrapper.querySelector('.nav-dropdown');
+    if (!dropdown) return;
+
+    // Close other dropdowns
+    document.querySelectorAll('.nav-dropdown').forEach(dd => {
+        if (dd !== dropdown) {
+            dd.classList.add('hidden');
+        }
+    });
+
+    // Toggle this dropdown
+    dropdown.classList.toggle('hidden');
+}
+
+// Handle category click - toggle dropdown and optionally navigate
+function handleCategoryClick(categoryName, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+
+    // Get the dropdown wrapper and dropdown element
+    const wrapper = event?.target.closest('.nav-category-wrapper');
+    if (!wrapper) return;
+
+    const dropdown = wrapper.querySelector('.nav-dropdown');
+    if (!dropdown) return;
+
+    // Check if dropdown is currently hidden
+    const isHidden = dropdown.classList.contains('hidden');
+
+    // Close all other dropdowns
+    document.querySelectorAll('.nav-dropdown').forEach(dd => {
+        if (dd !== dropdown) {
+            dd.classList.add('hidden');
+        }
+    });
+
+    // Toggle this dropdown
+    if (isHidden) {
+        dropdown.classList.remove('hidden');
+    } else {
+        dropdown.classList.add('hidden');
+    }
+}
+
+// Toggle mobile category accordion
+function toggleMobileCategory(categoryName) {
+    const subsectionsDiv = document.getElementById(`mobile-${categoryName}`);
+    if (!subsectionsDiv) return;
+
+    const categoryBtn = document.querySelector(`.mobile-category[data-category="${categoryName}"]`);
+    const chevron = categoryBtn?.querySelector('.mobile-chevron');
+
+    // Toggle visibility
+    subsectionsDiv.classList.toggle('hidden');
+
+    // Rotate chevron
+    if (chevron) {
+        if (subsectionsDiv.classList.contains('hidden')) {
+            chevron.style.transform = 'rotate(0deg)';
+        } else {
+            chevron.style.transform = 'rotate(180deg)';
+        }
+    }
+}
+
+// Update mobile active states
+function updateMobileActiveStates(sectionName, categoryName) {
+    // Reset all mobile navigation buttons
+    document.querySelectorAll('.mobile-nav-btn, .mobile-category, .mobile-subsection').forEach(btn => {
+        btn.classList.remove('mobile-active');
+    });
+
+    // Highlight standalone sections
+    if (!categoryName) {
+        const standaloneBtn = document.querySelector(`.mobile-nav-btn[data-section="${sectionName}"]`);
+        if (standaloneBtn) {
+            standaloneBtn.classList.add('mobile-active');
+        }
+    } else {
+        // Highlight category
+        const categoryBtn = document.querySelector(`.mobile-category[data-category="${categoryName}"]`);
+        if (categoryBtn) {
+            categoryBtn.classList.add('mobile-active');
+        }
+
+        // Highlight subsection
+        const subsectionBtn = document.querySelector(`.mobile-subsection[data-section="${sectionName}"][data-category="${categoryName}"]`);
+        if (subsectionBtn) {
+            subsectionBtn.classList.add('mobile-active');
+        }
     }
 }
 
@@ -1466,3 +1624,6 @@ window.showSection = showSection;
 window.togglePlan = togglePlan;
 window.exportLayouts = exportLayouts;
 window.exportSources = exportSources;
+window.toggleDropdown = toggleDropdown;
+window.handleCategoryClick = handleCategoryClick;
+window.toggleMobileCategory = toggleMobileCategory;

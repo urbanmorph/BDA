@@ -67,6 +67,17 @@
         /* Minimal custom styles only for map height */
         #layoutsMap { height: 600px; }
         .chart-container { position: relative; height: 300px; }
+
+        /* Navigation dropdown animations and states */
+        .nav-dropdown { animation: fadeIn 0.15s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .active-nav { background-color: rgb(109, 86, 57) !important; color: white !important; }
+        .active-category { background-color: rgb(139, 111, 71) !important; color: white !important; }
+        .active-subsection { background-color: rgb(212, 201, 186) !important; color: rgb(42, 31, 23) !important; }
+        .mobile-active { background-color: rgb(212, 201, 186) !important; color: rgb(42, 31, 23) !important; font-weight: 600; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -82,43 +93,72 @@
                     </div>
                 </div>
                 <nav class="hidden md:flex space-x-1">
-                    <button onclick="showSection('overview')"
+                    <!-- Overview (standalone) -->
+                    <button onclick="showSection('overview')" data-section="overview"
                             class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Overview
                     </button>
-                    <button onclick="showSection('departments')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Functional Areas
-                    </button>
-                    <button onclick="showSection('master-plan')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Master Plan
-                    </button>
-                    <button onclick="showSection('layouts')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Layouts
-                    </button>
-                    <button onclick="showSection('demographics')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Demographics
-                    </button>
-                    <button onclick="showSection('environment')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Environment
-                    </button>
-                    <button onclick="showSection('economic')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Economic
-                    </button>
-                    <button onclick="showSection('e-auction')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        E-Auction
-                    </button>
-                    <button onclick="showSection('infrastructure')"
-                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
-                        Infrastructure
-                    </button>
-                    <button onclick="showSection('sources')"
+
+                    <!-- Development (dropdown) -->
+                    <div class="nav-category-wrapper relative">
+                        <button onclick="handleCategoryClick('development', event)" data-category="development"
+                                class="nav-category px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors inline-flex items-center">
+                            Development
+                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="nav-dropdown hidden absolute top-full left-0 mt-1 bg-white border border-earth-200 rounded-lg shadow-lg py-1 min-w-[200px] z-50">
+                            <button onclick="showSection('master-plan', 'development')" data-section="master-plan" data-category="development"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Master Plan
+                            </button>
+                            <button onclick="showSection('layouts', 'development')" data-section="layouts" data-category="development"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Layouts
+                            </button>
+                            <button onclick="showSection('e-auction', 'development')" data-section="e-auction" data-category="development"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                E-Auction
+                            </button>
+                            <button onclick="showSection('departments', 'development')" data-section="departments" data-category="development"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Functional Areas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Analytics (dropdown) -->
+                    <div class="nav-category-wrapper relative">
+                        <button onclick="handleCategoryClick('analytics', event)" data-category="analytics"
+                                class="nav-category px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors inline-flex items-center">
+                            Analytics
+                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="nav-dropdown hidden absolute top-full left-0 mt-1 bg-white border border-earth-200 rounded-lg shadow-lg py-1 min-w-[200px] z-50">
+                            <button onclick="showSection('demographics', 'analytics')" data-section="demographics" data-category="analytics"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Demographics
+                            </button>
+                            <button onclick="showSection('economic', 'analytics')" data-section="economic" data-category="analytics"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Economic
+                            </button>
+                            <button onclick="showSection('infrastructure', 'analytics')" data-section="infrastructure" data-category="analytics"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Infrastructure
+                            </button>
+                            <button onclick="showSection('environment', 'analytics')" data-section="environment" data-category="analytics"
+                                    class="nav-subsection block w-full text-left px-4 py-2 text-sm text-earth-700 hover:bg-earth-50 transition-colors">
+                                Environment
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Data Sources (standalone) -->
+                    <button onclick="showSection('sources')" data-section="sources"
                             class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Data Sources
                     </button>
@@ -134,43 +174,72 @@
 
             <!-- Mobile Menu -->
             <nav id="mobileMenu" class="hidden md:hidden border-t border-earth-200 py-2">
-                <button onclick="showSection('overview')"
+                <!-- Overview (standalone) -->
+                <button onclick="showSection('overview'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="overview"
                         class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
                     Overview
                 </button>
-                <button onclick="showSection('departments')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Functional Areas
-                </button>
-                <button onclick="showSection('master-plan')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Master Plan
-                </button>
-                <button onclick="showSection('layouts')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Layouts
-                </button>
-                <button onclick="showSection('demographics')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Demographics
-                </button>
-                <button onclick="showSection('environment')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Environment
-                </button>
-                <button onclick="showSection('economic')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Economic
-                </button>
-                <button onclick="showSection('e-auction')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    E-Auction
-                </button>
-                <button onclick="showSection('infrastructure')"
-                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
-                    Infrastructure
-                </button>
-                <button onclick="showSection('sources')"
+
+                <!-- Development (accordion) -->
+                <div class="mobile-category-wrapper">
+                    <button onclick="toggleMobileCategory('development')" data-category="development"
+                            class="mobile-category block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors flex items-center justify-between">
+                        <span>Development</span>
+                        <svg class="mobile-chevron h-4 w-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="mobile-development" class="mobile-subsections hidden pl-4">
+                        <button onclick="showSection('master-plan', 'development'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="master-plan" data-category="development"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Master Plan
+                        </button>
+                        <button onclick="showSection('layouts', 'development'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="layouts" data-category="development"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Layouts
+                        </button>
+                        <button onclick="showSection('e-auction', 'development'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="e-auction" data-category="development"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            E-Auction
+                        </button>
+                        <button onclick="showSection('departments', 'development'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="departments" data-category="development"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Functional Areas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analytics (accordion) -->
+                <div class="mobile-category-wrapper">
+                    <button onclick="toggleMobileCategory('analytics')" data-category="analytics"
+                            class="mobile-category block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors flex items-center justify-between">
+                        <span>Analytics</span>
+                        <svg class="mobile-chevron h-4 w-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="mobile-analytics" class="mobile-subsections hidden pl-4">
+                        <button onclick="showSection('demographics', 'analytics'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="demographics" data-category="analytics"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Demographics
+                        </button>
+                        <button onclick="showSection('economic', 'analytics'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="economic" data-category="analytics"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Economic
+                        </button>
+                        <button onclick="showSection('infrastructure', 'analytics'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="infrastructure" data-category="analytics"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Infrastructure
+                        </button>
+                        <button onclick="showSection('environment', 'analytics'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="environment" data-category="analytics"
+                                class="mobile-subsection block w-full text-left px-4 py-2 text-sm text-earth-600 hover:bg-earth-50 rounded transition-colors">
+                            Environment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Sources (standalone) -->
+                <button onclick="showSection('sources'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="sources"
                         class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
                     Data Sources
                 </button>
@@ -184,131 +253,569 @@
 
         <!-- Overview Section -->
         <section id="overview-section" class="section-content">
-            <!-- Key Metrics -->
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-earth-800 mb-6">Overview & Key Metrics</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Metric Card 1 -->
-                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-terracotta-400 transition-colors">
-                        <p class="text-sm font-medium text-earth-600 mb-1">Approved Layouts</p>
-                        <p class="text-3xl font-bold text-earth-800">1,017</p>
-                        <p class="text-xs text-earth-500 mt-1">1972 - 2025</p>
-                    </div>
-
-                    <!-- Metric Card 2 -->
-                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-sage-400 transition-colors">
-                        <p class="text-sm font-medium text-earth-600 mb-1">Planning Area</p>
-                        <p class="text-3xl font-bold text-earth-800">8,005</p>
-                        <p class="text-xs text-earth-500 mt-1">sq km</p>
-                    </div>
-
-                    <!-- Metric Card 3 -->
-                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-terracotta-400 transition-colors">
-                        <p class="text-sm font-medium text-earth-600 mb-1">Population (2031)</p>
-                        <p class="text-3xl font-bold text-earth-800">20M</p>
-                        <p class="text-xs text-earth-500 mt-1">Projected</p>
-                    </div>
-
-                    <!-- Metric Card 4 -->
-                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-sage-400 transition-colors">
-                        <p class="text-sm font-medium text-earth-600 mb-1">Current Master Plan</p>
-                        <p class="text-3xl font-bold text-earth-800">2015</p>
-                        <p class="text-xs text-earth-500 mt-1">RMP in force</p>
+            <!-- Hero Section -->
+            <div class="bg-gradient-to-br from-earth-50 via-sage-50 to-earth-50 border-l-4 border-earth-500 rounded-lg p-8 mb-8">
+                <div class="max-w-4xl">
+                    <h1 class="text-3xl md:text-4xl font-bold text-earth-900 mb-4">Shaping Bengaluru's Urban Future</h1>
+                    <p class="text-lg text-earth-700 mb-4 leading-relaxed">
+                        The Bangalore Development Authority (BDA) is the statutory planning and development authority responsible for
+                        the orderly growth of peripheral Bengaluru. Since 1976, BDA has been instrumental in creating planned layouts,
+                        managing land acquisition, and implementing the Revised Master Plan across 582 km² of jurisdiction.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center px-3 py-1 bg-white border border-earth-300 rounded-full text-sm text-earth-700">
+                            <svg class="h-4 w-4 mr-1.5 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Statutory Authority
+                        </span>
+                        <span class="inline-flex items-center px-3 py-1 bg-white border border-earth-300 rounded-full text-sm text-earth-700">
+                            <svg class="h-4 w-4 mr-1.5 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Est. 1976
+                        </span>
+                        <span class="inline-flex items-center px-3 py-1 bg-white border border-earth-300 rounded-full text-sm text-earth-700">
+                            <svg class="h-4 w-4 mr-1.5 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            7 Departments
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <!-- Functional Areas Highlight -->
-            <div class="bg-earth-50 border border-earth-200 rounded-lg p-8">
-                <div class="flex items-start justify-between mb-6">
+            <!-- Key Impact Metrics -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-6">
                     <div>
-                        <h3 class="text-2xl font-bold text-earth-800 mb-2">BDA Functional Areas</h3>
-                        <p class="text-earth-600">Statutory responsibilities and performance assessment</p>
-                    </div>
-                    <svg class="h-12 w-12 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                    </svg>
-                </div>
-
-                <!-- Key Stats Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-white rounded-lg p-4 border border-earth-200">
-                        <p class="text-3xl font-bold text-earth-800">7</p>
-                        <p class="text-xs text-earth-600 mt-1">Departments</p>
-                    </div>
-                    <div class="bg-white rounded-lg p-4 border border-earth-200">
-                        <p class="text-3xl font-bold text-sage-700">76K</p>
-                        <p class="text-xs text-earth-600 mt-1">Sites Allotted</p>
-                    </div>
-                    <div class="bg-white rounded-lg p-4 border border-earth-200">
-                        <p class="text-3xl font-bold text-terracotta-600">18K+</p>
-                        <p class="text-xs text-earth-600 mt-1">Acres (2025)</p>
-                    </div>
-                    <div class="bg-white rounded-lg p-4 border border-earth-200">
-                        <p class="text-3xl font-bold text-earth-700">582</p>
-                        <p class="text-xs text-earth-600 mt-1">km² Jurisdiction</p>
+                        <h2 class="text-2xl font-bold text-earth-800">Scale of Operations</h2>
+                        <p class="text-sm text-earth-600 mt-1">Five decades of urban development impact</p>
                     </div>
                 </div>
-
-                <!-- Highlights -->
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <!-- Performance Highlights -->
-                    <div class="bg-white rounded-lg p-5 border border-sage-200">
-                        <h4 class="font-semibold text-sage-800 mb-3 flex items-center">
-                            <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                            </svg>
-                            Key Achievements
-                        </h4>
-                        <ul class="space-y-2 text-sm text-earth-700">
-                            <li class="flex items-start">
-                                <span class="text-sage-600 mr-2">•</span>
-                                1,017 layouts approved since 1972
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-sage-600 mr-2">•</span>
-                                76,000 residential sites allotted
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-sage-600 mr-2">•</span>
-                                18,000+ acres acquisition in 2025
-                            </li>
-                        </ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Metric Card 1 -->
+                    <div class="bg-white p-6 border-l-4 border-earth-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <p class="text-sm font-medium text-earth-600 mb-2">Approved Layouts</p>
+                                <p class="text-4xl font-bold text-earth-800">1,017</p>
+                            </div>
+                            <div class="p-3 bg-earth-100 rounded-lg">
+                                <svg class="h-6 w-6 text-earth-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-earth-500">Since 1972 | Avg 19 layouts/year</p>
+                        <div class="mt-3 pt-3 border-t border-earth-100">
+                            <p class="text-xs text-sage-600">92% Residential, 5% Industrial, 3% Commercial</p>
+                        </div>
                     </div>
 
-                    <!-- Critical Gaps -->
-                    <div class="bg-white rounded-lg p-5 border border-terracotta-200">
-                        <h4 class="font-semibold text-terracotta-800 mb-3 flex items-center">
-                            <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                            </svg>
-                            Areas for Improvement
-                        </h4>
-                        <ul class="space-y-2 text-sm text-earth-700">
-                            <li class="flex items-start">
-                                <span class="text-terracotta-600 mr-2">•</span>
-                                5-year gap in Master Plan updates
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-terracotta-600 mr-2">•</span>
-                                Declining layout approvals trend
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-terracotta-600 mr-2">•</span>
-                                Limited performance transparency
-                            </li>
-                        </ul>
+                    <!-- Metric Card 2 -->
+                    <div class="bg-white p-6 border-l-4 border-sage-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <p class="text-sm font-medium text-earth-600 mb-2">Sites Allotted</p>
+                                <p class="text-4xl font-bold text-earth-800">76K+</p>
+                            </div>
+                            <div class="p-3 bg-sage-100 rounded-lg">
+                                <svg class="h-6 w-6 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-earth-500">Residential plots distributed</p>
+                        <div class="mt-3 pt-3 border-t border-earth-100">
+                            <p class="text-xs text-sage-600">Housing 300K+ residents directly</p>
+                        </div>
+                    </div>
+
+                    <!-- Metric Card 3 -->
+                    <div class="bg-white p-6 border-l-4 border-terracotta-500 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <p class="text-sm font-medium text-earth-600 mb-2">Current Jurisdiction</p>
+                                <p class="text-4xl font-bold text-earth-800">582</p>
+                            </div>
+                            <div class="p-3 bg-terracotta-100 rounded-lg">
+                                <svg class="h-6 w-6 text-terracotta-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-earth-500">km² area (2025 restructure)</p>
+                        <div class="mt-3 pt-3 border-t border-earth-100">
+                            <p class="text-xs text-terracotta-600">Previously 1,294 km² before GBA formation</p>
+                        </div>
+                    </div>
+
+                    <!-- Metric Card 4 -->
+                    <div class="bg-white p-6 border-l-4 border-earth-400 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <p class="text-sm font-medium text-earth-600 mb-2">Planning Horizon</p>
+                                <p class="text-4xl font-bold text-earth-800">2031</p>
+                            </div>
+                            <div class="p-3 bg-earth-100 rounded-lg">
+                                <svg class="h-6 w-6 text-earth-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-earth-500">RMP 2015 in force, targeting 20M population</p>
+                        <div class="mt-3 pt-3 border-t border-earth-100">
+                            <p class="text-xs text-earth-600">Covers 8,005 km² planning area</p>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- CTA Button -->
-                <div class="flex justify-center">
-                    <button onclick="showSection('departments')"
-                            class="inline-flex items-center px-6 py-3 bg-earth-700 text-white font-medium rounded-lg hover:bg-earth-800 transition-colors">
-                        View Detailed Department Analysis
-                        <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Quick Insights Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Development Activity -->
+                <div class="bg-white border border-earth-200 rounded-lg p-6 hover:border-sage-400 transition-colors cursor-pointer" onclick="showSection('layouts', 'development')">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-earth-800">Development Activity</h3>
+                        <svg class="h-5 w-5 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">Peak Decade</span>
+                            <span class="font-semibold text-earth-800">1990s (287)</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">2020s Total</span>
+                            <span class="font-semibold text-terracotta-600">86 (-70%)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-earth-600">2025 Acquisition</span>
+                            <span class="font-semibold text-sage-700">18K acres</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demographic Pressure -->
+                <div class="bg-white border border-earth-200 rounded-lg p-6 hover:border-sage-400 transition-colors cursor-pointer" onclick="showSection('demographics', 'analytics')">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-earth-800">Demographic Pressure</h3>
+                        <svg class="h-5 w-5 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">Population 2011</span>
+                            <span class="font-semibold text-earth-800">8.5M</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">Projection 2031</span>
+                            <span class="font-semibold text-terracotta-600">20M</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-earth-600">Working Age</span>
+                            <span class="font-semibold text-sage-700">75.5%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Economic Engine -->
+                <div class="bg-white border border-earth-200 rounded-lg p-6 hover:border-sage-400 transition-colors cursor-pointer" onclick="showSection('economic', 'analytics')">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-earth-800">Economic Engine</h3>
+                        <svg class="h-5 w-5 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">Tech Workforce</span>
+                            <span class="font-semibold text-earth-800">1M+</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">India IT Share</span>
+                            <span class="font-semibold text-sage-700">34%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-earth-600">IT Employment</span>
+                            <span class="font-semibold text-earth-800">45%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infrastructure Assets -->
+                <div class="bg-white border border-earth-200 rounded-lg p-6 hover:border-sage-400 transition-colors cursor-pointer" onclick="showSection('infrastructure', 'analytics')">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-earth-800">Infrastructure</h3>
+                        <svg class="h-5 w-5 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">Metro Stations</span>
+                            <span class="font-semibold text-earth-800">85 total</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-earth-100">
+                            <span class="text-sm text-earth-600">Lakes (BDA)</span>
+                            <span class="font-semibold text-sage-700">33 managed</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-earth-600">Rivers</span>
+                            <span class="font-semibold text-earth-800">4 major</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Activity Banner -->
+            <div class="bg-gradient-to-r from-terracotta-500 to-terracotta-600 text-white rounded-lg p-6 mb-8 cursor-pointer hover:from-terracotta-600 hover:to-terracotta-700 transition-all" onclick="showSection('e-auction', 'development')">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg mr-4">
+                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-white text-opacity-90">Active Now</p>
+                            <h3 class="text-2xl font-bold mb-1">E-Auction: 83 Sites Available</h3>
+                            <p class="text-sm text-white text-opacity-90">E-Auction Notification No. 06/2025-26 | February 2026</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planning & Governance -->
+            <div class="bg-white border border-earth-200 rounded-lg overflow-hidden mb-8">
+                <div class="bg-earth-100 px-6 py-4 border-b border-earth-200">
+                    <h3 class="text-xl font-bold text-earth-800">Planning Framework & Governance</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold text-earth-700 mb-4 flex items-center">
+                                <svg class="h-5 w-5 mr-2 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                </svg>
+                                Master Plan Structure
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-earth-50 rounded border-l-3 border-l-4 border-earth-500">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-sm font-medium text-earth-800">RMP 2015 (Current)</span>
+                                        <span class="text-xs bg-sage-600 text-white px-2 py-0.5 rounded">In Force</span>
+                                    </div>
+                                    <p class="text-xs text-earth-600">47 Planning Districts | Three-ring system (Core/Intermediate/Peripheral)</p>
+                                </div>
+                                <div class="p-3 bg-amber-50 rounded border-l-3 border-l-4 border-amber-500">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-sm font-medium text-earth-800">RMP 2031 (Draft)</span>
+                                        <span class="text-xs bg-amber-600 text-white px-2 py-0.5 rounded">Withdrawn</span>
+                                    </div>
+                                    <p class="text-xs text-earth-600">42 Planning Districts | Zone-based organization</p>
+                                </div>
+                                <div class="text-xs text-earth-600 mt-3">
+                                    <p><strong>Coverage:</strong> 8,005 km² planning area for 20M population by 2031</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-earth-700 mb-4 flex items-center">
+                                <svg class="h-5 w-5 mr-2 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                Departmental Structure
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Town Planning</span>
+                                    <span class="text-earth-500">Master Plan, Zoning</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Land Acquisition</span>
+                                    <span class="text-earth-500">18K+ acres (2025)</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Allotment</span>
+                                    <span class="text-earth-500">76K+ sites allotted</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Engineering</span>
+                                    <span class="text-earth-500">Infrastructure, Roads</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Lakes & Parks</span>
+                                    <span class="text-earth-500">33 lakes managed</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Finance</span>
+                                    <span class="text-earth-500">Budgets, Revenue</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-earth-50 rounded text-xs">
+                                    <span class="text-earth-700">Estates</span>
+                                    <span class="text-earth-500">Property Management</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environmental & Social Impact -->
+            <div class="bg-white border border-earth-200 rounded-lg overflow-hidden mb-8">
+                <div class="bg-sage-600 px-6 py-4">
+                    <h3 class="text-xl font-bold text-white flex items-center">
+                        <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Environmental Stewardship & Social Impact
+                    </h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid md:grid-cols-3 gap-6 mb-6">
+                        <!-- Water Bodies -->
+                        <div class="bg-sage-50 rounded-lg p-4 border border-sage-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-semibold text-sage-800">Water Bodies</h4>
+                                <svg class="h-6 w-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                                </svg>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">BDA Lakes</span>
+                                    <span class="font-semibold text-sage-700">33</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Total in City</span>
+                                    <span class="font-semibold text-earth-800">210</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Major Rivers</span>
+                                    <span class="font-semibold text-sage-700">4</span>
+                                </div>
+                                <p class="text-xs text-earth-500 mt-2 pt-2 border-t border-sage-200">
+                                    Lake restoration, STPs, conservation projects
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Protected Areas -->
+                        <div class="bg-earth-50 rounded-lg p-4 border border-earth-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-semibold text-earth-800">Protected Areas</h4>
+                                <svg class="h-6 w-6 text-earth-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Bannerghatta ESZ</span>
+                                    <span class="font-semibold text-earth-800">169 km²</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Lalbagh</span>
+                                    <span class="font-semibold text-earth-800">96 ha</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Cubbon Park</span>
+                                    <span class="font-semibold text-earth-800">121 ha</span>
+                                </div>
+                                <p class="text-xs text-earth-500 mt-2 pt-2 border-t border-earth-200">
+                                    Multi-agency coordination framework
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Social Housing -->
+                        <div class="bg-terracotta-50 rounded-lg p-4 border border-terracotta-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-semibold text-terracotta-800">Social Impact</h4>
+                                <svg class="h-6 w-6 text-terracotta-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Direct Beneficiaries</span>
+                                    <span class="font-semibold text-terracotta-700">300K+</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Literacy Rate</span>
+                                    <span class="font-semibold text-earth-800">87.7%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-earth-600">Work Migration</span>
+                                    <span class="font-semibold text-terracotta-700">52%</span>
+                                </div>
+                                <p class="text-xs text-earth-500 mt-2 pt-2 border-t border-terracotta-200">
+                                    Planned layouts supporting urban growth
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Agency Context -->
+                    <div class="bg-earth-50 rounded-lg p-4">
+                        <h4 class="font-semibold text-earth-800 mb-3 text-sm">Coordination with Other Authorities</h4>
+                        <div class="grid md:grid-cols-4 gap-4 text-xs">
+                            <div>
+                                <p class="font-medium text-earth-700 mb-1">BBMP</p>
+                                <p class="text-earth-600">167 lakes, urban services</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-earth-700 mb-1">BWSSB</p>
+                                <p class="text-earth-600">Water supply, sewage treatment</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-earth-700 mb-1">KSPCB</p>
+                                <p class="text-earth-600">Pollution monitoring, rivers</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-earth-700 mb-1">Karnataka Forest Dept</p>
+                                <p class="text-earth-600">Protected areas, ESZ regulation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements & Challenges -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Major Achievements -->
+                <div class="bg-gradient-to-br from-sage-50 to-white border border-sage-200 rounded-lg overflow-hidden">
+                    <div class="bg-sage-600 px-6 py-4">
+                        <h3 class="text-lg font-semibold text-white flex items-center">
+                            <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Major Achievements
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">1</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Consistent Layout Development</p>
+                                    <p class="text-sm text-earth-600 mt-1">1,017 layouts approved over 53 years, creating planned residential and industrial areas</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">2</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Mass Housing Delivery</p>
+                                    <p class="text-sm text-earth-600 mt-1">76,000+ residential sites allotted, directly housing over 300,000 residents</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">3</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Active Land Banking</p>
+                                    <p class="text-sm text-earth-600 mt-1">18,000+ acres acquired in 2025 alone for future development needs</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">4</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Environmental Stewardship</p>
+                                    <p class="text-sm text-earth-600 mt-1">Managing 33 lakes with restoration and sewage treatment projects</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Critical Challenges -->
+                <div class="bg-gradient-to-br from-terracotta-50 to-white border border-terracotta-200 rounded-lg overflow-hidden">
+                    <div class="bg-terracotta-600 px-6 py-4">
+                        <h3 class="text-lg font-semibold text-white flex items-center">
+                            <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            Critical Challenges
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-terracotta-100 text-terracotta-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">1</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Outdated Master Plan</p>
+                                    <p class="text-sm text-earth-600 mt-1">RMP 2015 still in force, with RMP 2031 draft withdrawn. No update in 10 years</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-terracotta-100 text-terracotta-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">2</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Declining Layout Approvals</p>
+                                    <p class="text-sm text-earth-600 mt-1">Peak of 287 layouts in 1990s dropped to 86 in 2020s - 70% decline</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-terracotta-100 text-terracotta-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">3</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Jurisdiction Reduction</p>
+                                    <p class="text-sm text-earth-600 mt-1">2025 restructure reduced area from 1,294 km² to 582 km² with GBA formation</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-8 h-8 bg-terracotta-100 text-terracotta-700 rounded-full flex items-center justify-center font-bold text-sm mr-3">4</span>
+                                <div>
+                                    <p class="font-medium text-earth-800">Limited Performance Transparency</p>
+                                    <p class="text-sm text-earth-600 mt-1">No public performance reports or KPI dashboards for most departments</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explore Sections CTA -->
+            <div class="bg-gradient-to-r from-earth-100 via-sage-100 to-earth-100 border border-earth-300 rounded-lg p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-earth-900 mb-2">Explore the Dashboard</h3>
+                    <p class="text-earth-600">Dive deep into BDA's operations, performance, and Bengaluru's development trajectory</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <button onclick="showSection('master-plan', 'development')"
+                            class="bg-white border border-earth-300 hover:border-earth-500 hover:bg-earth-50 px-4 py-3 rounded-lg transition-all text-center">
+                        <svg class="h-8 w-8 text-earth-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                        <p class="text-sm font-medium text-earth-800">Master Plan</p>
+                    </button>
+                    <button onclick="showSection('layouts', 'development')"
+                            class="bg-white border border-earth-300 hover:border-earth-500 hover:bg-earth-50 px-4 py-3 rounded-lg transition-all text-center">
+                        <svg class="h-8 w-8 text-earth-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <p class="text-sm font-medium text-earth-800">Layouts</p>
+                    </button>
+                    <button onclick="showSection('demographics', 'analytics')"
+                            class="bg-white border border-earth-300 hover:border-earth-500 hover:bg-earth-50 px-4 py-3 rounded-lg transition-all text-center">
+                        <svg class="h-8 w-8 text-earth-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <p class="text-sm font-medium text-earth-800">Demographics</p>
+                    </button>
+                    <button onclick="showSection('departments', 'development')"
+                            class="bg-white border border-earth-300 hover:border-earth-500 hover:bg-earth-50 px-4 py-3 rounded-lg transition-all text-center">
+                        <svg class="h-8 w-8 text-earth-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        <p class="text-sm font-medium text-earth-800">Departments</p>
                     </button>
                 </div>
             </div>
