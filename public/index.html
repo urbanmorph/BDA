@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDA Dashboard | Bengaluru Development Authority</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        earth: {
+                            50: '#f8f6f3',
+                            100: '#e8e3dc',
+                            200: '#d4c9ba',
+                            300: '#bfa890',
+                            400: '#a88967',
+                            500: '#8b6f47',
+                            600: '#6d5639',
+                            700: '#564430',
+                            800: '#3d2f23',
+                            900: '#2a1f17',
+                        },
+                        sage: {
+                            50: '#f6f7f3',
+                            100: '#e8ebe3',
+                            200: '#d1d8c7',
+                            300: '#b4bfa3',
+                            400: '#97a67f',
+                            500: '#7a8c5e',
+                            600: '#5f6e49',
+                            700: '#4a543a',
+                            800: '#363d2b',
+                            900: '#252a1e',
+                        },
+                        terracotta: {
+                            50: '#fdf5f3',
+                            100: '#f9e6e0',
+                            200: '#f3ccc1',
+                            300: '#e8a692',
+                            400: '#d97d5e',
+                            500: '#c85a36',
+                            600: '#a8442a',
+                            700: '#853525',
+                            800: '#622821',
+                            900: '#451d18',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Chart.js for Visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        /* Minimal custom styles only for map height */
+        #map { height: 600px; }
+        .chart-container { position: relative; height: 300px; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-earth-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-earth-800">BDA Dashboard</h1>
+                        <p class="text-sm text-earth-600">Bengaluru Development Authority</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-1">
+                    <button onclick="showSection('overview')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                        Overview
+                    </button>
+                    <button onclick="showSection('master-plan')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                        Master Plan
+                    </button>
+                    <button onclick="showSection('layouts')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                        Layouts
+                    </button>
+                    <button onclick="showSection('demographics')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                        Demographics
+                    </button>
+                    <button onclick="showSection('environment')"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-50 rounded-lg">
+                        Environment
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Overview Section -->
+        <section id="overview-section" class="section-content">
+            <!-- Key Metrics -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-earth-800 mb-6">Overview & Key Metrics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Metric Card 1 -->
+                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-terracotta-400 transition-colors">
+                        <p class="text-sm font-medium text-earth-600 mb-1">Approved Layouts</p>
+                        <p class="text-3xl font-bold text-earth-800">1,017</p>
+                        <p class="text-xs text-earth-500 mt-1">1972 - 2025</p>
+                    </div>
+
+                    <!-- Metric Card 2 -->
+                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-sage-400 transition-colors">
+                        <p class="text-sm font-medium text-earth-600 mb-1">Planning Area</p>
+                        <p class="text-3xl font-bold text-earth-800">8,005</p>
+                        <p class="text-xs text-earth-500 mt-1">sq km</p>
+                    </div>
+
+                    <!-- Metric Card 3 -->
+                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-terracotta-400 transition-colors">
+                        <p class="text-sm font-medium text-earth-600 mb-1">Population (2031)</p>
+                        <p class="text-3xl font-bold text-earth-800">20M</p>
+                        <p class="text-xs text-earth-500 mt-1">Projected</p>
+                    </div>
+
+                    <!-- Metric Card 4 -->
+                    <div class="bg-white p-6 border border-earth-200 rounded-lg hover:border-sage-400 transition-colors">
+                        <p class="text-sm font-medium text-earth-600 mb-1">Current Master Plan</p>
+                        <p class="text-3xl font-bold text-earth-800">2015</p>
+                        <p class="text-xs text-earth-500 mt-1">RMP in force</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Layout Approvals by Decade -->
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Layout Approvals by Decade</h3>
+                    <div class="chart-container">
+                        <canvas id="decadeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Use Type Distribution -->
+                <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-earth-800 mb-4">Use Type Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="useTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Population Growth -->
+            <div class="bg-white p-6 border border-earth-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-earth-800 mb-4">Population Growth Trend</h3>
+                <div class="chart-container" style="height: 400px;">
+                    <canvas id="populationChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Master Plan Section -->
+        <section id="master-plan-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Master Plan Visualization</h2>
+                <p class="text-gray-600">Spatial planning framework for Bengaluru</p>
+            </div>
+
+            <!-- Plan Version Toggle -->
+            <div class="bg-white p-4 border border-gray-200 rounded-lg mb-6">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm font-medium text-gray-700">Plan Version:</span>
+                    <button onclick="togglePlan('2015')"
+                            id="plan-2015"
+                            class="plan-toggle px-4 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg">
+                        RMP 2015 (Current)
+                    </button>
+                    <button onclick="togglePlan('2031')"
+                            id="plan-2031"
+                            class="plan-toggle px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg">
+                        RMP 2031 (Draft)
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Map -->
+                <div class="lg:col-span-2 bg-white border border-gray-200 rounded-lg overflow-hidden">
+                    <div id="map"></div>
+                </div>
+
+                <!-- Land Use Breakdown -->
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Land Use</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">Residential</span>
+                                <span class="font-medium text-gray-900">42%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 42%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">Industrial</span>
+                                <span class="font-medium text-gray-900">12%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 12%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">Commercial</span>
+                                <span class="font-medium text-gray-900">8%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 8%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">Parks</span>
+                                <span class="font-medium text-gray-900">6%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 6%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">Water Bodies</span>
+                                <span class="font-medium text-gray-900">3%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 3%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">Other</span>
+                                <span class="font-medium text-gray-900">29%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 29%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Layouts Section -->
+        <section id="layouts-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">BDA Approved Layouts</h2>
+                <p class="text-gray-600">All approved layouts from 1972 to 2025</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="bg-white p-4 border border-gray-200 rounded-lg mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
+                        <input type="text"
+                               id="layoutSearch"
+                               placeholder="Search layouts..."
+                               class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Taluk</label>
+                        <select id="talukFilter"
+                                class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
+                            <option value="">All Taluks</option>
+                            <option value="Anekal">Anekal</option>
+                            <option value="Bangalore South">Bangalore South</option>
+                            <option value="Bangalore East">Bangalore East</option>
+                            <option value="Bangalore North">Bangalore North</option>
+                            <option value="Yalahanka">Yalahanka</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Use Type</label>
+                        <select id="useTypeFilter"
+                                class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
+                            <option value="">All Types</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Commercial">Commercial</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Year</label>
+                        <input type="number"
+                               id="yearFilter"
+                               placeholder="Year"
+                               min="1972"
+                               max="2025"
+                               class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layouts Table -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Extent</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Approval Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Use Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="layoutsTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200">
+                    <p class="text-sm text-gray-500">Showing <span id="layoutCount">0</span> layouts</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demographics Section -->
+        <section id="demographics-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Demographics & Population</h2>
+                <p class="text-gray-600">Population trends and projections</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Population (2011)</p>
+                    <p class="text-3xl font-bold text-gray-900">8.5M</p>
+                    <p class="text-xs text-gray-500 mt-1">Census 2011</p>
+                </div>
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Projected (2031)</p>
+                    <p class="text-3xl font-bold text-gray-900">20M</p>
+                    <p class="text-xs text-gray-500 mt-1">8.5% CAGR</p>
+                </div>
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Literacy Rate</p>
+                    <p class="text-3xl font-bold text-gray-900">87.7%</p>
+                    <p class="text-xs text-gray-500 mt-1">2011 Census</p>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Migration Patterns (2001)</h3>
+                    <div class="chart-container">
+                        <canvas id="migrationChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Age Distribution</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">0-14 years</span>
+                                <span class="font-medium text-gray-900">22%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 22%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">15-59 years</span>
+                                <span class="font-medium text-gray-900">69%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 69%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-700">60+ years</span>
+                                <span class="font-medium text-gray-900">9%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div class="bg-gray-900 h-2 rounded-full" style="width: 9%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Environment Section -->
+        <section id="environment-section" class="section-content hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Environmental & Sensitive Areas</h2>
+                <p class="text-gray-600">Conservation zones and environmental features</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Lakes</p>
+                    <p class="text-3xl font-bold text-gray-900">87</p>
+                </div>
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Major Rivers</p>
+                    <p class="text-3xl font-bold text-gray-900">4</p>
+                </div>
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Reservoirs</p>
+                    <p class="text-3xl font-bold text-gray-900">1</p>
+                </div>
+                <div class="bg-white p-6 border border-gray-200 rounded-lg">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Bannerghatta ESZ</p>
+                    <p class="text-3xl font-bold text-gray-900">25 km²</p>
+                </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">Major Environmental Features</h3>
+                </div>
+                <div class="divide-y divide-gray-200">
+                    <div class="px-6 py-4">
+                        <h4 class="font-medium text-gray-900 mb-1">Arkavathi River</h4>
+                        <p class="text-sm text-gray-600">Major river basin with 30m buffer zone</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <h4 class="font-medium text-gray-900 mb-1">Vrishabhavathi River</h4>
+                        <p class="text-sm text-gray-600">Primary drainage system</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <h4 class="font-medium text-gray-900 mb-1">Thippagondanahalli Reservoir</h4>
+                        <p class="text-sm text-gray-600">Historical water source, conservation zone</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <h4 class="font-medium text-gray-900 mb-1">Bannerghatta National Park ESZ</h4>
+                        <p class="text-sm text-gray-600">25 km² eco-sensitive zone with 10km buffer</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <h4 class="font-medium text-gray-900 mb-1">Lalbagh Botanical Gardens</h4>
+                        <p class="text-sm text-gray-600">96 hectares, heritage garden</p>
+                    </div>
+                    <div class="px-6 py-4">
+                        <h4 class="font-medium text-gray-900 mb-1">Cubbon Park</h4>
+                        <p class="text-sm text-gray-600">121 hectares, heritage garden</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-sm text-gray-500">
+                    © 2025 Bengaluru Development Authority Dashboard |
+                    Data Source: BDA Official Records |
+                    <a href="#" class="text-gray-700 hover:text-gray-900">Documentation</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

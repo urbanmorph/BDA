@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "source": "RMP 2031 Draft Master Plan - Environment Section",
+    "last_updated": "2025-01-28"
+  },
+  "water_bodies": {
+    "lakes": 87,
+    "rivers": [
+      {
+        "name": "Arkavathi River",
+        "type": "Primary",
+        "buffer_m": 30
+      },
+      {
+        "name": "Vrishabhavathi River",
+        "type": "Primary",
+        "buffer_m": 30
+      },
+      {
+        "name": "Kumudavathi River",
+        "type": "Primary",
+        "buffer_m": 30
+      },
+      {
+        "name": "South Pennar",
+        "type": "Primary",
+        "buffer_m": 30
+      }
+    ],
+    "reservoirs": [
+      {
+        "name": "Thippagondanahalli Reservoir",
+        "status": "Conservation Zone",
+        "historical_use": "Water source for Bengaluru (now abandoned)"
+      }
+    ]
+  },
+  "eco_sensitive_zones": [
+    {
+      "name": "Bannerghatta National Park ESZ",
+      "area_sqkm": 25,
+      "buffer_km": 10,
+      "type": "National Park"
+    }
+  ],
+  "heritage_gardens": [
+    {
+      "name": "Lalbagh Botanical Gardens",
+      "area_hectares": 96,
+      "established": 1760,
+      "features": "Rare and exotic plants, rich birdlife"
+    },
+    {
+      "name": "Cubbon Park",
+      "area_hectares": 121,
+      "established": 1870,
+      "features": "Historical garden, diverse plant species"
+    }
+  ],
+  "forests": {
+    "total_area_sqkm": 20,
+    "type": "Degraded Dry Deciduous Scrub",
+    "locations": ["Govindapura", "Kadugodi"]
+  },
+  "drainage_classification": {
+    "primary_streams": { "buffer_m": 30 },
+    "secondary_streams": { "buffer_m": 15 },
+    "tertiary_streams": { "buffer_m": 10 }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "source": "RMP 2031 Draft Master Plan",
+    "last_updated": "2025-01-28"
+  },
+  "population": {
+    "historical": [
+      { "year": 1971, "population": 1700000 },
+      { "year": 1981, "population": 2900000 },
+      { "year": 1991, "population": 4100000 },
+      { "year": 2001, "population": 5700000 },
+      { "year": 2011, "population": 8500000 }
+    ],
+    "projected": [
+      { "year": 2021, "population": 13600000 },
+      { "year": 2031, "population": 20000000 }
+    ]
+  },
+  "metrics_2011": {
+    "total_population": 8500000,
+    "density_per_sqkm": 9340,
+    "literacy_rate": 87.7,
+    "sex_ratio": 916,
+    "workforce_participation": 42.8
+  },
+  "age_distribution_2011": {
+    "0-14": 22,
+    "15-59": 69,
+    "60+": 9
+  },
+  "migration_reasons_2001": {
+    "work_employment": 35,
+    "marriage": 25,
+    "family_move": 15,
+    "education": 12,
+    "other": 13
+  }
+}

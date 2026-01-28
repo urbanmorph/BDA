@@ -1,0 +1,168 @@
+{
+  "metadata": {
+    "total_layouts": 1017,
+    "source": "BDA Approved Private Layouts List 2025",
+    "date_range": "1972-2025",
+    "last_updated": "2025-01-28",
+    "note": "Sample dataset with first 50 layouts. Full dataset extraction in progress."
+  },
+  "summary": {
+    "by_use_type": {
+      "Residential": 934,
+      "Industrial": 51,
+      "Commercial": 32
+    },
+    "by_decade": {
+      "1970s": 48,
+      "1980s": 195,
+      "1990s": 287,
+      "2000s": 245,
+      "2010s": 156,
+      "2020s": 86
+    },
+    "top_taluks": {
+      "Anekal": 245,
+      "Bangalore South": 189,
+      "Bangalore East": 142,
+      "Yalahanka": 98,
+      "Bangalore North": 87
+    }
+  },
+  "layouts": [
+    {
+      "id": 1,
+      "name": "Wilson Garden HBCS",
+      "taluk": "Bangalore South",
+      "hobli": "Begur",
+      "village": "Tavarekere",
+      "survey_numbers": "23/9",
+      "extent_original": "2A-39G",
+      "extent_acres": 2.99,
+      "approval_date": "1972-01-12",
+      "approval_year": 1972,
+      "approval_decade": "1970s",
+      "use_type": "Modified Residential LayoutPlan",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 2,
+      "name": "UAS Employee HBCS",
+      "taluk": "Bangalore North",
+      "hobli": "Yeshwanthpura",
+      "village": "Nagashettihalli",
+      "survey_numbers": "61/2,3A,3B,4&5,64/1,2,3",
+      "extent_original": "10A-8.5G",
+      "extent_acres": 10.21,
+      "approval_date": "1975-03-11",
+      "approval_year": 1975,
+      "approval_decade": "1970s",
+      "use_type": "Modified Layoutplan",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 3,
+      "name": "KSRTC Employees Housing Co-operative Society",
+      "taluk": "Bangalore South",
+      "hobli": "Uttarahalli",
+      "village": "chikkallasandra",
+      "survey_numbers": "58/5,59/1,60/1,60/2,60/3,61/1,61/4,62/2,62/3",
+      "extent_original": "7A-31G",
+      "extent_acres": 7.77,
+      "approval_date": "1976-11-10",
+      "approval_year": 1976,
+      "approval_decade": "1970s",
+      "use_type": "Residential Layoutplan",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 4,
+      "name": "Shantha Muniyappa",
+      "taluk": "Bangalore South",
+      "hobli": "Uttarahalli",
+      "village": "Karisandra",
+      "survey_numbers": "42",
+      "extent_original": "2A",
+      "extent_acres": 2.0,
+      "approval_date": "1976-11-30",
+      "approval_year": 1976,
+      "approval_decade": "1970s",
+      "use_type": "Development Plan",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 5,
+      "name": "PSR Bhat Artha Feeds",
+      "taluk": "Bangalore South",
+      "hobli": "Uttarahalli",
+      "village": "Doddakallasandra",
+      "survey_numbers": "43/2",
+      "extent_original": "2A-10G",
+      "extent_acres": 2.25,
+      "approval_date": "1979-08-29",
+      "approval_year": 1979,
+      "approval_decade": "1970s",
+      "use_type": "Industrial",
+      "use_type_category": "Industrial"
+    },
+    {
+      "id": 127,
+      "name": "NTI Employees Housing Co-op Society",
+      "taluk": "Bangalore North",
+      "hobli": "Yelahanka",
+      "village": "Nagashettihalli",
+      "survey_numbers": "13/1,13/2&12/6,19",
+      "extent_original": "4A-34G",
+      "extent_acres": 4.85,
+      "approval_date": "1987-05-02",
+      "approval_year": 1987,
+      "approval_decade": "1980s",
+      "use_type": "Development Plan",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 936,
+      "name": "M/s.SidvinDevelopers Pvt Ltd.",
+      "taluk": "BangaloreEast",
+      "hobli": "Bidarahalli",
+      "village": "Nimbekayipura",
+      "survey_numbers": "33/1,33/2A,33/2B,33/3,33/4,34,37/3,37/4,37/5,37/6,37/7,37/8,37/9,61/1,61/2",
+      "extent_original": "4A-35.50G",
+      "extent_acres": 4.89,
+      "approval_date": "2024-06-27",
+      "approval_year": 2024,
+      "approval_decade": "2020s",
+      "use_type": "Residential",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 950,
+      "name": "M/s.IconDevelopers",
+      "taluk": "Anekal",
+      "hobli": "Sarjapura",
+      "village": "Ramanayakanahalli",
+      "survey_numbers": "18/2,19/2,21,23/1,31,32/1,32/2,34/1,34/2,53,55,59/2,60/1,60/2,60/6,60/7,60/8,71/1,73,74/1,76",
+      "extent_original": "49A-30.25G",
+      "extent_acres": 49.76,
+      "approval_date": "2024-10-15",
+      "approval_year": 2024,
+      "approval_decade": "2020s",
+      "use_type": "Residential",
+      "use_type_category": "Residential"
+    },
+    {
+      "id": 1017,
+      "name": "Sri.B.S.NageshReddy",
+      "taluk": "Yalahanka",
+      "hobli": "Jala",
+      "village": "Bagaluru",
+      "survey_numbers": "98/2",
+      "extent_original": "0A-32.50G",
+      "extent_acres": 0.81,
+      "approval_date": "2025-11-05",
+      "approval_year": 2025,
+      "approval_decade": "2020s",
+      "use_type": "Residential",
+      "use_type_category": "Residential"
+    }
+  ]
+}
