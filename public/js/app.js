@@ -6,10 +6,14 @@ let layoutsData = [];
 let layoutsBoundariesData = null;
 let departmentsData = null;
 let sourcesData = null;
+let administrativeBoundariesData = null;
+let gbaCorporationData = null;
+let bdaJurisdictionData = null;
 let map; // Master Plan map
 let layoutsMap; // Layouts map
 let charts = {};
 let layoutLayers = [];
+let adminBoundaryLayers = [];
 
 // Initialize app on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDepartmentsData();
     loadSourcesData();
     loadLayoutsBoundaries();
+    loadAdministrativeBoundaries();
     initializeCharts();
     initializeMap();
     setupEventListeners();
@@ -28,12 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load JSON data
 async function loadData() {
     try {
-        const response = await fetch('data/layouts-sample.json');
+        const response = await fetch('data/layouts-all-1017.json');
         const data = await response.json();
         layoutsData = data.layouts;
         console.log(`Loaded ${layoutsData.length} layouts`);
         populateLayoutsTable(layoutsData);
         updateCharts(data);
+        populateTalukFilter(data);
     } catch (error) {
         console.error('Error loading data:', error);
     }
@@ -50,6 +56,32 @@ async function loadLayoutsBoundaries() {
         }
     } catch (error) {
         console.error('Error loading layout boundaries:', error);
+    }
+}
+
+// Load Administrative Boundaries Data
+async function loadAdministrativeBoundaries() {
+    try {
+        // Load administrative boundaries metadata
+        const adminResponse = await fetch('data/administrative-boundaries.json');
+        administrativeBoundariesData = await adminResponse.json();
+        console.log('Loaded administrative boundaries metadata');
+
+        // Load GBA corporation GeoJSON
+        const gbaResponse = await fetch('data/gba_corporation.geojson');
+        gbaCorporationData = await gbaResponse.json();
+        console.log(`Loaded ${gbaCorporationData.features.length} GBA corporations`);
+
+        // Load BDA jurisdiction GeoJSON
+        const bdaResponse = await fetch('data/bda_jurisdiction.geojson');
+        bdaJurisdictionData = await bdaResponse.json();
+        console.log('Loaded BDA jurisdiction boundary');
+
+        if (map) {
+            addAdministrativeBoundariesToMap();
+        }
+    } catch (error) {
+        console.error('Error loading administrative boundaries:', error);
     }
 }
 
@@ -106,17 +138,10 @@ function initializeMap() {
         maxZoom: 18
     }).addTo(map);
 
-    // Add BDA jurisdiction boundary (approximate - 582 km² post-GBA)
-    const bdaBounds = [
-        [12.7342, 77.3791],
-        [13.1734, 77.8746]
-    ];
-    L.rectangle(bdaBounds, {
-        color: earthColors.primary,
-        weight: 2,
-        fillOpacity: 0.05,
-        dashArray: '5, 10'
-    }).addTo(map).bindPopup('<div class="p-2"><p class="font-semibold text-sm">BDA Jurisdiction</p><p class="text-xs">582 km² (Post-GBA 2025)</p></div>');
+    // Add administrative boundaries if data is loaded
+    if (gbaCorporationData) {
+        addAdministrativeBoundariesToMap();
+    }
 
     // Initialize Layouts Map
     layoutsMap = L.map('layoutsMap').setView(bengaluruCenter, 11);
@@ -130,6 +155,103 @@ function initializeMap() {
     // Add layout boundaries if data is loaded
     if (layoutsBoundariesData) {
         addLayoutBoundariesToMap();
+    }
+}
+
+// Add Administrative Boundaries to Master Plan Map
+function addAdministrativeBoundariesToMap() {
+    if (!map) return;
+
+    // Clear existing boundary layers
+    adminBoundaryLayers.forEach(layer => map.removeLayer(layer));
+    adminBoundaryLayers = [];
+
+    // Add BDA jurisdiction boundary (outer peripheral area)
+    if (bdaJurisdictionData) {
+        const bdaLayer = L.geoJSON(bdaJurisdictionData, {
+            style: {
+                color: earthColors.primary,
+                weight: 3,
+                fillColor: earthColors.primary,
+                fillOpacity: 0.05,
+                opacity: 0.7,
+                dashArray: '10, 10'
+            },
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(`
+                    <div class="p-2">
+                        <p class="font-semibold text-sm">BDA Jurisdiction</p>
+                        <p class="text-xs text-earth-600 mt-1">Bangalore Development Authority</p>
+                        <p class="text-xs text-earth-600">Area: 582 km²</p>
+                        <p class="text-xs text-gray-500 mt-1">Peripheral areas outside GBA core</p>
+                        <p class="text-xs text-amber-600 mt-1">⚠️ Approximate boundary</p>
+                    </div>
+                `);
+            }
+        });
+        bdaLayer.addTo(map);
+        adminBoundaryLayers.push(bdaLayer);
+        console.log('Added BDA jurisdiction boundary to map');
+    }
+
+    // Add GBA corporation boundaries (core city area)
+    if (gbaCorporationData) {
+        console.log(`Adding ${gbaCorporationData.features.length} GBA corporation boundaries to map`);
+
+        // Define colors for each corporation
+        const corporationColors = {
+            'Bengaluru North City Corporation': '#3b82f6',    // blue
+            'Bengaluru West City Corporation': '#8b5cf6',     // purple
+            'Bengaluru East City Corporation': '#f59e0b',     // amber
+            'Bengaluru South City Corporation': '#10b981',    // emerald
+            'Bengaluru Central City Corporation': '#ef4444'   // red
+        };
+
+        gbaCorporationData.features.forEach(feature => {
+            const corpName = feature.properties.namecol;
+            const color = corporationColors[corpName] || '#6b7280';
+
+            // Create GeoJSON layer
+            const geoJsonLayer = L.geoJSON(feature, {
+                style: {
+                    color: color,
+                    weight: 3,
+                    fillColor: color,
+                    fillOpacity: 0.15,
+                    opacity: 0.9
+                },
+                onEachFeature: function(feature, layer) {
+                    // Add popup
+                    layer.bindPopup(`
+                        <div class="p-2">
+                            <p class="font-semibold text-sm">${corpName}</p>
+                            <p class="text-xs text-gray-600 mt-1">Greater Bengaluru Authority</p>
+                            <p class="text-xs text-gray-500 mt-1">One of 5 municipal corporations</p>
+                        </div>
+                    `);
+
+                    // Add hover effect
+                    layer.on('mouseover', function() {
+                        this.setStyle({
+                            fillOpacity: 0.3,
+                            weight: 4
+                        });
+                    });
+
+                    layer.on('mouseout', function() {
+                        this.setStyle({
+                            fillOpacity: 0.15,
+                            weight: 3
+                        });
+                    });
+                }
+            });
+
+            geoJsonLayer.addTo(map);
+            adminBoundaryLayers.push(geoJsonLayer);
+        });
+
+        console.log(`Added ${adminBoundaryLayers.length} administrative boundaries to map`);
     }
 }
 
@@ -354,6 +476,24 @@ function updateCharts(data) {
         charts.useType.data.datasets[0].data = Object.values(useTypeData);
         charts.useType.update();
     }
+}
+
+// Populate Taluk Filter
+function populateTalukFilter(data) {
+    const talukFilter = document.getElementById('talukFilter');
+    if (!talukFilter || !data.administrative_divisions) return;
+
+    // Clear existing options except "All Taluks"
+    talukFilter.innerHTML = '<option value="">All Taluks</option>';
+
+    // Add taluks from data
+    const taluks = data.administrative_divisions.taluks.filter(t => t && t !== 'Unknown' && t.trim() !== '');
+    taluks.forEach(taluk => {
+        const option = document.createElement('option');
+        option.value = taluk;
+        option.textContent = taluk;
+        talukFilter.appendChild(option);
+    });
 }
 
 // Populate Layouts Table

@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "title": "Administrative Boundaries - Bengaluru Metropolitan Area",
+    "description": "Jurisdictional boundaries of planning and development authorities in Bengaluru",
+    "last_updated": "2026-01-28",
+    "sources": [
+      {
+        "title": "GBA Corporation Boundaries",
+        "organization": "Greater Bengaluru Authority",
+        "source_location": "supporting-documents/gba_corporation.geojson",
+        "format": "GeoJSON",
+        "coverage": "5 municipal corporations",
+        "year": 2025
+      },
+      {
+        "title": "GBA Ward Boundaries - 369 Wards",
+        "organization": "Greater Bengaluru Authority",
+        "source_location": "supporting-documents/gba-369-wards-december-2025.kml",
+        "format": "KML",
+        "coverage": "369 wards across 5 corporations",
+        "date": "December 2025"
+      },
+      {
+        "title": "Greater Bengaluru Governance Act, 2024",
+        "organization": "Government of Karnataka",
+        "url": "https://prsindia.org/files/bills_acts/acts_states/karnataka/2025/Act36of2025KA.pdf",
+        "year": 2025
+      },
+      {
+        "title": "BBMP Ward Boundaries 2022 (Historical)",
+        "organization": "DataMeet / KSRSAC",
+        "url": "https://github.com/datameet/Municipal_Spatial_Data/tree/master/Bangalore",
+        "format": "GeoJSON",
+        "note": "243 wards - replaced by GBA 369 wards in 2025"
+      }
+    ],
+    "note": "GBA boundaries based on official 2025 delimitation with 5 corporations and 369 wards. BDA jurisdiction reduced from 1,294 km² to 582 km² in 2025 following GBA formation."
+  },
+  "authorities": [
+    {
+      "id": "gba",
+      "name": "Greater Bengaluru Authority (GBA)",
+      "former_name": "Bruhat Bengaluru Mahanagara Palike (BBMP)",
+      "type": "Municipal Corporation System",
+      "jurisdiction_area_km2": 712,
+      "established": "2025-05-15",
+      "description": "Greater Bengaluru comprising 5 municipal corporations. Replaced BBMP governance structure in May 2025.",
+      "corporations": 5,
+      "wards": 369,
+      "wards_history": {
+        "2022": 243,
+        "2023": 225,
+        "2025": 369
+      },
+      "corporation_names": [
+        "Bengaluru North City Corporation",
+        "Bengaluru West City Corporation",
+        "Bengaluru East City Corporation",
+        "Bengaluru South City Corporation",
+        "Bengaluru Central City Corporation"
+      ],
+      "bounds": {
+        "north": 13.1427,
+        "south": 12.8336,
+        "east": 77.7844,
+        "west": 77.4601
+      },
+      "center": [12.9745, 77.6095],
+      "boundary_type": "detailed",
+      "boundary_source": "supporting-documents/gba_corporation.geojson",
+      "wards_source": "supporting-documents/gba-369-wards-december-2025.kml",
+      "boundary_note": "GeoJSON with 5 corporation polygons. KML with 369 ward boundaries (December 2025)",
+      "website": "https://bbmp.gov.in",
+      "gis_viewer": "https://bbmp.gov.in/gisviewer/",
+      "responsibilities": [
+        "Municipal services across 5 corporations",
+        "Property tax",
+        "Water supply (with BWSSB)",
+        "Solid waste management",
+        "Storm water drains",
+        "Street lighting",
+        "Parks and playgrounds (excluding heritage gardens)",
+        "Building plan approvals (GBA area)",
+        "Lake maintenance (167 lakes)"
+      ],
+      "statutory_basis": "Greater Bengaluru Governance Act, 2024 (Act 36 of 2025)",
+      "color": "#059669",
+      "display_order": 1
+    },
+    {
+      "id": "bda",
+      "name": "Bangalore Development Authority (BDA)",
+      "type": "Planning & Development Authority",
+      "jurisdiction_area_km2": 582,
+      "established": "1976",
+      "description": "Planning authority covering peripheral areas of Bengaluru Metropolitan Area. Jurisdiction reduced from 1,294 km² to 582 km² in 2025 after GBA formation.",
+      "jurisdiction_change": {
+        "before_2025": 1294,
+        "after_2025": 582,
+        "transferred_to": "Greater Bengaluru Authority (GBA)",
+        "transferred_area_km2": 712
+      },
+      "bounds": {
+        "note": "BDA jurisdiction covers peripheral areas beyond BBMP/GBA core. Approximate extended bounds shown.",
+        "north": 13.25,
+        "south": 12.70,
+        "east": 77.90,
+        "west": 77.35
+      },
+      "center": [12.9716, 77.5946],
+      "boundary_type": "approximate",
+      "boundary_note": "Actual BDA jurisdiction boundary data not publicly available in digital format. Covers villages in Anekal, Bangalore North, Bangalore South, Bangalore East taluks outside BBMP limits.",
+      "website": "https://bda.karnataka.gov.in",
+      "responsibilities": [
+        "Master Plan preparation and revision",
+        "Layout plan approval (outside BBMP)",
+        "Development schemes",
+        "Site development and allotment",
+        "Land acquisition for development",
+        "Parks development in BDA layouts",
+        "Lake restoration (33 lakes)",
+        "Building plan approval (BDA jurisdiction)"
+      ],
+      "statutory_basis": "BDA Act 1976 (Karnataka Act 12 of 1976)",
+      "color": "#8b6f47",
+      "display_order": 2
+    },
+    {
+      "id": "bmrda",
+      "name": "Bangalore Metropolitan Region Development Authority (BMRDA)",
+      "type": "Metropolitan Planning Authority",
+      "jurisdiction_area_km2": 8005,
+      "established": "1985",
+      "description": "Metropolitan region planning authority covering Bengaluru and surrounding districts.",
+      "coverage": {
+        "districts": ["Bengaluru Urban", "Bengaluru Rural", "Ramanagara"],
+        "taluks": "Parts of Bangalore Urban, Bangalore Rural, Ramanagara, and Kolar districts"
+      },
+      "bounds": {
+        "note": "Covers entire Bengaluru Metropolitan Region extending well beyond city limits",
+        "approximate_radius_km": 50
+      },
+      "center": [12.9716, 77.5946],
+      "boundary_type": "metropolitan_region",
+      "website": "https://www.bmrda.gov.in",
+      "responsibilities": [
+        "Metropolitan Master Plan",
+        "Regional infrastructure planning",
+        "Peripheral Ring Road projects",
+        "Regional coordination",
+        "Township development approval"
+      ],
+      "color": "#dc2626",
+      "display_order": 3
+    }
+  ],
+  "jurisdiction_hierarchy": [
+    {
+      "level": 1,
+      "authority": "BMRDA",
+      "area_km2": 8005,
+      "scope": "Metropolitan Region"
+    },
+    {
+      "level": 2,
+      "authority": "BDA + GBA",
+      "area_km2": 1294,
+      "scope": "Bengaluru Metropolitan Area",
+      "note": "Combined jurisdiction (582 km² BDA + 712 km² GBA)"
+    },
+    {
+      "level": 3,
+      "authority": "GBA (former BBMP)",
+      "area_km2": 712,
+      "scope": "Core City"
+    },
+    {
+      "level": 3,
+      "authority": "BDA",
+      "area_km2": 582,
+      "scope": "Peripheral Development Areas"
+    }
+  ],
+  "planning_coordination": {
+    "master_planning": {
+      "regional": "BMRDA",
+      "metropolitan": "BDA (RMP 2015, Draft RMP 2031)",
+      "local": "GBA (for core city)"
+    },
+    "development_control": {
+      "core_city": "GBA (former BBMP)",
+      "peripheral": "BDA"
+    },
+    "land_use_regulation": {
+      "framework": "BDA Master Plan",
+      "implementation": "BDA (peripheral), GBA (core)"
+    }
+  },
+  "key_changes_2025": [
+    {
+      "change": "GBA Formation",
+      "date": "2025-05-15",
+      "impact": "BBMP reformed as Greater Bengaluru Authority with 5 municipal corporations",
+      "area_affected_km2": 712
+    },
+    {
+      "change": "BDA Jurisdiction Reduction",
+      "date": "2025",
+      "impact": "BDA jurisdiction reduced from 1,294 km² to 582 km²",
+      "transferred_area_km2": 712,
+      "transferred_to": "Greater Bengaluru Authority (GBA)"
+    },
+    {
+      "change": "Ward Delimitation",
+      "date": "December 2025",
+      "impact": "GBA wards finalized at 369 across 5 corporations",
+      "note": "Final delimitation: 369 wards (increased from 243 BBMP wards and intermediate 225 proposed wards)"
+    }
+  ],
+  "data_quality_notes": {
+    "gba_boundary": "High accuracy - official GeoJSON with 5 corporation polygons and KML with 369 ward boundaries (December 2025)",
+    "bda_boundary": "Approximate - exact digital boundary not publicly available. Covers peripheral villages in multiple taluks outside GBA core",
+    "bmrda_boundary": "Regional extent - covers 8,005 km² across multiple districts",
+    "historical_note": "BBMP 243 wards (2022) replaced by GBA 369 wards (2025)"
+  }
+}

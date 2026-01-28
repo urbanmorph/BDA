@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "name": "bda_jurisdiction",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bda_jurisdiction",
+        "name": "Bangalore Development Authority Jurisdiction",
+        "area_km2": 582,
+        "note": "Approximate boundary - covers peripheral areas outside GBA core"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.31005069894842,
+              13.292659829412775
+            ],
+            [
+              77.93436134423158,
+              13.292659829412775
+            ],
+            [
+              77.93436134423158,
+              12.683625140624416
+            ],
+            [
+              77.31005069894842,
+              12.683625140624416
+            ],
+            [
+              77.31005069894842,
+              13.292659829412775
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
