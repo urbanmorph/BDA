@@ -1682,7 +1682,7 @@
                                 Demo mode — data resets on browser clear
                             </span>
                         </div>
-                        <p class="text-sm text-earth-600 mt-1">FY 2026–27 · Resource mobilization across zones</p>
+                        <p class="text-sm text-earth-600 mt-1" id="revenueSnapshotLabel">Resource mobilization across zones</p>
                     </div>
                     <div class="flex items-center gap-2 flex-wrap">
                         <label for="revenueOfficerSwitcher" class="text-xs text-earth-600">Viewing as</label>
@@ -1809,6 +1809,7 @@
 
             <!-- Tab: Action Plan -->
             <div data-revenue-panel="action-plan" class="revenue-panel hidden">
+                <p class="text-sm text-earth-600 mb-3">Forward weekly targets from the FY 2026–27 Resource Mobilization plan. Only officers present in both the Week 26 roster and the FY 26–27 plan are listed here.</p>
                 <div class="bg-white border border-earth-200 rounded-lg overflow-x-auto">
                     <table class="text-xs">
                         <thead class="bg-earth-50">
@@ -1863,14 +1864,15 @@
                     <div class="lg:col-span-2 bg-white border border-earth-200 rounded-lg p-5">
                         <div class="flex justify-between items-start mb-3">
                             <div>
-                                <h3 class="text-base font-semibold text-earth-800">Cumulative revenue plan vs. achievement</h3>
-                                <p class="text-xs text-earth-500">Aggregated across the current filter · ₹ Cr</p>
+                                <h3 class="text-base font-semibold text-earth-800">Cumulative Target vs. Cumulative Progress</h3>
+                                <p class="text-xs text-earth-500">Aggregated across the current filter · ₹ Cr · matches BDA's per-zone tracking format</p>
                             </div>
                             <div class="text-xs text-earth-500" id="revenueTrendsAsOf">As of —</div>
                         </div>
                         <div class="chart-container" style="height: 360px">
                             <canvas id="revenueTrendsChart"></canvas>
                         </div>
+                        <p class="text-[11px] text-earth-500 mt-2 italic">Week-by-week values are interpolated between week 0 and the Week 26 snapshot endpoint; only week-end actuals are captured today. As officers log entries each week, the line will gain real data points.</p>
                     </div>
                     <div class="bg-white border border-earth-200 rounded-lg p-5">
                         <div class="flex justify-between items-center mb-3">

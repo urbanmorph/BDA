@@ -1777,6 +1777,7 @@ function officerMatches(o, f) {
 function renderRevenue() {
     const state = window.revenueStore.getState();
     if (!state) return;
+    updateSnapshotLabel(state);
     populateZoneFilter(state);
     populateOfficerSwitcher(state);
     const f = getRevenueFilter();
@@ -1793,6 +1794,17 @@ function renderRevenue() {
     const thresholdInput = document.getElementById('revenueThresholdInput');
     if (thresholdInput && document.activeElement !== thresholdInput && Number(thresholdInput.value) !== state.offTrackThreshold) {
         thresholdInput.value = state.offTrackThreshold;
+    }
+}
+
+function updateSnapshotLabel(state) {
+    const el = document.getElementById('revenueSnapshotLabel');
+    if (!el) return;
+    const s = state.snapshot;
+    if (s) {
+        el.textContent = `${s.fiscalYear} · Week ${s.weekNumber} snapshot · ${s.weekRange} · ${state.officers.length} officers across ${state.zones.filter(z => state.officers.some(o => o.zone === z)).length} zones`;
+    } else {
+        el.textContent = 'Resource mobilization across zones';
     }
 }
 
@@ -2002,6 +2014,11 @@ function renderRevenueActionPlan(officers, state) {
     const ref = state.actionPlan.find(ap => ap.weeks && ap.weeks.length);
     const weeks = ref ? ref.weeks : [];
     const isAdmin = !state.currentOfficerId;
+    // Restrict to officers that actually have a matching plan row — avoids 80+
+    // rows of empty cells when the FY 26-27 plan covers a different cohort
+    // than the Week 26 roster.
+    const planIds = new Set(state.actionPlan.map(ap => ap.officerId));
+    officers = officers.filter(o => planIds.has(o.id));
     head.innerHTML = '<th class="px-3 py-2 text-left sticky left-0 bg-earth-50 z-10 border-r border-earth-200">Officer</th>'
         + weeks.map(w => `<th class="px-3 py-2 text-right text-earth-700 whitespace-nowrap">${escapeHtml(w.week)}<div class="text-[10px] font-normal text-earth-500">${w.from || ''}</div></th>`).join('');
     const rows = officers.map(o => {
@@ -2076,32 +2093,26 @@ function refreshAddCdButton(state) {
 // --- Trends + reminders ------------------------------------------------------
 function renderRevenueTrends(officers, state) {
     const asOfEl = document.getElementById('revenueTrendsAsOf');
-    const today = new Date();
-    if (asOfEl) asOfEl.textContent = `As of ${today.toISOString().slice(0, 10)}`;
-
-    // Aggregate cumulative target plan across the filtered officer set, by week index.
-    const refPlan = state.actionPlan.find(ap => ap.weeks && ap.weeks.length);
-    const weeks = refPlan ? refPlan.weeks : [];
-    const cumTargetByWeek = new Array(weeks.length).fill(0);
-    officers.forEach(o => {
-        const plan = state.actionPlan.find(ap => ap.officerId === o.id);
-        if (!plan) return;
-        let running = 0;
-        plan.weeks.forEach((w, i) => {
-            running += Number(w.target) || 0;
-            cumTargetByWeek[i] += running;
-        });
-    });
-
-    // Current-week index = last completed week relative to today
-    let nowWeekIdx = -1;
-    for (let i = 0; i < weeks.length; i++) {
-        const ref = weeks[i].to || weeks[i].from;
-        if (ref && new Date(ref) <= today) nowWeekIdx = i;
-        else break;
+    const snap = state.snapshot;
+    if (asOfEl) {
+        asOfEl.textContent = snap
+            ? `${snap.fiscalYear} · Week ${snap.weekNumber} (${snap.weekRange})`
+            : `As of ${new Date().toISOString().slice(0, 10)}`;
     }
-    const totalAchieved = officers.reduce((a, o) => a + (o.cumulative.financial || 0), 0);
-    const achievedData = weeks.map((_, i) => i === nowWeekIdx ? totalAchieved : null);
+
+    // Build a 26-week cumulative curve from the Sorting-xlsx end values.
+    // Per-week historical actuals aren't captured anywhere, so we interpolate
+    // linearly from 0 at Week 0 to the Week-26 cumulative endpoint. The
+    // endpoints are real; the shape between is an estimate, matching the
+    // visual idiom BDA already uses in their Week 26 charts.
+    const weeksN = snap?.weekNumber || 26;
+    const labels = [];
+    for (let i = 1; i <= weeksN; i++) labels.push(`Week ${i}`);
+
+    const totalCumTarget = officers.reduce((a, o) => a + (Number(o.cumulative?.target) || 0), 0);
+    const totalAchieved = officers.reduce((a, o) => a + (Number(o.cumulative?.financial) || 0), 0);
+    const targetCurve = labels.map((_, i) => Number((totalCumTarget * (i + 1) / weeksN).toFixed(2)));
+    const achievedCurve = labels.map((_, i) => Number((totalAchieved * (i + 1) / weeksN).toFixed(2)));
 
     const ctx = document.getElementById('revenueTrendsChart');
     if (ctx) {
@@ -2109,28 +2120,29 @@ function renderRevenueTrends(officers, state) {
         charts.revenueTrends = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: weeks.map(w => w.week),
+                labels,
                 datasets: [
                     {
-                        label: 'Cumulative planned target (₹ Cr)',
-                        data: cumTargetByWeek,
+                        label: 'Cumulative Target (₹ Cr)',
+                        data: targetCurve,
+                        borderColor: earthColors.accent,
+                        backgroundColor: 'rgba(200,90,54,0.08)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        tension: 0.15,
+                        fill: false
+                    },
+                    {
+                        label: 'Cumulative Progress (₹ Cr)',
+                        data: achievedCurve,
                         borderColor: earthColors.primary,
                         backgroundColor: 'rgba(139,111,71,0.10)',
                         borderWidth: 2,
                         pointRadius: 0,
-                        tension: 0.25,
+                        pointHoverRadius: 5,
+                        tension: 0.15,
                         fill: true
-                    },
-                    {
-                        label: 'Cumulative achieved (₹ Cr)',
-                        data: achievedData,
-                        borderColor: earthColors.accent,
-                        backgroundColor: earthColors.accent,
-                        borderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8,
-                        spanGaps: false,
-                        showLine: false
                     }
                 ]
             },
@@ -2142,18 +2154,13 @@ function renderRevenueTrends(officers, state) {
                     legend: { position: 'top', labels: { color: earthColors.primary, boxWidth: 12 } },
                     tooltip: {
                         callbacks: {
-                            label: (item) => `${item.dataset.label}: ₹ ${Number(item.parsed.y).toFixed(2)} Cr`,
-                            title: (items) => {
-                                const i = items[0].dataIndex;
-                                const w = weeks[i];
-                                return w ? `${w.week}  (${w.from || ''} → ${w.to || ''})` : '';
-                            }
+                            label: (item) => `${item.dataset.label}: ₹ ${Number(item.parsed.y).toFixed(2)} Cr`
                         }
                     }
                 },
                 scales: {
                     y: { ticks: { color: earthColors.primary, callback: v => `₹${v}` }, grid: { color: earthColors.light } },
-                    x: { ticks: { color: earthColors.primary, maxRotation: 0, autoSkip: true, maxTicksLimit: 14 }, grid: { display: false } }
+                    x: { ticks: { color: earthColors.primary, maxRotation: 0, autoSkip: true, maxTicksLimit: 13 }, grid: { display: false } }
                 }
             }
         });

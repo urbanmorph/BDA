@@ -1,1230 +1,1715 @@
 {
-  "generatedAt": "2026-05-21T13:55:36.664Z",
+  "generatedAt": "2026-05-21T15:53:46.881Z",
+  "snapshot": {
+    "fiscalYear": "FY 2025–26",
+    "weekNumber": 26,
+    "weekRange": "21-Dec to 27-Dec 2025",
+    "weekEnd": "2025-12-27",
+    "source": "Sorting 26th week.xlsx + Revenue generation FY 26-27.xlsx"
+  },
   "zones": [
     "East",
     "West",
     "North",
     "South",
+    "Central",
     "Housing"
   ],
-  "sourceFile": "Revenue generation FY 26-27.xlsx",
+  "sourceFile": "Sorting 26th week.xlsx + Revenue generation FY 26-27.xlsx",
   "officers": [
     {
-      "id": "north-brchandrashekar",
-      "slNo": 1,
-      "name": "B.R.Chandrashekar",
-      "designation": "AEE-6",
-      "zone": "North",
-      "totalTargetCr": 200,
+      "id": "central-niranjankm",
+      "position": 35,
+      "name": "Niranjan K M",
+      "designation": "EE, HPD-1",
+      "zone": "Central",
+      "totalTargetCr": 599.73,
       "week": {
-        "target": 5,
-        "financial": 0,
-        "pct": 0
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 10,
-        "financial": 0,
+        "target": 503,
+        "financial": 503,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-inbavallip",
+      "position": 36,
+      "name": "Inbavalli P",
+      "designation": "AEE-1, HPD-1",
+      "zone": "Central",
+      "totalTargetCr": 249.8,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 209.51,
+        "financial": 209.51,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-bcsanjesh",
+      "position": 37,
+      "name": "B C Sanjesh",
+      "designation": "AE, HPD-1",
+      "zone": "Central",
+      "totalTargetCr": 83.27,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 69.84,
+        "financial": 69.84,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-harshitha",
+      "position": 38,
+      "name": "Harshitha",
+      "designation": "OS AE",
+      "zone": "Central",
+      "totalTargetCr": 83.27,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 69.84,
+        "financial": 69.84,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-nithyanand",
+      "position": 39,
+      "name": "Nithyanand",
+      "designation": "Marketing",
+      "zone": "Central",
+      "totalTargetCr": 83.27,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 69.84,
+        "financial": 69.84,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-rvkumaraee2",
+      "position": 40,
+      "name": "R.V. Kumar Aee-2",
+      "designation": "HPD-1 incharge",
+      "zone": "Central",
+      "totalTargetCr": 29.946,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 25.116,
+        "financial": 25.116,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-shalini",
+      "position": 41,
+      "name": "Shalini",
+      "designation": "AE",
+      "zone": "Central",
+      "totalTargetCr": 14.97,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 12.56,
+        "financial": 12.56,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-kiran",
+      "position": 42,
+      "name": "Kiran",
+      "designation": "OS AE",
+      "zone": "Central",
+      "totalTargetCr": 14.97,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 12.56,
+        "financial": 12.56,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-rvkumar",
+      "position": 43,
+      "name": "R.V. Kumar",
+      "designation": "AEE-3, HPD-1",
+      "zone": "Central",
+      "totalTargetCr": 319.92,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 268.32,
+        "financial": 268.32,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-shalini",
+      "position": 44,
+      "name": "Shalini",
+      "designation": "AE",
+      "zone": "Central",
+      "totalTargetCr": 106.64,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 89.44,
+        "financial": 89.44,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-niranjans",
+      "position": 45,
+      "name": "Niranjan S",
+      "designation": "OS AE",
+      "zone": "Central",
+      "totalTargetCr": 106.64,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 89.44,
+        "financial": 89.44,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-nithyanand",
+      "position": 46,
+      "name": "Nithyanand",
+      "designation": "Marketing",
+      "zone": "Central",
+      "totalTargetCr": 106.64,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 89.44,
+        "financial": 89.44,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-basawaraj",
+      "position": 47,
+      "name": "Basawaraj",
+      "designation": "EE, HPD-2",
+      "zone": "Central",
+      "totalTargetCr": 399.9,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 335.4,
+        "financial": 335.4,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-jkbhuvaneshwar",
+      "position": 48,
+      "name": "J K Bhuvaneshwar",
+      "designation": "AEE-4, HPD-2",
+      "zone": "Central",
+      "totalTargetCr": 399.9,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 335.4,
+        "financial": 335.4,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-bcsanjesh",
+      "position": 49,
+      "name": "B C Sanjesh",
+      "designation": "AE, HPD-2",
+      "zone": "Central",
+      "totalTargetCr": 99.98,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 83.85,
+        "financial": 83.85,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-vinayakjigalur",
+      "position": 50,
+      "name": "Vinayak Jigalur",
+      "designation": "OS AE",
+      "zone": "Central",
+      "totalTargetCr": 99.98,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 83.85,
+        "financial": 83.85,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-deepashree",
+      "position": 51,
+      "name": "Deepashree",
+      "designation": "OS AE",
+      "zone": "Central",
+      "totalTargetCr": 99.98,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 83.85,
+        "financial": 83.85,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-sanjay",
+      "position": 52,
+      "name": "Sanjay",
+      "designation": "Marketing",
+      "zone": "Central",
+      "totalTargetCr": 99.98,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 83.85,
+        "financial": 83.85,
+        "pct": 100
+      },
+      "totalPct": 83.87
+    },
+    {
+      "id": "central-drhrshantharajannaemandlakshmiganeshsp",
+      "position": 53,
+      "name": "Dr. H.R Shantharajanna, EM and Lakshmi Ganesh, SP",
+      "designation": "EM",
+      "zone": "Central",
+      "totalTargetCr": 1000,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 806.68,
+        "financial": 814.84,
+        "pct": 101.01
+      },
+      "totalPct": 81.48
+    },
+    {
+      "id": "central-mallikarjunswamy",
+      "position": 54,
+      "name": "Mallikarjun Swamy",
+      "designation": "EO-3(HOUSING)",
+      "zone": "Central",
+      "totalTargetCr": 1000,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 838.5,
+        "financial": 806.25,
+        "pct": 96.15
+      },
+      "totalPct": 80.63
+    },
+    {
+      "id": "east-pavan",
+      "position": 26,
+      "name": "Pavan",
+      "designation": "RO",
+      "zone": "East",
+      "totalTargetCr": 9.92,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 9.1,
+        "financial": 9.32,
+        "pct": 102.42
+      },
+      "totalPct": 93.95
+    },
+    {
+      "id": "east-dkrishnanaik",
+      "position": 56,
+      "name": "D Krishna Naik",
+      "designation": "AE",
+      "zone": "East",
+      "totalTargetCr": 1278.1,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 970.743,
+        "financial": 973.44,
+        "pct": 100.28
+      },
+      "totalPct": 76.16
+    },
+    {
+      "id": "east-laudayshankar",
+      "position": 57,
+      "name": "L A Uday Shankar",
+      "designation": "AEE",
+      "zone": "East",
+      "totalTargetCr": 1278.1,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 970.743,
+        "financial": 972.8,
+        "pct": 100.21
+      },
+      "totalPct": 76.11
+    },
+    {
+      "id": "east-satishkumars",
+      "position": 60,
+      "name": "Satish Kumar S",
+      "designation": "EO-5",
+      "zone": "East",
+      "totalTargetCr": 3138,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 2209.716,
+        "financial": 2171.3,
+        "pct": 98.26
+      },
+      "totalPct": 69.19
+    },
+    {
+      "id": "east-prakashk",
+      "position": 61,
+      "name": "Prakash K",
+      "designation": "EE",
+      "zone": "East",
+      "totalTargetCr": 3138,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 2209.716,
+        "financial": 2171.3,
+        "pct": 98.26
+      },
+      "totalPct": 69.19
+    },
+    {
+      "id": "east-umesh",
+      "position": 66,
+      "name": "Sri Umesh",
+      "designation": "ZO",
+      "zone": "East",
+      "totalTargetCr": 4021,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 2353.83,
+        "financial": 2171.3,
+        "pct": 92.25
+      },
+      "totalPct": 54
+    },
+    {
+      "id": "east-tshivanna",
+      "position": 67,
+      "name": "T Shivanna",
+      "designation": "AEE",
+      "zone": "East",
+      "totalTargetCr": 112.61,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 57.11,
+        "financial": 55.12,
+        "pct": 96.52
+      },
+      "totalPct": 48.95
+    },
+    {
+      "id": "east-laxmipatinadagouda",
+      "position": 68,
+      "name": "Laxmipati Nadagouda",
+      "designation": "AE",
+      "zone": "East",
+      "totalTargetCr": 112.61,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 57.11,
+        "financial": 54.04,
+        "pct": 94.62
+      },
+      "totalPct": 47.99
+    },
+    {
+      "id": "east-dimple",
+      "position": 71,
+      "name": "Dimple",
+      "designation": "AE\r\n(OS)",
+      "zone": "East",
+      "totalTargetCr": 118.75,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 51.32,
+        "financial": 38.97,
+        "pct": 75.94
+      },
+      "totalPct": 32.82
+    },
+    {
+      "id": "east-pgkavitha",
+      "position": 72,
+      "name": "P G Kavitha",
+      "designation": "AEE",
+      "zone": "East",
+      "totalTargetCr": 119.67,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 51.37,
+        "financial": 38.97,
+        "pct": 75.86
+      },
+      "totalPct": 32.56
+    },
+    {
+      "id": "east-lakshmipathinadagouda",
+      "position": 73,
+      "name": "Lakshmipathi Nadagouda",
+      "designation": "JE",
+      "zone": "East",
+      "totalTargetCr": 118.17,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 51.32,
+        "financial": 37.96,
+        "pct": 73.97
+      },
+      "totalPct": 32.12
+    },
+    {
+      "id": "east-anjaneyalu",
+      "position": 74,
+      "name": "Anjaneyalu",
+      "designation": "Legal",
+      "zone": "East",
+      "totalTargetCr": 300,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 100,
+        "financial": null,
         "pct": 0
       },
       "totalPct": 0
     },
     {
-      "id": "north-roopalakshmikn",
-      "slNo": 2,
-      "name": "Roopalakshmi K N",
+      "id": "east-dcla",
+      "position": 75,
+      "name": "DC (LA)",
+      "designation": "AC (R&R)",
+      "zone": "East",
+      "totalTargetCr": 250,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 0,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "east-dcla",
+      "position": 76,
+      "name": "DC (LA)",
+      "designation": "DC (LA)",
+      "zone": "East",
+      "totalTargetCr": 100,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 25,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "east-casection",
+      "position": 77,
+      "name": "CA Section",
+      "designation": "Estate Officer",
+      "zone": "East",
+      "totalTargetCr": 23.1,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 10,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "north-roopalakshmi",
+      "position": 1,
+      "name": "Roopalakshmi",
       "designation": "AE",
       "zone": "North",
-      "totalTargetCr": 200,
+      "totalTargetCr": 106,
       "week": {
-        "target": 5,
-        "financial": 0,
-        "pct": 0
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 10,
-        "financial": 0,
-        "pct": 0
+        "target": 104.25,
+        "financial": 137.32,
+        "pct": 131.72
       },
-      "totalPct": 0
+      "totalPct": 129.55
     },
     {
-      "id": "north-ramyashreear",
-      "slNo": 3,
-      "name": "Ramyashree A R",
-      "designation": "AEE-7",
+      "id": "north-preetham",
+      "position": 2,
+      "name": "Preetham",
+      "designation": "AE-O",
       "zone": "North",
-      "totalTargetCr": 200,
+      "totalTargetCr": 106,
       "week": {
-        "target": 5,
-        "financial": 3.5,
-        "pct": 70
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 10,
-        "financial": 3.5,
-        "pct": 35
+        "target": 104.25,
+        "financial": 137.32,
+        "pct": 131.72
       },
-      "totalPct": 70
+      "totalPct": 129.55
+    },
+    {
+      "id": "north-chandashekhar",
+      "position": 3,
+      "name": "Chandashekhar",
+      "designation": "AEE-5",
+      "zone": "North",
+      "totalTargetCr": 213,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 208.5,
+        "financial": 274.64,
+        "pct": 131.72
+      },
+      "totalPct": 128.94
     },
     {
       "id": "north-raghavendra",
-      "slNo": 4,
+      "position": 4,
       "name": "Raghavendra",
-      "designation": "AE (o)",
+      "designation": "AE-O",
       "zone": "North",
-      "totalTargetCr": 150,
+      "totalTargetCr": 70,
       "week": {
-        "target": 3.5,
-        "financial": 2.5,
-        "pct": 71.42857143
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 7,
-        "financial": 2.5,
-        "pct": 35.71428571
+        "target": 65,
+        "financial": 88.33,
+        "pct": 135.89
       },
-      "totalPct": 71.42857143
+      "totalPct": 126.19
     },
     {
       "id": "north-kajol",
-      "slNo": 5,
+      "position": 5,
       "name": "Kajol",
-      "designation": "AE (o)",
+      "designation": "AE-O",
       "zone": "North",
-      "totalTargetCr": 50,
+      "totalTargetCr": 70,
       "week": {
-        "target": 1.5,
-        "financial": 1,
-        "pct": 66.66666667
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 3,
-        "financial": 1,
-        "pct": 33.33333333
+        "target": 65,
+        "financial": 88.33,
+        "pct": 135.89
       },
-      "totalPct": 66.66666667
+      "totalPct": 126.19
     },
     {
-      "id": "north-svvasudevmurthy",
-      "slNo": 6,
-      "name": "S V Vasudevmurthy",
-      "designation": "AEE-8",
+      "id": "north-vasudevamurthy",
+      "position": 6,
+      "name": "Vasudevamurthy",
+      "designation": "AEE-6",
       "zone": "North",
-      "totalTargetCr": 200,
+      "totalTargetCr": 152,
       "week": {
-        "target": 5,
-        "financial": 2.5,
-        "pct": 50
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 10,
-        "financial": 2.5,
-        "pct": 25
+        "target": 147,
+        "financial": 175.36,
+        "pct": 119.29
       },
-      "totalPct": 50
+      "totalPct": 115.37
+    },
+    {
+      "id": "north-roopalakshmi",
+      "position": 7,
+      "name": "Roopalakshmi",
+      "designation": "AE",
+      "zone": "North",
+      "totalTargetCr": 76,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 73.5,
+        "financial": 87.675,
+        "pct": 119.29
+      },
+      "totalPct": 115.36
     },
     {
       "id": "north-fardeenhussain",
-      "slNo": 7,
+      "position": 8,
       "name": "Fardeen Hussain",
-      "designation": "AE (o)",
+      "designation": "AE-O",
       "zone": "North",
-      "totalTargetCr": 200,
-      "week": {
-        "target": 5,
-        "financial": 2.5,
-        "pct": 50
-      },
-      "cumulative": {
-        "target": 10,
-        "financial": 2.5,
-        "pct": 25
-      },
-      "totalPct": 50
-    },
-    {
-      "id": "north-bjayaramaiah",
-      "slNo": 8,
-      "name": "B Jayaramaiah",
-      "designation": "AEE-9",
-      "zone": "North",
-      "totalTargetCr": 400,
-      "week": {
-        "target": 10,
-        "financial": 30,
-        "pct": 300
-      },
-      "cumulative": {
-        "target": 20,
-        "financial": 30,
-        "pct": 150
-      },
-      "totalPct": 300
-    },
-    {
-      "id": "north-madhankumars",
-      "slNo": 9,
-      "name": "Madhan Kumar S",
-      "designation": "AE (o)",
-      "zone": "North",
-      "totalTargetCr": 400,
-      "week": {
-        "target": 10,
-        "financial": 30,
-        "pct": 300
-      },
-      "cumulative": {
-        "target": 20,
-        "financial": 30,
-        "pct": 150
-      },
-      "totalPct": 300
-    },
-    {
-      "id": "west-nikhitachinnaswamy",
-      "slNo": 1,
-      "name": "Nikhita Chinnaswamy",
-      "designation": "Zonal Commissioner",
-      "zone": "West",
-      "totalTargetCr": 1670,
+      "totalTargetCr": 76,
       "week": {
         "target": null,
         "financial": null,
         "pct": null
       },
       "cumulative": {
+        "target": 73.5,
+        "financial": 87.675,
+        "pct": 119.29
+      },
+      "totalPct": 115.36
+    },
+    {
+      "id": "north-sushmas",
+      "position": 9,
+      "name": "Sushma S",
+      "designation": "EO-2",
+      "zone": "North",
+      "totalTargetCr": 1472,
+      "week": {
         "target": null,
         "financial": null,
         "pct": null
       },
-      "totalPct": null
+      "cumulative": {
+        "target": 1422.5,
+        "financial": 1628.74,
+        "pct": 114.5
+      },
+      "totalPct": 110.65
     },
     {
-      "id": "west-ashokbhagi",
-      "slNo": 2,
-      "name": "Ashok Bhagi",
+      "id": "north-renukapatel",
+      "position": 10,
+      "name": "Renuka Patel",
       "designation": "EE",
-      "zone": "West",
-      "totalTargetCr": 500,
+      "zone": "North",
+      "totalTargetCr": 1472,
       "week": {
-        "target": 12.82,
-        "financial": 8.5,
-        "pct": 66.30265211
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 25.64,
-        "financial": 8.5,
-        "pct": 33.15132605
+        "target": 1422.5,
+        "financial": 1628.74,
+        "pct": 114.5
       },
-      "totalPct": 1.7
+      "totalPct": 110.65
     },
     {
-      "id": "west-varunkumarmj",
-      "slNo": 3,
-      "name": "Varun Kumar M J",
-      "designation": "AEE-1",
-      "zone": "West",
+      "id": "north-ramyashree",
+      "position": 13,
+      "name": "Ramyashree",
+      "designation": "AEE-3",
+      "zone": "North",
+      "totalTargetCr": 351,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 350,
+        "financial": 366.23,
+        "pct": 104.64
+      },
+      "totalPct": 104.34
+    },
+    {
+      "id": "north-jayaram",
+      "position": 14,
+      "name": "Jayaram",
+      "designation": "AEE-4",
+      "zone": "North",
+      "totalTargetCr": 616,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 587,
+        "financial": 635.85,
+        "pct": 108.32
+      },
+      "totalPct": 103.22
+    },
+    {
+      "id": "north-madankumar",
+      "position": 15,
+      "name": "Madan Kumar",
+      "designation": "AE-O",
+      "zone": "North",
+      "totalTargetCr": 616,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 587,
+        "financial": 635.85,
+        "pct": 108.32
+      },
+      "totalPct": 103.22
+    },
+    {
+      "id": "north-shivaprasad",
+      "position": 29,
+      "name": "Shivaprasad",
+      "designation": "RO-North",
+      "zone": "North",
+      "totalTargetCr": 8,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 7,
+        "financial": 7.29,
+        "pct": 104.14
+      },
+      "totalPct": 91.13
+    },
+    {
+      "id": "north-mamathakumari",
+      "position": 65,
+      "name": "Smt MamathaKumari",
+      "designation": "ZO",
+      "zone": "North",
+      "totalTargetCr": 3000,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 1429.5,
+        "financial": 1636.03,
+        "pct": 114.45
+      },
+      "totalPct": 54.53
+    },
+    {
+      "id": "north-legalofficernorth",
+      "position": 79,
+      "name": "Legal Officer-North",
+      "designation": "Legal Officer -\r\nNorth",
+      "zone": "North",
       "totalTargetCr": 250,
       "week": {
-        "target": 6.42,
-        "financial": 7.35,
-        "pct": 114.4859813
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 12.84,
-        "financial": 7.35,
-        "pct": 57.24299065
-      },
-      "totalPct": 2.94
-    },
-    {
-      "id": "west-kirank",
-      "slNo": 4,
-      "name": "Kiran K",
-      "designation": "AE (O/s)",
-      "zone": "West",
-      "totalTargetCr": 125,
-      "week": {
-        "target": 3.21,
-        "financial": 3.675,
-        "pct": 114.4859813
-      },
-      "cumulative": {
-        "target": 6.42,
-        "financial": 3.675,
-        "pct": 57.24299065
-      },
-      "totalPct": 2.94
-    },
-    {
-      "id": "west-nandinigs",
-      "slNo": 5,
-      "name": "Nandini G S",
-      "designation": "AE (O/s)",
-      "zone": "West",
-      "totalTargetCr": 125,
-      "week": {
-        "target": 3.21,
-        "financial": 3.675,
-        "pct": 114.4859813
-      },
-      "cumulative": {
-        "target": 6.42,
-        "financial": 3.675,
-        "pct": 57.24299065
-      },
-      "totalPct": 2.94
-    },
-    {
-      "id": "west-jayarajuks",
-      "slNo": 6,
-      "name": "Jayaraju K S",
-      "designation": "AEE-2",
-      "zone": "West",
-      "totalTargetCr": 50,
-      "week": {
-        "target": 1.28,
-        "financial": 1.15,
-        "pct": 89.84375
-      },
-      "cumulative": {
-        "target": 2.56,
-        "financial": 1.15,
-        "pct": 44.921875
-      },
-      "totalPct": 2.3
-    },
-    {
-      "id": "west-sowndaryams",
-      "slNo": 7,
-      "name": "Sowndarya M S",
-      "designation": "AE (O/s)",
-      "zone": "West",
-      "totalTargetCr": 25,
-      "week": {
-        "target": 0.64,
-        "financial": 0.575,
-        "pct": 89.84375
-      },
-      "cumulative": {
-        "target": 1.28,
-        "financial": 0.575,
-        "pct": 44.921875
-      },
-      "totalPct": 2.3
-    },
-    {
-      "id": "west-neerajr",
-      "slNo": 8,
-      "name": "Neeraj R",
-      "designation": "AE (O/s)",
-      "zone": "West",
-      "totalTargetCr": 25,
-      "week": {
-        "target": 0.64,
-        "financial": 0.575,
-        "pct": 89.84375
-      },
-      "cumulative": {
-        "target": 1.28,
-        "financial": 0.575,
-        "pct": 44.921875
-      },
-      "totalPct": 2.3
-    },
-    {
-      "id": "west-parashuramappabh",
-      "slNo": 9,
-      "name": "Parashuramappa B H",
-      "designation": "AEE-3",
-      "zone": "West",
-      "totalTargetCr": 200,
-      "week": {
-        "target": 5.12,
-        "financial": 0,
-        "pct": 0
-      },
-      "cumulative": {
-        "target": 10.24,
+        "target": 0,
         "financial": 0,
         "pct": 0
       },
       "totalPct": 0
     },
     {
-      "id": "west-ishwaramma",
-      "slNo": 10,
-      "name": "Ishwaramma",
+      "id": "north-all6slaos",
+      "position": 80,
+      "name": "All 6 SLAOs",
+      "designation": "SLAO",
+      "zone": "North",
+      "totalTargetCr": 550,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 0,
+        "financial": 0,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "north-srinivasmurthy",
+      "position": 81,
+      "name": "Srinivasmurthy",
+      "designation": "CAO",
+      "zone": "North",
+      "totalTargetCr": 720,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 0,
+        "financial": 0,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "south-sandeep",
+      "position": 11,
+      "name": "Sandeep",
       "designation": "AE",
-      "zone": "West",
-      "totalTargetCr": 50,
+      "zone": "South",
+      "totalTargetCr": 570,
       "week": {
-        "target": 1.28,
-        "financial": 0,
-        "pct": 0
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 2.56,
-        "financial": 0,
+        "target": 523,
+        "financial": 620.58,
+        "pct": 118.66
+      },
+      "totalPct": 108.87
+    },
+    {
+      "id": "south-chandregowda",
+      "position": 12,
+      "name": "Chandregowda",
+      "designation": "AEE",
+      "zone": "South",
+      "totalTargetCr": 850,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 775,
+        "financial": 891.52,
+        "pct": 115.03
+      },
+      "totalPct": 104.88
+    },
+    {
+      "id": "south-keshavpatil",
+      "position": 18,
+      "name": "Keshav Patil",
+      "designation": "AE",
+      "zone": "South",
+      "totalTargetCr": 148,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 132,
+        "financial": 147.88,
+        "pct": 112.03
+      },
+      "totalPct": 99.92
+    },
+    {
+      "id": "south-maheshaee",
+      "position": 19,
+      "name": "Mahesh - AEE",
+      "designation": "AEE",
+      "zone": "South",
+      "totalTargetCr": 340,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 300,
+        "financial": 337.15,
+        "pct": 112.38
+      },
+      "totalPct": 99.16
+    },
+    {
+      "id": "south-sudarshan",
+      "position": 20,
+      "name": "Sudarshan",
+      "designation": "AE (OUT SOURCE)",
+      "zone": "South",
+      "totalTargetCr": 97,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 85,
+        "financial": 96.03,
+        "pct": 112.98
+      },
+      "totalPct": 99
+    },
+    {
+      "id": "south-mallikarjunswamy",
+      "position": 21,
+      "name": "Mallikarjun swamy",
+      "designation": "EO-3",
+      "zone": "South",
+      "totalTargetCr": 1900,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 1685,
+        "financial": 1869.09,
+        "pct": 110.93
+      },
+      "totalPct": 98.37
+    },
+    {
+      "id": "south-krishna",
+      "position": 22,
+      "name": "Krishna",
+      "designation": "EE",
+      "zone": "South",
+      "totalTargetCr": 1900,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 1685,
+        "financial": 1869.09,
+        "pct": 110.93
+      },
+      "totalPct": 98.37
+    },
+    {
+      "id": "south-likithgowda",
+      "position": 23,
+      "name": "Likithgowda",
+      "designation": "AE (OUT SOURCE)",
+      "zone": "South",
+      "totalTargetCr": 95,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 83,
+        "financial": 93.24,
+        "pct": 112.34
+      },
+      "totalPct": 98.15
+    },
+    {
+      "id": "south-tejakumari",
+      "position": 24,
+      "name": "Tejakumari",
+      "designation": "Revenue Officer (South)",
+      "zone": "South",
+      "totalTargetCr": 26,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 24.4,
+        "financial": 25.4,
+        "pct": 104.1
+      },
+      "totalPct": 97.69
+    },
+    {
+      "id": "south-shivashankar",
+      "position": 25,
+      "name": "Shivashankar",
+      "designation": "AE (OUT SOURCE)",
+      "zone": "South",
+      "totalTargetCr": 280,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 252,
+        "financial": 270.94,
+        "pct": 107.52
+      },
+      "totalPct": 96.76
+    },
+    {
+      "id": "south-vaibhav",
+      "position": 27,
+      "name": "Vaibhav",
+      "designation": "AE (OUT SOURCE)",
+      "zone": "South",
+      "totalTargetCr": 178,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 158,
+        "financial": 165.38,
+        "pct": 104.67
+      },
+      "totalPct": 92.91
+    },
+    {
+      "id": "south-vivek",
+      "position": 28,
+      "name": "Vivek",
+      "designation": "AE (OUT SOURCE)",
+      "zone": "South",
+      "totalTargetCr": 178,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 158,
+        "financial": 163,
+        "pct": 103.16
+      },
+      "totalPct": 91.57
+    },
+    {
+      "id": "south-sharathaee",
+      "position": 30,
+      "name": "Sharath - AEE",
+      "designation": "AEE",
+      "zone": "South",
+      "totalTargetCr": 710,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 610,
+        "financial": 640.42,
+        "pct": 104.99
+      },
+      "totalPct": 90.2
+    },
+    {
+      "id": "south-dhanraj",
+      "position": 34,
+      "name": "Dhanraj",
+      "designation": "AE",
+      "zone": "South",
+      "totalTargetCr": 354,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 294,
+        "financial": 311.9,
+        "pct": 106.09
+      },
+      "totalPct": 88.11
+    },
+    {
+      "id": "south-praveenkn",
+      "position": 55,
+      "name": "Sri Praveen K.N.",
+      "designation": "ZO",
+      "zone": "South",
+      "totalTargetCr": 2350,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 1754,
+        "financial": 1890.08,
+        "pct": 107.76
+      },
+      "totalPct": 80.43
+    },
+    {
+      "id": "south-hanumanthareddy",
+      "position": 82,
+      "name": "Hanumantha Reddy",
+      "designation": "Joint Director",
+      "zone": "South",
+      "totalTargetCr": 24,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 4.6,
+        "financial": null,
         "pct": 0
       },
       "totalPct": 0
     },
     {
-      "id": "west-rajashankark",
-      "slNo": 11,
-      "name": "Rajashankar k",
-      "designation": "AE",
-      "zone": "West",
-      "totalTargetCr": 50,
+      "id": "south-mariyappa",
+      "position": 83,
+      "name": "Mariyappa",
+      "designation": "Estate officer (Caseworker)",
+      "zone": "South",
+      "totalTargetCr": 150,
       "week": {
-        "target": 1.28,
-        "financial": 0,
-        "pct": 0
+        "target": null,
+        "financial": null,
+        "pct": null
       },
       "cumulative": {
-        "target": 2.56,
-        "financial": 0,
+        "target": 20,
+        "financial": null,
         "pct": 0
       },
       "totalPct": 0
+    },
+    {
+      "id": "south-manjunathdombar",
+      "position": 84,
+      "name": "Manjunath Dombar",
+      "designation": "SLAO",
+      "zone": "South",
+      "totalTargetCr": 100,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 0,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "south-anantharju",
+      "position": 85,
+      "name": "Anantharju",
+      "designation": "S-1",
+      "zone": "South",
+      "totalTargetCr": 30,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 4,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "south-venkatesh",
+      "position": 86,
+      "name": "Venkatesh",
+      "designation": "S-2",
+      "zone": "South",
+      "totalTargetCr": 30,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 4,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "south-abhinandan",
+      "position": 87,
+      "name": "Abhinandan",
+      "designation": "S-3",
+      "zone": "South",
+      "totalTargetCr": 30,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 4,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "south-ashok",
+      "position": 88,
+      "name": "Ashok",
+      "designation": "S-2",
+      "zone": "South",
+      "totalTargetCr": 30,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 4,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "south-rangaswamy",
+      "position": 89,
+      "name": "Rangaswamy",
+      "designation": "S-3",
+      "zone": "South",
+      "totalTargetCr": 30,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 4,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
+    },
+    {
+      "id": "west-dushyanthrajananda",
+      "position": 16,
+      "name": "Dushyanth Rajananda",
+      "designation": "AEE-3 WEST",
+      "zone": "West",
+      "totalTargetCr": 557.5,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 384.21,
+        "financial": 565.97,
+        "pct": 147.31
+      },
+      "totalPct": 101.52
     },
     {
       "id": "west-sumanthdk",
-      "slNo": 12,
+      "position": 17,
       "name": "Sumanth D K",
-      "designation": "AE (O/s)",
+      "designation": "AE-O WEST",
       "zone": "West",
-      "totalTargetCr": 50,
-      "week": {
-        "target": 1.28,
-        "financial": 0,
-        "pct": 0
-      },
-      "cumulative": {
-        "target": 2.56,
-        "financial": 0,
-        "pct": 0
-      },
-      "totalPct": 0
-    },
-    {
-      "id": "west-rohangowdaks",
-      "slNo": 13,
-      "name": "Rohan Gowda K S",
-      "designation": "AE (O/s)",
-      "zone": "West",
-      "totalTargetCr": 50,
-      "week": {
-        "target": 1.28,
-        "financial": 0,
-        "pct": 0
-      },
-      "cumulative": {
-        "target": 2.56,
-        "financial": 0,
-        "pct": 0
-      },
-      "totalPct": 0
-    },
-    {
-      "id": "west-rajuhv",
-      "slNo": 14,
-      "name": "Raju H V",
-      "designation": "AEE-4",
-      "zone": "West",
-      "totalTargetCr": 0,
-      "week": {
-        "target": 0,
-        "financial": 0,
-        "pct": 0
-      },
-      "cumulative": {
-        "target": 0,
-        "financial": 0,
-        "pct": 0
-      },
-      "totalPct": 0
-    },
-    {
-      "id": "west-neerajr",
-      "slNo": 15,
-      "name": "Neeraj R",
-      "designation": "AE (O/s)",
-      "zone": "West",
-      "totalTargetCr": 0,
-      "week": {
-        "target": 0,
-        "financial": 0,
-        "pct": 0
-      },
-      "cumulative": {
-        "target": 0,
-        "financial": 0,
-        "pct": 0
-      },
-      "totalPct": 0
-    },
-    {
-      "id": "west-parashuramappa",
-      "slNo": null,
-      "name": "Parashuramappa",
-      "designation": "AEE-3",
-      "zone": "West",
-      "totalTargetCr": 200,
+      "totalTargetCr": 557.5,
       "week": {
         "target": null,
         "financial": null,
         "pct": null
       },
       "cumulative": {
-        "target": null,
-        "financial": null,
-        "pct": null
+        "target": 300.81,
+        "financial": 565.97,
+        "pct": 188.15
       },
-      "totalPct": null
+      "totalPct": 101.52
     },
     {
-      "id": "west-rajashankar",
-      "slNo": null,
-      "name": "Rajashankar",
-      "designation": "AE",
+      "id": "west-jayarajks",
+      "position": 31,
+      "name": "Jayaraj KS",
+      "designation": "AEE-2 WEST",
       "zone": "West",
-      "totalTargetCr": 50,
+      "totalTargetCr": 557.5,
       "week": {
         "target": null,
         "financial": null,
         "pct": null
       },
       "cumulative": {
+        "target": 286.38,
+        "financial": 491.49,
+        "pct": 171.62
+      },
+      "totalPct": 88.16
+    },
+    {
+      "id": "west-neerajkadam",
+      "position": 32,
+      "name": "Neeraj Kadam",
+      "designation": "AE-O WEST",
+      "zone": "West",
+      "totalTargetCr": 278.75,
+      "week": {
         "target": null,
         "financial": null,
         "pct": null
       },
-      "totalPct": null
+      "cumulative": {
+        "target": 143.63,
+        "financial": 245.75,
+        "pct": 171.1
+      },
+      "totalPct": 88.16
+    },
+    {
+      "id": "west-soundarya",
+      "position": 33,
+      "name": "Soundarya",
+      "designation": "AE-O WEST",
+      "zone": "West",
+      "totalTargetCr": 278.75,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 143.63,
+        "financial": 245.75,
+        "pct": 171.1
+      },
+      "totalPct": 88.16
+    },
+    {
+      "id": "west-ravikumar",
+      "position": 58,
+      "name": "Ravi Kumar",
+      "designation": "EE- WEST",
+      "zone": "West",
+      "totalTargetCr": 2250,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 1251.15,
+        "financial": 1646.16,
+        "pct": 131.57
+      },
+      "totalPct": 73.16
+    },
+    {
+      "id": "west-nikitha",
+      "position": 59,
+      "name": "Smt Nikitha",
+      "designation": "WEST -ZO",
+      "zone": "West",
+      "totalTargetCr": 2250,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 1361.37,
+        "financial": 1576.1,
+        "pct": 115.77
+      },
+      "totalPct": 70.05
+    },
+    {
+      "id": "west-ishwaramma",
+      "position": 62,
+      "name": "Ishwaramma",
+      "designation": "AEE-1 WEST",
+      "zone": "West",
+      "totalTargetCr": 557.5,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 316.92,
+        "financial": 345.51,
+        "pct": 109.02
+      },
+      "totalPct": 61.97
+    },
+    {
+      "id": "west-kirank",
+      "position": 63,
+      "name": "Kiran K",
+      "designation": "AE-O WEST",
+      "zone": "West",
+      "totalTargetCr": 278.75,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 158.395,
+        "financial": 172.755,
+        "pct": 109.07
+      },
+      "totalPct": 61.97
+    },
+    {
+      "id": "west-nandini",
+      "position": 64,
+      "name": "Nandini",
+      "designation": "AE-O WEST",
+      "zone": "West",
+      "totalTargetCr": 278.75,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 158.395,
+        "financial": 172.755,
+        "pct": 109.07
+      },
+      "totalPct": 61.97
+    },
+    {
+      "id": "west-rajeshsagadikar",
+      "position": 69,
+      "name": "Rajesh S Agadikar",
+      "designation": "AEE-4 WEST",
+      "zone": "West",
+      "totalTargetCr": 557.5,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 263.16,
+        "financial": 250.81,
+        "pct": 95.31
+      },
+      "totalPct": 44.99
+    },
+    {
+      "id": "west-neerajkadam",
+      "position": 70,
+      "name": "Neeraj Kadam",
+      "designation": "AE-O WEST",
+      "zone": "West",
+      "totalTargetCr": 557.5,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 263.16,
+        "financial": 250.81,
+        "pct": 95.31
+      },
+      "totalPct": 44.99
+    },
+    {
+      "id": "west-kamalamma",
+      "position": 78,
+      "name": "Kamalamma",
+      "designation": "REVENUE OFFICER",
+      "zone": "West",
+      "totalTargetCr": 20,
+      "week": {
+        "target": null,
+        "financial": null,
+        "pct": null
+      },
+      "cumulative": {
+        "target": 16.63,
+        "financial": null,
+        "pct": 0
+      },
+      "totalPct": 0
     }
   ],
   "actionPlan": [
-    {
-      "officerId": "west-nikhitachinnaswamy",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": null
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": null
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-ashokbhagi",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 8.5
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-varunkumarmj",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 7.35
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
     {
       "officerId": "west-kirank",
       "zone": "West",
@@ -1466,1447 +1951,7 @@
       ]
     },
     {
-      "officerId": "west-nandinigs",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 3.675
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-jayarajuks",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 1.15
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-sowndaryams",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0.575
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-neerajr",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0.575
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-parashuramappa",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
       "officerId": "west-ishwaramma",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-rajashankar",
       "zone": "West",
       "weeks": [
         {
@@ -3382,1446 +2427,6 @@
           "from": "2027-01-24",
           "to": "2027-01-30",
           "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-rohangowdaks",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-rajuhv",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "west-neerajr",
-      "zone": "West",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 0
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 0
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": null
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": null
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": null
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": null
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": null
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": null
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": null
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": null
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": null
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": null
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": null
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": null
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": null
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": null
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": null
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": null
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": null
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": null
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": null
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": null
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": null
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": null
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": null
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": null
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": null
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": null
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": null
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": null
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": null
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": null
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": null
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": null
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": null
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": null
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": null
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": null
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": null
-        }
-      ]
-    },
-    {
-      "officerId": "north-brchandrashekar",
-      "zone": "North",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 5
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 5
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": 5
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": 5
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": 5
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": 5
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": 5
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": 5
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": 5
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": 5
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": 5
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": 5
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": 5
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": 5
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": 5
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": 5
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": 5
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": 5
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": 5
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": 5
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": 5
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": 5
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": 5
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": 5
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": 5
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": 5
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": 5
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": 5
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": 5
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": 5
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": 5
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": 5
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": 5
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": 5
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": 5
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": 5
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": 5
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": 5
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": 10
-        }
-      ]
-    },
-    {
-      "officerId": "north-roopalakshmikn",
-      "zone": "North",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 5
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 5
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": 5
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": 5
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": 5
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": 5
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": 5
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": 5
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": 5
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": 5
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": 5
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": 5
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": 5
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": 5
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": 5
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": 5
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": 5
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": 5
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": 5
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": 5
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": 5
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": 5
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": 5
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": 5
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": 5
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": 5
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": 5
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": 5
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": 5
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": 5
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": 5
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": 5
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": 5
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": 5
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": 5
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": 5
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": 5
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": 5
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": 10
-        }
-      ]
-    },
-    {
-      "officerId": "north-ramyashreear",
-      "zone": "North",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 5
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 5
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": 5
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": 5
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": 5
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": 5
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": 5
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": 5
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": 5
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": 5
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": 5
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": 5
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": 5
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": 5
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": 5
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": 5
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": 5
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": 5
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": 5
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": 5
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": 5
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": 5
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": 5
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": 5
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": 5
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": 5
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": 5
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": 5
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": 5
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": 5
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": 5
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": 5
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": 5
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": 5
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": 5
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": 5
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": 5
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": 5
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": 10
         }
       ]
     },
@@ -5306,246 +2911,6 @@
       ]
     },
     {
-      "officerId": "north-svvasudevmurthy",
-      "zone": "North",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 5
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 5
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": 5
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": 5
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": 5
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": 5
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": 5
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": 5
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": 5
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": 5
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": 5
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": 5
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": 5
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": 5
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": 5
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": 5
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": 5
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": 5
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": 5
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": 5
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": 5
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": 5
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": 5
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": 5
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": 5
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": 5
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": 5
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": 5
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": 5
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": 5
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": 5
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": 5
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": 5
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": 5
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": 5
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": 5
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": 5
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": 5
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": 10
-        }
-      ]
-    },
-    {
       "officerId": "north-fardeenhussain",
       "zone": "North",
       "weeks": [
@@ -5782,486 +3147,6 @@
           "from": "2027-01-24",
           "to": "2027-01-30",
           "target": 10
-        }
-      ]
-    },
-    {
-      "officerId": "north-bjayaramaiah",
-      "zone": "North",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 10
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 10
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": 10
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": 10
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": 10
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": 10
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": 10
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": 10
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": 10
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": 10
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": 10
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": 10
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": 10
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": 10
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": 10
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": 10
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": 10
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": 10
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": 10
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": 10
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": 10
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": 10
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": 10
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": 10
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": 10
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": 10
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": 10
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": 10
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": 10
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": 10
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": 10
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": 10
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": 10
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": 10
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": 10
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": 10
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": 10
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": 10
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": 20
-        }
-      ]
-    },
-    {
-      "officerId": "north-madhankumars",
-      "zone": "North",
-      "weeks": [
-        {
-          "week": "Week 1",
-          "from": "2026-05-03",
-          "to": "2026-05-09",
-          "target": 10
-        },
-        {
-          "week": "Week 2",
-          "from": "2026-05-10",
-          "to": "2026-05-16",
-          "target": 10
-        },
-        {
-          "week": "Week 3",
-          "from": "2026-05-17",
-          "to": "2026-05-23",
-          "target": 10
-        },
-        {
-          "week": "Week 4",
-          "from": "2026-05-24",
-          "to": "2026-05-30",
-          "target": 10
-        },
-        {
-          "week": "Week 5",
-          "from": "2026-05-31",
-          "to": "2026-06-06",
-          "target": 10
-        },
-        {
-          "week": "Week 6",
-          "from": "2026-06-07",
-          "to": "2026-06-13",
-          "target": 10
-        },
-        {
-          "week": "Week 7",
-          "from": "2026-06-14",
-          "to": "2026-06-20",
-          "target": 10
-        },
-        {
-          "week": "Week 8",
-          "from": "2026-06-21",
-          "to": "2026-06-27",
-          "target": 10
-        },
-        {
-          "week": "Week 9",
-          "from": "2026-06-28",
-          "to": "2026-07-04",
-          "target": 10
-        },
-        {
-          "week": "Week 10",
-          "from": "2026-07-05",
-          "to": "2026-07-11",
-          "target": 10
-        },
-        {
-          "week": "Week 11",
-          "from": "2026-07-12",
-          "to": "2026-07-18",
-          "target": 10
-        },
-        {
-          "week": "Week 12",
-          "from": "2026-07-19",
-          "to": "2026-07-25",
-          "target": 10
-        },
-        {
-          "week": "Week 13",
-          "from": "2026-07-26",
-          "to": "2026-08-01",
-          "target": 10
-        },
-        {
-          "week": "Week 14",
-          "from": "2026-08-02",
-          "to": "2026-08-08",
-          "target": 10
-        },
-        {
-          "week": "Week 15",
-          "from": "2026-08-09",
-          "to": "2026-08-15",
-          "target": 10
-        },
-        {
-          "week": "Week 16",
-          "from": "2026-08-16",
-          "to": "2026-08-22",
-          "target": 10
-        },
-        {
-          "week": "Week 17",
-          "from": "2026-08-23",
-          "to": "2026-08-29",
-          "target": 10
-        },
-        {
-          "week": "Week 18",
-          "from": "2026-08-30",
-          "to": "2026-09-05",
-          "target": 10
-        },
-        {
-          "week": "Week 19",
-          "from": "2026-09-06",
-          "to": "2026-09-12",
-          "target": 10
-        },
-        {
-          "week": "Week 20",
-          "from": "2026-09-13",
-          "to": "2026-09-19",
-          "target": 10
-        },
-        {
-          "week": "Week 21",
-          "from": "2026-09-20",
-          "to": "2026-09-26",
-          "target": 10
-        },
-        {
-          "week": "Week 22",
-          "from": "2026-09-27",
-          "to": "2026-10-03",
-          "target": 10
-        },
-        {
-          "week": "Week 23",
-          "from": "2026-10-04",
-          "to": "2026-10-10",
-          "target": 10
-        },
-        {
-          "week": "Week 24",
-          "from": "2026-10-11",
-          "to": "2026-10-17",
-          "target": 10
-        },
-        {
-          "week": "Week 25",
-          "from": "2026-10-18",
-          "to": "2026-10-24",
-          "target": 10
-        },
-        {
-          "week": "Week 26",
-          "from": "2026-10-25",
-          "to": "2026-10-31",
-          "target": 10
-        },
-        {
-          "week": "Week 27",
-          "from": "2026-11-01",
-          "to": "2026-11-07",
-          "target": 10
-        },
-        {
-          "week": "Week 28",
-          "from": "2026-11-08",
-          "to": "2026-11-14",
-          "target": 10
-        },
-        {
-          "week": "Week 29",
-          "from": "2026-11-15",
-          "to": "2026-11-21",
-          "target": 10
-        },
-        {
-          "week": "Week 30",
-          "from": "2026-11-22",
-          "to": "2026-11-28",
-          "target": 10
-        },
-        {
-          "week": "Week 31",
-          "from": "2026-11-29",
-          "to": "2026-12-05",
-          "target": 10
-        },
-        {
-          "week": "Week 32",
-          "from": "2026-12-06",
-          "to": "2026-12-12",
-          "target": 10
-        },
-        {
-          "week": "Week 33",
-          "from": "2026-12-13",
-          "to": "2026-12-19",
-          "target": 10
-        },
-        {
-          "week": "Week 34",
-          "from": "2026-12-20",
-          "to": "2026-12-26",
-          "target": 10
-        },
-        {
-          "week": "Week 35",
-          "from": "2026-12-27",
-          "to": "2027-01-02",
-          "target": 10
-        },
-        {
-          "week": "Week 36",
-          "from": "2027-01-03",
-          "to": "2027-01-09",
-          "target": 10
-        },
-        {
-          "week": "Week 37",
-          "from": "2027-01-10",
-          "to": "2027-01-16",
-          "target": 10
-        },
-        {
-          "week": "Week 38",
-          "from": "2027-01-17",
-          "to": "2027-01-23",
-          "target": 10
-        },
-        {
-          "week": "Week 39",
-          "from": "2027-01-24",
-          "to": "2027-01-30",
-          "target": 20
         }
       ]
     }

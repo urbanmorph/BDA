@@ -3,7 +3,9 @@
 // localStorage. All mutations dispatch a 'revenue:changed' event so the UI
 // can re-render without manual wiring.
 
-const STORAGE_KEY = 'bda.revenue.v1';
+// Bumped to v2 when the seed schema changed from per-officer week-2 data to
+// the Sorting xlsx Week-26 snapshot. Stale v1 entries are ignored automatically.
+const STORAGE_KEY = 'bda.revenue.v2';
 const SEED_URL = 'data/revenue-seed.json';
 
 const revenueStore = (function () {
@@ -82,8 +84,14 @@ const revenueStore = (function () {
     }
 
     function getOffTrackInfo(officer, asOf) {
-        const today = asOf || new Date();
-        const expected = expectedCumulative(officer.id, today);
+        // Prefer the Sorting-xlsx-supplied cumulative target (populated for every
+        // Week-26 roster entry). Fall back to action-plan walk for any officer
+        // missing it.
+        let expected = Number(officer.cumulative?.target);
+        if (!Number.isFinite(expected) || expected <= 0) {
+            const today = asOf || new Date();
+            expected = expectedCumulative(officer.id, today);
+        }
         const achieved = officer.cumulative.financial || 0;
         const pct = expected > 0 ? (achieved / expected) * 100 : null;
         const threshold = state.offTrackThreshold ?? 75;

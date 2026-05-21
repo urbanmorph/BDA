@@ -14,12 +14,22 @@ import { kml as kmlToGeoJSON } from '@tmcw/togeojson';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, '..');
 const SRC_XLSX = resolve(REPO, 'supporting-documents/revenue/Revenue generation FY 26-27.xlsx');
+const SRC_SORTING = resolve(REPO, 'supporting-documents/revenue/Sorting 26th week.xlsx');
 const SRC_KMZ = resolve(REPO, 'supporting-documents/revenue/BDA_Judistriction Map.kmz');
 const OUT_DIR = resolve(REPO, 'public/data');
 const OUT_JSON = resolve(OUT_DIR, 'revenue-seed.json');
 const OUT_GEOJSON = resolve(OUT_DIR, 'bda-jurisdiction.geojson');
 
-const ZONES = ['East', 'West', 'North', 'South', 'Housing'];
+const ZONES = ['East', 'West', 'North', 'South', 'Central', 'Housing'];
+
+// Week 26 snapshot metadata — from the docx charts (21-Dec to 27-Dec 2025).
+const SNAPSHOT = {
+    fiscalYear: 'FY 2025–26',
+    weekNumber: 26,
+    weekRange: '21-Dec to 27-Dec 2025',
+    weekEnd: '2025-12-27',
+    source: 'Sorting 26th week.xlsx + Revenue generation FY 26-27.xlsx'
+};
 
 const PROGRESS_SHEET = { East: 'East progress', West: 'West progress', North: 'North progress', South: 'South progress', Housing: 'Housing' };
 const ACTION_SHEET   = { East: 'East Action plan', West: 'West Action Plan', North: 'North Action Plan', South: 'South Action Plan', Housing: 'Housing Action Plan' };
@@ -62,7 +72,39 @@ function readSheetRows(wb, name) {
   return XLSX.utils.sheet_to_json(s, { header: 1, raw: true, defval: null });
 }
 
-// --- Progress sheets ---------------------------------------------------------
+// --- Sorting 26th week xlsx (primary officer roster) ------------------------
+// Single-sheet flat ranking. Columns:
+// Position | Zone | Name | Designation | Total Fixed target | Cumulative Target |
+// Cumulative Achived in Cr | Cumulative % | TOTAL % OF TARGET
+function parseSortingSheet(rows) {
+    const officers = [];
+    for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        if (!r || !r[1] || !r[2]) continue;
+        const zoneRaw = String(r[1]).trim();
+        const name = String(r[2]).trim();
+        if (zoneRaw.length < 2 || name.length < 2) continue;
+        const zone = zoneRaw.charAt(0).toUpperCase() + zoneRaw.slice(1).toLowerCase();
+        officers.push({
+            id: officerId(zone, name),
+            position: num(r[0]),
+            name,
+            designation: r[3] ? String(r[3]).trim() : '',
+            zone,
+            totalTargetCr: num(r[4]),
+            week: { target: null, financial: null, pct: null },
+            cumulative: {
+                target: num(r[5]),
+                financial: num(r[6]),
+                pct: num(r[7])
+            },
+            totalPct: num(r[8])
+        });
+    }
+    return officers;
+}
+
+// --- Progress sheets (legacy — kept as fallback only) ------------------------
 // Layout: row 0 title; row 1 main header; row 2 sub-header (TARGET/FIN/% × 2);
 // data from row 3. Housing has an extra "Details" column shifting indices by 1.
 function parseProgressSheet(rows, zone) {
@@ -241,76 +283,71 @@ function buildJurisdictionGeoJSON(kmzPath, officerNameIndex) {
 
 // --- Main --------------------------------------------------------------------
 function main() {
+  console.log('Reading', SRC_SORTING);
+  const sortingWb = XLSX.readFile(SRC_SORTING);
+  const sortingRows = readSheetRows(sortingWb, sortingWb.SheetNames[0]);
+  const officers = parseSortingSheet(sortingRows);
+  console.log(`  Found ${officers.length} officers in Sorting xlsx`);
+
+  // Build lookup index (zone-scoped names sometimes collide across zones).
+  const officerNameIndex = {};      // normalised-name -> first matching id (for KMZ join)
+  const officerByZoneName = {};     // `${zoneLc}|${nname}` -> id (for action-plan join)
+  for (const o of officers) {
+    const k = normaliseName(o.name);
+    if (!officerNameIndex[k]) officerNameIndex[k] = o.id;
+    officerByZoneName[`${o.zone.toLowerCase()}|${k}`] = o.id;
+  }
+
+  // Action plan (forward FY plan) — from the original xlsx.
   console.log('Reading', SRC_XLSX);
-  const wb = XLSX.readFile(SRC_XLSX);
-
-  const officersByZone = {};
-  const officerNameIndex = {}; // normalised-name -> id (used for KMZ join)
-
-  for (const zone of ZONES) {
-    const rows = readSheetRows(wb, PROGRESS_SHEET[zone]);
-    const officers = parseProgressSheet(rows, zone);
-    officersByZone[zone] = officers;
-    for (const o of officers) officerNameIndex[normaliseName(o.name)] = o.id;
-  }
-
-  const actionPlanByZone = {};
-  for (const zone of ZONES) {
-    const rows = readSheetRows(wb, ACTION_SHEET[zone]);
-    actionPlanByZone[zone] = parseActionPlanSheet(rows, zone);
-    // Add any officers that appear in action plan but not in progress sheet
-    for (const ap of actionPlanByZone[zone].officers) {
-      if (!officerNameIndex[normaliseName(ap.name)]) {
-        officerNameIndex[normaliseName(ap.name)] = ap.id;
-        officersByZone[zone].push({
-          id: ap.id, slNo: null, name: ap.name, designation: ap.designation, zone,
-          totalTargetCr: ap.totalTarget,
-          week: { target: null, financial: null, pct: null },
-          cumulative: { target: null, financial: null, pct: null },
-          totalPct: null
-        });
-      }
-    }
-  }
-
-  const cdParcels = [];
-  for (const zone of Object.keys(CD_SHEET)) {
-    const rows = readSheetRows(wb, CD_SHEET[zone]);
-    cdParcels.push(...parseCdSheet(rows, zone));
-  }
-
-  // Flat officer list (sorted for stability)
-  const allOfficers = [];
-  for (const zone of ZONES) {
-    for (const o of officersByZone[zone]) allOfficers.push(o);
-  }
-  allOfficers.sort((a, b) => a.zone.localeCompare(b.zone) || (a.slNo ?? 999) - (b.slNo ?? 999));
-
-  // Action plan flat
+  const planWb = XLSX.readFile(SRC_XLSX);
   const actionPlan = [];
+  let actionPlanMatched = 0, actionPlanUnmatched = 0;
   for (const zone of ZONES) {
-    const { weeks, officers } = actionPlanByZone[zone];
-    for (const ap of officers) {
+    const sheet = ACTION_SHEET[zone];
+    if (!sheet) continue;
+    const rows = readSheetRows(planWb, sheet);
+    const { weeks, officers: planOfficers } = parseActionPlanSheet(rows, zone);
+    for (const ap of planOfficers) {
+      // Try same-zone match first, then any-zone match, else drop (no orphan officer rows)
+      const nname = normaliseName(ap.name);
+      const matchedId = officerByZoneName[`${zone.toLowerCase()}|${nname}`] || officerNameIndex[nname];
+      if (!matchedId) { actionPlanUnmatched++; continue; }
+      actionPlanMatched++;
       actionPlan.push({
-        officerId: ap.id,
+        officerId: matchedId,
         zone,
         weeks: weeks.map((w, i) => ({ week: w.week, from: w.from, to: w.to, target: ap.weekly[i] ?? null }))
       });
     }
   }
+  console.log(`  Action plan: ${actionPlanMatched} matched, ${actionPlanUnmatched} dropped (no roster match)`);
+
+  // CD parcels (the original xlsx CDs sheets are empty templates today — keep parser wired)
+  const cdParcels = [];
+  for (const zone of Object.keys(CD_SHEET)) {
+    const rows = readSheetRows(planWb, CD_SHEET[zone]);
+    cdParcels.push(...parseCdSheet(rows, zone));
+  }
+
+  // Sort officers by zone then position for stability
+  officers.sort((a, b) =>
+    a.zone.localeCompare(b.zone) || (a.position ?? 999) - (b.position ?? 999)
+  );
 
   const seed = {
     generatedAt: new Date().toISOString(),
+    snapshot: SNAPSHOT,
     zones: ZONES,
-    sourceFile: 'Revenue generation FY 26-27.xlsx',
-    officers: allOfficers,
+    sourceFile: SNAPSHOT.source,
+    officers,
     actionPlan,
     cdParcels
   };
 
   mkdirSync(OUT_DIR, { recursive: true });
   writeFileSync(OUT_JSON, JSON.stringify(seed, null, 2));
-  console.log(`Wrote ${OUT_JSON}  (${allOfficers.length} officers, ${actionPlan.length} action plans, ${cdParcels.length} CD parcels)`);
+  console.log(`Wrote ${OUT_JSON}  (${officers.length} officers, ${actionPlan.length} action plans, ${cdParcels.length} CD parcels)`);
 
   // KMZ → GeoJSON
   console.log('Reading', SRC_KMZ);
