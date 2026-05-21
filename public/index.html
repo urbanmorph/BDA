@@ -66,7 +66,9 @@
     <style>
         /* Minimal custom styles only for map height */
         #layoutsMap { height: 600px; }
+        #revenueMap { height: 600px; }
         .chart-container { position: relative; height: 300px; }
+        .revenue-sparkline { height: 32px; width: 96px; }
 
         /* Navigation dropdown animations and states */
         .nav-dropdown { animation: fadeIn 0.15s ease-in; }
@@ -97,6 +99,12 @@
                     <button onclick="showSection('overview')" data-section="overview"
                             class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
                         Overview
+                    </button>
+
+                    <!-- Revenue (standalone) -->
+                    <button onclick="showSection('revenue')" data-section="revenue"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Revenue
                     </button>
 
                     <!-- Development (dropdown) -->
@@ -178,6 +186,12 @@
                 <button onclick="showSection('overview'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="overview"
                         class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
                     Overview
+                </button>
+
+                <!-- Revenue (standalone) -->
+                <button onclick="showSection('revenue'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="revenue"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Revenue
                 </button>
 
                 <!-- Development (accordion) -->
@@ -1654,6 +1668,356 @@
                 </button>
             </div>
         </section>
+
+        <!-- Revenue Section -->
+        <section id="revenue-section" class="section-content hidden">
+
+            <!-- Sticky top bar: title + demo pill + officer switcher + reset -->
+            <div class="bg-white border border-earth-200 rounded-lg p-4 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <h2 class="text-2xl font-bold text-earth-900">Revenue Generation</h2>
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-terracotta-100 text-terracotta-700 border border-terracotta-200">
+                                Demo mode — data resets on browser clear
+                            </span>
+                        </div>
+                        <p class="text-sm text-earth-600 mt-1">FY 2026–27 · Resource mobilization across zones</p>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <label for="revenueOfficerSwitcher" class="text-xs text-earth-600">Viewing as</label>
+                        <select id="revenueOfficerSwitcher" class="text-sm px-3 py-2 border border-earth-200 rounded-lg bg-white text-earth-800 focus:outline-none focus:ring-2 focus:ring-earth-500">
+                            <option value="">Admin (read-only)</option>
+                        </select>
+                        <button id="revenueResetBtn" class="text-sm px-3 py-2 border border-earth-200 rounded-lg text-earth-700 hover:bg-earth-50">
+                            Reset demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI cards -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                <div class="bg-white p-4 border-l-4 border-earth-500 rounded-lg shadow-sm">
+                    <p class="text-xs font-medium text-earth-600">Total Target</p>
+                    <p class="text-2xl font-bold text-earth-800 mt-1" data-kpi="totalTarget">—</p>
+                    <p class="text-xs text-earth-500 mt-1">₹ Cr</p>
+                </div>
+                <div class="bg-white p-4 border-l-4 border-sage-500 rounded-lg shadow-sm">
+                    <p class="text-xs font-medium text-earth-600">Achieved</p>
+                    <p class="text-2xl font-bold text-earth-800 mt-1" data-kpi="achieved">—</p>
+                    <p class="text-xs text-sage-700 mt-1">₹ Cr cumulative</p>
+                </div>
+                <div class="bg-white p-4 border-l-4 border-terracotta-500 rounded-lg shadow-sm">
+                    <p class="text-xs font-medium text-earth-600">Achievement</p>
+                    <p class="text-2xl font-bold text-earth-800 mt-1" data-kpi="pct">—</p>
+                    <p class="text-xs text-terracotta-600 mt-1">% of target</p>
+                </div>
+                <div class="bg-white p-4 border-l-4 border-earth-400 rounded-lg shadow-sm">
+                    <p class="text-xs font-medium text-earth-600">CD Parcels</p>
+                    <p class="text-2xl font-bold text-earth-800 mt-1" data-kpi="cdCount">—</p>
+                    <p class="text-xs text-earth-500 mt-1">Submitted to FM</p>
+                </div>
+                <div class="bg-white p-4 border-l-4 border-sage-400 rounded-lg shadow-sm">
+                    <p class="text-xs font-medium text-earth-600">Officers</p>
+                    <p class="text-2xl font-bold text-earth-800 mt-1" data-kpi="activeOfficers">—</p>
+                    <p class="text-xs text-earth-500 mt-1">In current filter</p>
+                </div>
+            </div>
+
+            <!-- Filter bar -->
+            <div class="bg-white p-4 border border-earth-200 rounded-lg mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-earth-600 mb-1">Zone</label>
+                        <select id="revenueZoneFilter" class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                            <option value="">All zones</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-medium text-earth-600 mb-1">Search officer</label>
+                        <input type="text" id="revenueOfficerSearch" placeholder="Name or designation…"
+                               class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-600 mb-1">
+                            Off-track threshold
+                            <span class="ml-1 text-earth-400" title="Officers whose cumulative achievement is below this % of their plan-to-date are flagged.">ⓘ</span>
+                        </label>
+                        <div class="flex items-center gap-1">
+                            <input type="number" id="revenueThresholdInput" min="0" max="200" step="5" value="75"
+                                   class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                            <span class="text-sm text-earth-600">%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab strip -->
+            <div class="border-b border-earth-200 mb-6">
+                <nav class="flex flex-wrap -mb-px" id="revenueTabs">
+                    <button data-revenue-tab="overview" class="revenue-tab px-4 py-2 text-sm font-medium border-b-2 border-earth-700 text-earth-800">Overview</button>
+                    <button data-revenue-tab="progress" class="revenue-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-earth-600 hover:text-earth-800">Progress</button>
+                    <button data-revenue-tab="action-plan" class="revenue-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-earth-600 hover:text-earth-800">Action Plan</button>
+                    <button data-revenue-tab="cd-parcels" class="revenue-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-earth-600 hover:text-earth-800">CD Parcels</button>
+                    <button data-revenue-tab="trends" class="revenue-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-earth-600 hover:text-earth-800">Trends &amp; reminders</button>
+                    <button data-revenue-tab="map" class="revenue-tab px-4 py-2 text-sm font-medium border-b-2 border-transparent text-earth-600 hover:text-earth-800">Map</button>
+                </nav>
+            </div>
+
+            <!-- Tab: Overview -->
+            <div data-revenue-panel="overview" class="revenue-panel">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white border border-earth-200 rounded-lg p-5">
+                        <h3 class="text-base font-semibold text-earth-800 mb-3">Zone summary</h3>
+                        <div id="revenueZoneCards" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-white border border-earth-200 rounded-lg p-5">
+                        <h3 class="text-base font-semibold text-earth-800 mb-3">Top officers by achievement</h3>
+                        <div class="chart-container">
+                            <canvas id="revenueLeaderboardChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Progress (doubles as leaderboard, sorted by % achievement) -->
+            <div data-revenue-panel="progress" class="revenue-panel hidden">
+                <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+                    <p class="text-sm text-earth-600">Leaderboard — officers sorted by cumulative achievement vs. target.</p>
+                    <span class="text-xs text-earth-500">Top 3 highlighted</span>
+                </div>
+                <div class="bg-white border border-earth-200 rounded-lg overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-earth-50 text-left text-xs uppercase tracking-wide text-earth-700">
+                            <tr>
+                                <th class="px-3 py-3 w-12 text-center">Rank</th>
+                                <th class="px-4 py-3">Officer</th>
+                                <th class="px-4 py-3">Designation</th>
+                                <th class="px-4 py-3">Zone</th>
+                                <th class="px-4 py-3 text-right">Target (Cr)</th>
+                                <th class="px-4 py-3 text-right">Achieved (Cr)</th>
+                                <th class="px-4 py-3 text-right">%</th>
+                                <th class="px-4 py-3">Trend</th>
+                                <th class="px-4 py-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="revenueProgressBody" class="divide-y divide-earth-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Action Plan -->
+            <div data-revenue-panel="action-plan" class="revenue-panel hidden">
+                <div class="bg-white border border-earth-200 rounded-lg overflow-x-auto">
+                    <table class="text-xs">
+                        <thead class="bg-earth-50">
+                            <tr id="revenueActionHead">
+                                <th class="px-3 py-2 text-left sticky left-0 bg-earth-50 z-10 border-r border-earth-200">Officer</th>
+                            </tr>
+                        </thead>
+                        <tbody id="revenueActionBody" class="divide-y divide-earth-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: CD Parcels -->
+            <div data-revenue-panel="cd-parcels" class="revenue-panel hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-sm text-earth-600">Land parcels submitted to Finance for revenue recognition.</p>
+                    <button id="revenueAddCdBtn" class="px-3 py-2 text-sm font-medium bg-earth-700 text-white rounded-lg hover:bg-earth-800 disabled:opacity-50 disabled:cursor-not-allowed">
+                        + Add CD parcel
+                    </button>
+                </div>
+                <div class="bg-white border border-earth-200 rounded-lg overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-earth-50 text-left text-xs uppercase tracking-wide text-earth-700">
+                            <tr>
+                                <th class="px-3 py-2">Date</th>
+                                <th class="px-3 py-2">AE</th>
+                                <th class="px-3 py-2">Zone</th>
+                                <th class="px-3 py-2">Layout</th>
+                                <th class="px-3 py-2">Block</th>
+                                <th class="px-3 py-2">Village</th>
+                                <th class="px-3 py-2">Sy.No.</th>
+                                <th class="px-3 py-2">Site No.</th>
+                                <th class="px-3 py-2 text-right">Area (sq m)</th>
+                                <th class="px-3 py-2 text-right">Rate (₹/sq m)</th>
+                                <th class="px-3 py-2 text-right">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="revenueCdBody" class="divide-y divide-earth-100"></tbody>
+                        <tfoot class="bg-earth-50">
+                            <tr>
+                                <td colspan="10" class="px-3 py-2 text-right text-xs font-medium text-earth-700">Total amount</td>
+                                <td class="px-3 py-2 text-right font-semibold text-earth-900" id="revenueCdTotal">₹ 0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Trends & reminders -->
+            <div data-revenue-panel="trends" class="revenue-panel hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white border border-earth-200 rounded-lg p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="text-base font-semibold text-earth-800">Cumulative revenue plan vs. achievement</h3>
+                                <p class="text-xs text-earth-500">Aggregated across the current filter · ₹ Cr</p>
+                            </div>
+                            <div class="text-xs text-earth-500" id="revenueTrendsAsOf">As of —</div>
+                        </div>
+                        <div class="chart-container" style="height: 360px">
+                            <canvas id="revenueTrendsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-earth-200 rounded-lg p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-base font-semibold text-earth-800">Off-track officers</h3>
+                            <span id="revenueOffTrackCount" class="text-xs font-medium bg-terracotta-100 text-terracotta-700 rounded-full px-2 py-0.5">0</span>
+                        </div>
+                        <p class="text-xs text-earth-500 mb-3" id="revenueOffTrackHelp">Below the configured threshold based on cumulative plan-to-date.</p>
+                        <div id="revenueOffTrackList" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Map -->
+            <div data-revenue-panel="map" class="revenue-panel hidden">
+                <div class="bg-white border border-earth-200 rounded-lg p-4 mb-4">
+                    <div class="flex flex-wrap items-center gap-4 text-xs text-earth-700">
+                        <span class="font-medium">Achievement %:</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-terracotta-500"></span>&lt; 25%</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-terracotta-300"></span>25–50%</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-earth-300"></span>50–75%</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-sage-300"></span>75–100%</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-sage-500"></span>≥ 100%</span>
+                        <span class="inline-flex items-center gap-1.5 ml-auto"><span class="w-3 h-3 rounded-sm bg-earth-100 border border-earth-300"></span>Unassigned</span>
+                    </div>
+                </div>
+                <div id="revenueMap" class="rounded-lg border border-earth-200"></div>
+            </div>
+
+        </section>
+
+        <!-- Reminder modal (WhatsApp-shaped preview; delivery wires later) -->
+        <div id="revenueReminderModal" class="hidden fixed inset-0 z-[60] bg-earth-900/50 flex items-center justify-center px-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-earth-900">Send WhatsApp reminder</h3>
+                        <p class="text-sm text-earth-600" id="revenueReminderOfficerLabel">—</p>
+                    </div>
+                    <button data-revenue-modal-close="reminder" class="text-earth-500 hover:text-earth-700 text-2xl leading-none">&times;</button>
+                </div>
+                <div class="rounded-lg border border-sage-200 bg-sage-50 p-4 mb-3">
+                    <div class="text-[10px] uppercase tracking-wide text-sage-700 mb-1">WhatsApp preview</div>
+                    <pre id="revenueReminderBody" class="whitespace-pre-wrap text-sm text-earth-900 font-sans"></pre>
+                </div>
+                <p class="text-xs text-earth-500 mb-4">Delivery via WhatsApp Business API will be wired in after demo sign-off. For now, copy the message and send manually.</p>
+                <div class="flex justify-end gap-2">
+                    <button type="button" data-revenue-modal-close="reminder" class="px-3 py-2 text-sm border border-earth-200 rounded-lg text-earth-700 hover:bg-earth-50">Close</button>
+                    <button type="button" id="revenueReminderCopyBtn" class="px-3 py-2 text-sm bg-sage-600 text-white rounded-lg hover:bg-sage-700">Copy message</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly progress modal -->
+        <div id="revenueWeeklyModal" class="hidden fixed inset-0 z-[60] bg-earth-900/50 flex items-center justify-center px-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-earth-900">Log this week</h3>
+                        <p class="text-sm text-earth-600" id="revenueWeeklyOfficerLabel">—</p>
+                    </div>
+                    <button data-revenue-modal-close="weekly" class="text-earth-500 hover:text-earth-700 text-2xl leading-none">&times;</button>
+                </div>
+                <form id="revenueWeeklyForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Financial achieved this week (₹ Cr)</label>
+                        <input type="number" step="0.01" min="0" name="financialCr" required
+                               class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                        <p class="text-xs text-earth-500 mt-1">Added to your cumulative achievement; % recomputes automatically.</p>
+                    </div>
+                    <p data-revenue-weekly-error class="text-xs text-terracotta-600 hidden"></p>
+                    <div class="flex justify-end gap-2 pt-2">
+                        <button type="button" data-revenue-modal-close="weekly" class="px-3 py-2 text-sm border border-earth-200 rounded-lg text-earth-700 hover:bg-earth-50">Cancel</button>
+                        <button type="submit" class="px-3 py-2 text-sm bg-earth-700 text-white rounded-lg hover:bg-earth-800">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- CD parcel modal -->
+        <div id="revenueCdModal" class="hidden fixed inset-0 z-[60] bg-earth-900/50 flex items-center justify-center px-4 overflow-y-auto py-8">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-earth-900">Add CD parcel</h3>
+                        <p class="text-sm text-earth-600" id="revenueCdOfficerLabel">—</p>
+                    </div>
+                    <button data-revenue-modal-close="cd" class="text-earth-500 hover:text-earth-700 text-2xl leading-none">&times;</button>
+                </div>
+                <form id="revenueCdForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Date of submission</label>
+                        <input type="date" name="dateSubmitted" required class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Layout</label>
+                        <input type="text" name="layout" required class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Block</label>
+                        <input type="text" name="block" class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Village</label>
+                        <input type="text" name="village" class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Survey No.</label>
+                        <input type="text" name="surveyNo" class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Site No.</label>
+                        <input type="text" name="siteNo" class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">E–W (feet)</label>
+                        <input type="number" step="0.01" min="0" name="ewFeet" required class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">N–S (feet)</label>
+                        <input type="number" step="0.01" min="0" name="nsFeet" required class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Min auction rate (₹/sq m)</label>
+                        <input type="number" step="0.01" min="0" name="ratePerSqmMin" class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-earth-700 mb-1">Guidance rate (₹/sq m)</label>
+                        <input type="number" step="0.01" min="0" name="ratePerSqmGuidance" required class="w-full px-3 py-2 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-earth-500">
+                    </div>
+                    <div class="md:col-span-2 bg-earth-50 rounded-lg p-3 flex justify-between text-sm">
+                        <div>
+                            <span class="text-earth-600">Total area:</span>
+                            <span class="font-semibold text-earth-900 ml-1" data-cd-derived="area">— sq m</span>
+                        </div>
+                        <div>
+                            <span class="text-earth-600">Total amount:</span>
+                            <span class="font-semibold text-earth-900 ml-1" data-cd-derived="amount">₹ —</span>
+                        </div>
+                    </div>
+                    <p data-revenue-cd-error class="md:col-span-2 text-xs text-terracotta-600 hidden"></p>
+                    <div class="md:col-span-2 flex justify-end gap-2 pt-2">
+                        <button type="button" data-revenue-modal-close="cd" class="px-3 py-2 text-sm border border-earth-200 rounded-lg text-earth-700 hover:bg-earth-50">Cancel</button>
+                        <button type="submit" class="px-3 py-2 text-sm bg-earth-700 text-white rounded-lg hover:bg-earth-800">Submit parcel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </main>
 

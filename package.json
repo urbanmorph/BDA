@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:revenue": "node scripts/build-revenue-data.mjs"
   },
   "keywords": [
     "bda",
@@ -17,7 +18,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@tmcw/togeojson": "^7.1.2",
+    "@xmldom/xmldom": "^0.9.10",
+    "adm-zip": "^0.5.17",
     "vite": "^5.0.0",
-    "vite-plugin-static-copy": "^3.2.0"
+    "vite-plugin-static-copy": "^3.2.0",
+    "xlsx": "^0.18.5"
   }
 }

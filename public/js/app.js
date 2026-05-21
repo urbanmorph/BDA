@@ -1,6 +1,8 @@
 // BDA Dashboard - Main Application
 // Vanilla JavaScript with Tailwind CSS
 
+import './revenue-store.js';
+
 // Global variables
 let layoutsData = [];
 let layoutsBoundariesData = null;
@@ -18,6 +20,22 @@ let layoutsMap; // Layouts map
 let charts = {};
 let layoutLayers = [];
 let adminBoundaryLayers = [];
+
+// Known section routes — used by both URL <-> section sync.
+// Any section id present in the DOM is a valid route; this list keeps the
+// pathname parser strict so we don't match arbitrary URLs.
+const SECTION_ROUTES = new Set([
+    'overview', 'revenue',
+    'master-plan', 'layouts', 'e-auction', 'departments',
+    'demographics', 'economic', 'infrastructure', 'environment',
+    'sources'
+]);
+let suppressHistoryPush = false;
+
+function sectionFromUrl() {
+    const seg = (location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
+    return SECTION_ROUTES.has(seg) ? seg : 'overview';
+}
 
 // Navigation configuration
 const navigationConfig = {
@@ -43,11 +61,25 @@ document.addEventListener('DOMContentLoaded', function() {
     loadEconomicData();
     loadEAuctionData();
     loadInfrastructureData();
+    loadRevenueData();
     initializeCharts();
     initializeMap();
     setupEventListeners();
     setupMobileMenu();
-    showSection('overview');
+    // Restore section from URL on initial load (e.g. opening /revenue directly).
+    // Use replaceState so the back button doesn't bounce to a synthetic entry.
+    suppressHistoryPush = true;
+    const initial = sectionFromUrl();
+    showSection(initial);
+    history.replaceState({ section: initial }, '', '/' + initial);
+    suppressHistoryPush = false;
+
+    // Back/forward should re-render the corresponding section without pushing.
+    window.addEventListener('popstate', () => {
+        suppressHistoryPush = true;
+        showSection(sectionFromUrl());
+        suppressHistoryPush = false;
+    });
 
     // Close dropdowns when clicking outside navigation
     document.addEventListener('click', function(event) {
@@ -178,6 +210,19 @@ function showSection(sectionName, categoryName) {
     // Populate departments section if needed
     if (sectionName === 'departments' && departmentsData) {
         setTimeout(() => populateDepartmentsSection(), 100);
+    }
+
+    // Revenue: ensure the active tab's lazy contents (map) get a size refresh
+    if (sectionName === 'revenue') {
+        setTimeout(() => onRevenueSectionShown(), 100);
+    }
+
+    // Keep the URL in sync so /revenue, /layouts etc. are linkable + back-navigable.
+    if (!suppressHistoryPush && SECTION_ROUTES.has(sectionName)) {
+        const newPath = '/' + sectionName;
+        if (location.pathname !== newPath) {
+            history.pushState({ section: sectionName }, '', newPath);
+        }
     }
 }
 
@@ -1617,6 +1662,809 @@ function populateInfrastructureSection() {
             </div>
         `;
     }
+}
+
+// ============================================================================
+// Revenue section (demo v1 — localStorage-backed)
+// ============================================================================
+
+let revenueMap = null;
+let revenueGeoJson = null;
+let revenueGeoLayer = null;
+let revenueActiveTab = 'overview';
+let revenueSparklines = {};
+let revenueInitialised = false;
+let revenueBucketColors = {
+    veryLow: '#c85a36',   // terracotta-500
+    low:     '#e8a692',   // terracotta-300
+    mid:     '#bfa890',   // earth-300
+    high:    '#b4bfa3',   // sage-300
+    full:    '#7a8c5e',   // sage-500
+    none:    '#e8e3dc'    // earth-100
+};
+
+async function loadRevenueData() {
+    try {
+        await window.revenueStore.init();
+        document.addEventListener('revenue:changed', renderRevenue);
+        wireRevenueOnce();
+        renderRevenue();
+        console.log('Loaded revenue store');
+    } catch (err) {
+        console.error('Error loading revenue data:', err);
+    }
+}
+
+function wireRevenueOnce() {
+    if (revenueInitialised) return;
+    revenueInitialised = true;
+
+    document.querySelectorAll('[data-revenue-tab]').forEach(btn => {
+        btn.addEventListener('click', () => showRevenueTab(btn.dataset.revenueTab));
+    });
+
+    document.getElementById('revenueZoneFilter')?.addEventListener('change', renderRevenue);
+    document.getElementById('revenueOfficerSearch')?.addEventListener('input', renderRevenue);
+
+    document.getElementById('revenueOfficerSwitcher')?.addEventListener('change', e => {
+        window.revenueStore.setCurrentOfficer(e.target.value || null);
+    });
+
+    document.getElementById('revenueResetBtn')?.addEventListener('click', () => {
+        if (confirm('Reset demo data? All entries you added will be lost.')) {
+            window.revenueStore.reset();
+        }
+    });
+
+    document.getElementById('revenueAddCdBtn')?.addEventListener('click', openCdModal);
+    document.querySelectorAll('[data-revenue-modal-close]').forEach(el => {
+        el.addEventListener('click', () => closeModal(el.dataset.revenueModalClose));
+    });
+
+    document.getElementById('revenueCdForm')?.addEventListener('input', updateCdDerived);
+    document.getElementById('revenueCdForm')?.addEventListener('submit', submitCdForm);
+    document.getElementById('revenueWeeklyForm')?.addEventListener('submit', submitWeeklyForm);
+
+    const thresholdInput = document.getElementById('revenueThresholdInput');
+    if (thresholdInput) {
+        const initial = window.revenueStore.getState()?.offTrackThreshold;
+        if (typeof initial === 'number') thresholdInput.value = initial;
+        thresholdInput.addEventListener('change', e => {
+            window.revenueStore.setOffTrackThreshold(e.target.value);
+        });
+    }
+
+    document.getElementById('revenueReminderCopyBtn')?.addEventListener('click', copyReminderMessage);
+}
+
+function onRevenueSectionShown() {
+    if (revenueActiveTab === 'map') {
+        ensureRevenueMap();
+        if (revenueMap) revenueMap.invalidateSize();
+    }
+}
+
+function showRevenueTab(name) {
+    revenueActiveTab = name;
+    document.querySelectorAll('.revenue-tab').forEach(btn => {
+        const active = btn.dataset.revenueTab === name;
+        btn.classList.toggle('border-earth-700', active);
+        btn.classList.toggle('text-earth-800', active);
+        btn.classList.toggle('border-transparent', !active);
+        btn.classList.toggle('text-earth-600', !active);
+    });
+    document.querySelectorAll('.revenue-panel').forEach(panel => {
+        panel.classList.toggle('hidden', panel.dataset.revenuePanel !== name);
+    });
+    if (name === 'map') {
+        ensureRevenueMap();
+        setTimeout(() => revenueMap && revenueMap.invalidateSize(), 50);
+    }
+}
+
+function getRevenueFilter() {
+    const zone = document.getElementById('revenueZoneFilter')?.value || '';
+    const q = (document.getElementById('revenueOfficerSearch')?.value || '').trim().toLowerCase();
+    return { zone, q };
+}
+
+function officerMatches(o, f) {
+    if (f.zone && o.zone !== f.zone) return false;
+    if (f.q && !(`${o.name} ${o.designation}`.toLowerCase().includes(f.q))) return false;
+    return true;
+}
+
+function renderRevenue() {
+    const state = window.revenueStore.getState();
+    if (!state) return;
+    populateZoneFilter(state);
+    populateOfficerSwitcher(state);
+    const f = getRevenueFilter();
+    const filteredOfficers = state.officers.filter(o => officerMatches(o, f));
+    const filteredParcels = state.cdParcels.filter(p => !f.zone || p.zone === f.zone);
+    renderRevenueKpis(filteredOfficers, filteredParcels, state);
+    renderRevenueOverview(filteredOfficers);
+    renderRevenueProgress(filteredOfficers, state);
+    renderRevenueActionPlan(filteredOfficers, state);
+    renderRevenueCdParcels(filteredParcels);
+    renderRevenueTrends(filteredOfficers, state);
+    if (revenueMap) styleRevenuePolygons(state);
+    refreshAddCdButton(state);
+    const thresholdInput = document.getElementById('revenueThresholdInput');
+    if (thresholdInput && document.activeElement !== thresholdInput && Number(thresholdInput.value) !== state.offTrackThreshold) {
+        thresholdInput.value = state.offTrackThreshold;
+    }
+}
+
+function populateZoneFilter(state) {
+    const sel = document.getElementById('revenueZoneFilter');
+    if (!sel || sel.options.length > 1) return;
+    state.zones.forEach(z => {
+        const opt = document.createElement('option');
+        opt.value = z;
+        opt.textContent = z;
+        sel.appendChild(opt);
+    });
+}
+
+function populateOfficerSwitcher(state) {
+    const sel = document.getElementById('revenueOfficerSwitcher');
+    if (!sel) return;
+    const desired = state.currentOfficerId || '';
+    if (sel.options.length <= 1) {
+        const grouped = {};
+        state.officers.forEach(o => {
+            if (!grouped[o.zone]) grouped[o.zone] = [];
+            grouped[o.zone].push(o);
+        });
+        Object.entries(grouped).sort().forEach(([zone, list]) => {
+            const og = document.createElement('optgroup');
+            og.label = zone;
+            list.forEach(o => {
+                const opt = document.createElement('option');
+                opt.value = o.id;
+                opt.textContent = `${o.name} · ${o.designation}`;
+                og.appendChild(opt);
+            });
+            sel.appendChild(og);
+        });
+    }
+    if (sel.value !== desired) sel.value = desired;
+}
+
+function renderRevenueKpis(officers, parcels, state) {
+    const totalTarget = officers.reduce((a, o) => a + (o.totalTargetCr || 0), 0);
+    const achieved = officers.reduce((a, o) => a + (o.cumulative.financial || 0), 0);
+    const pct = totalTarget > 0 ? (achieved / totalTarget) * 100 : 0;
+    const offTrack = officers.filter(o => window.revenueStore.getOffTrackInfo(o).isOff).length;
+    setKpi('totalTarget', `₹ ${totalTarget.toFixed(2)} Cr`);
+    setKpi('achieved', `₹ ${achieved.toFixed(2)} Cr`);
+    setKpi('pct', `${pct.toFixed(1)}%`);
+    setKpi('cdCount', String(parcels.length));
+    const officersEl = document.querySelector('[data-kpi="activeOfficers"]');
+    if (officersEl) officersEl.innerHTML = `${officers.length} <span class="text-base font-medium text-terracotta-600">· ${offTrack} off track</span>`;
+}
+
+function setKpi(key, text) {
+    const el = document.querySelector(`[data-kpi="${key}"]`);
+    if (el) el.textContent = text;
+}
+
+function renderRevenueOverview(officers) {
+    const zoneCards = document.getElementById('revenueZoneCards');
+    if (zoneCards) {
+        const byZone = {};
+        officers.forEach(o => {
+            const z = byZone[o.zone] || (byZone[o.zone] = { target: 0, achieved: 0, count: 0 });
+            z.target += o.totalTargetCr || 0;
+            z.achieved += o.cumulative.financial || 0;
+            z.count += 1;
+        });
+        zoneCards.innerHTML = Object.entries(byZone).map(([zone, z]) => {
+            const pct = z.target > 0 ? (z.achieved / z.target) * 100 : 0;
+            const barColor = pct >= 75 ? 'bg-sage-500' : pct >= 25 ? 'bg-earth-400' : 'bg-terracotta-400';
+            return `
+                <div class="border border-earth-100 rounded-lg p-3">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-sm font-medium text-earth-800">${zone}</span>
+                        <span class="text-xs text-earth-600">${z.count} officer${z.count === 1 ? '' : 's'} · ₹${z.achieved.toFixed(2)} / ₹${z.target.toFixed(2)} Cr</span>
+                    </div>
+                    <div class="w-full bg-earth-100 rounded-full h-2 overflow-hidden">
+                        <div class="h-2 ${barColor}" style="width:${Math.min(100, pct).toFixed(1)}%"></div>
+                    </div>
+                </div>`;
+        }).join('') || '<p class="text-sm text-earth-500">No data for the selected filter.</p>';
+    }
+
+    const lbCtx = document.getElementById('revenueLeaderboardChart');
+    if (lbCtx) {
+        const top = [...officers]
+            .filter(o => (o.totalTargetCr || 0) > 0)
+            .map(o => ({ name: o.name, pct: o.totalTargetCr ? ((o.cumulative.financial || 0) / o.totalTargetCr) * 100 : 0 }))
+            .sort((a, b) => b.pct - a.pct)
+            .slice(0, 10);
+        if (charts.revenueLeaderboard) charts.revenueLeaderboard.destroy();
+        charts.revenueLeaderboard = new Chart(lbCtx, {
+            type: 'bar',
+            data: {
+                labels: top.map(t => t.name),
+                datasets: [{
+                    label: '% achieved',
+                    data: top.map(t => Number(t.pct.toFixed(2))),
+                    backgroundColor: earthColors.primary,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { ticks: { color: earthColors.primary, callback: v => `${v}%` }, grid: { color: earthColors.light } },
+                    y: { ticks: { color: earthColors.primary, autoSkip: false }, grid: { display: false } }
+                }
+            }
+        });
+    }
+}
+
+function renderRevenueProgress(officers, state) {
+    const tbody = document.getElementById('revenueProgressBody');
+    if (!tbody) return;
+    if (!officers.length) {
+        tbody.innerHTML = '<tr><td colspan="9" class="px-4 py-6 text-center text-sm text-earth-500">No officers match the current filter.</td></tr>';
+        return;
+    }
+    Object.values(revenueSparklines).forEach(c => c.destroy());
+    revenueSparklines = {};
+    const isAdmin = !state.currentOfficerId;
+    // Sort by % achieved descending so the table doubles as a leaderboard.
+    // Officers without a target sink to the bottom (pct = -1 sentinel).
+    const ranked = [...officers].map(o => ({
+        o,
+        pct: o.totalTargetCr ? ((o.cumulative.financial || 0) / o.totalTargetCr) * 100 : -1
+    })).sort((a, b) => b.pct - a.pct);
+    const rankStyles = {
+        1: 'bg-earth-500 text-white',
+        2: 'bg-sage-500 text-white',
+        3: 'bg-terracotta-500 text-white'
+    };
+    tbody.innerHTML = ranked.map(({ o, pct: rawPct }, idx) => {
+        const rank = idx + 1;
+        const pct = Math.max(0, rawPct);
+        const pctClass = pct >= 75 ? 'text-sage-700' : pct >= 25 ? 'text-earth-700' : 'text-terracotta-700';
+        const canEdit = state.currentOfficerId === o.id;
+        const off = window.revenueStore.getOffTrackInfo(o);
+        const badge = off.isOff ? `<span class="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-terracotta-100 text-terracotta-700 align-middle">OFF TRACK</span>` : '';
+        const remindBtn = isAdmin && off.isOff ? `<button class="text-xs px-2 py-1 bg-sage-600 text-white rounded hover:bg-sage-700" data-remind-officer="${o.id}">Send reminder</button>` : '';
+        const logBtn = canEdit ? `<button class="text-xs px-2 py-1 bg-earth-700 text-white rounded hover:bg-earth-800 ml-1" data-log-officer="${o.id}">Log week</button>` : '';
+        const rankChip = rankStyles[rank]
+            ? `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${rankStyles[rank]}">${rank}</span>`
+            : `<span class="text-xs font-medium text-earth-500">#${rank}</span>`;
+        const rowHighlight = rank <= 3 ? 'bg-earth-50/40' : '';
+        return `
+            <tr data-officer-id="${o.id}" class="${rowHighlight}">
+                <td class="px-3 py-3 text-center">${rankChip}</td>
+                <td class="px-4 py-3 text-earth-900 font-medium">${escapeHtml(o.name)}${badge}</td>
+                <td class="px-4 py-3 text-earth-700">${escapeHtml(o.designation || '')}</td>
+                <td class="px-4 py-3 text-earth-700">${o.zone}</td>
+                <td class="px-4 py-3 text-right text-earth-800">${(o.totalTargetCr || 0).toFixed(2)}</td>
+                <td class="px-4 py-3 text-right text-earth-800">${(o.cumulative.financial || 0).toFixed(2)}</td>
+                <td class="px-4 py-3 text-right font-semibold ${pctClass}">${rawPct < 0 ? '<span class="text-earth-400">—</span>' : pct.toFixed(1) + '%'}</td>
+                <td class="px-4 py-3"><canvas class="revenue-sparkline" data-officer-id="${o.id}"></canvas></td>
+                <td class="px-4 py-3 text-right whitespace-nowrap">${remindBtn}${logBtn}</td>
+            </tr>`;
+    }).join('');
+    tbody.querySelectorAll('[data-log-officer]').forEach(btn => {
+        btn.addEventListener('click', () => openWeeklyModal(btn.dataset.logOfficer));
+    });
+    tbody.querySelectorAll('[data-remind-officer]').forEach(btn => {
+        btn.addEventListener('click', () => openReminderModal(btn.dataset.remindOfficer));
+    });
+    // Render sparklines (weekly action plan + cumulative actuals overlay)
+    requestAnimationFrame(() => {
+        officers.forEach(o => {
+            const canvas = tbody.querySelector(`canvas[data-officer-id="${o.id}"]`);
+            if (!canvas) return;
+            const plan = state.actionPlan.find(ap => ap.officerId === o.id);
+            const weeks = plan ? plan.weeks.slice(0, 12) : [];
+            const data = weeks.map(w => w.target || 0);
+            revenueSparklines[o.id] = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: weeks.map(w => w.week),
+                    datasets: [{
+                        data,
+                        borderColor: earthColors.secondary,
+                        backgroundColor: 'rgba(122,140,94,0.15)',
+                        borderWidth: 1.5,
+                        pointRadius: 0,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: { x: { display: false }, y: { display: false } }
+                }
+            });
+        });
+    });
+}
+
+function renderRevenueActionPlan(officers, state) {
+    const head = document.getElementById('revenueActionHead');
+    const body = document.getElementById('revenueActionBody');
+    if (!head || !body) return;
+    const ref = state.actionPlan.find(ap => ap.weeks && ap.weeks.length);
+    const weeks = ref ? ref.weeks : [];
+    const isAdmin = !state.currentOfficerId;
+    head.innerHTML = '<th class="px-3 py-2 text-left sticky left-0 bg-earth-50 z-10 border-r border-earth-200">Officer</th>'
+        + weeks.map(w => `<th class="px-3 py-2 text-right text-earth-700 whitespace-nowrap">${escapeHtml(w.week)}<div class="text-[10px] font-normal text-earth-500">${w.from || ''}</div></th>`).join('');
+    const rows = officers.map(o => {
+        const plan = state.actionPlan.find(ap => ap.officerId === o.id);
+        const cells = weeks.map((_, i) => {
+            const t = plan?.weeks[i]?.target;
+            const display = t != null ? Number(t).toFixed(2) : '';
+            if (isAdmin && plan) {
+                return `<td class="px-1 py-1 text-right">
+                    <input type="number" step="0.01" min="0"
+                           class="w-20 px-1.5 py-1 text-right text-earth-800 text-xs border border-transparent rounded hover:border-earth-200 focus:border-earth-500 focus:outline-none focus:bg-earth-50"
+                           value="${display}" placeholder="—"
+                           data-edit-target="${o.id}" data-edit-week="${i}">
+                </td>`;
+            }
+            return `<td class="px-3 py-2 text-right text-earth-800">${display || '<span class="text-earth-300">·</span>'}</td>`;
+        }).join('');
+        return `<tr>
+            <td class="px-3 py-2 sticky left-0 bg-white border-r border-earth-200 font-medium text-earth-800 whitespace-nowrap">${escapeHtml(o.name)}<div class="text-[10px] font-normal text-earth-500">${escapeHtml(o.designation || '')} · ${o.zone}</div></td>
+            ${cells}
+        </tr>`;
+    }).join('');
+    body.innerHTML = rows || '<tr><td class="px-3 py-6 text-center text-sm text-earth-500">No officers in current filter.</td></tr>';
+    if (isAdmin) {
+        body.querySelectorAll('[data-edit-target]').forEach(inp => {
+            inp.addEventListener('change', e => {
+                const id = e.target.dataset.editTarget;
+                const wk = Number(e.target.dataset.editWeek);
+                window.revenueStore.setWeeklyTarget(id, wk, e.target.value === '' ? null : e.target.value);
+            });
+        });
+    }
+}
+
+function renderRevenueCdParcels(parcels) {
+    const body = document.getElementById('revenueCdBody');
+    const totalEl = document.getElementById('revenueCdTotal');
+    if (!body) return;
+    if (!parcels.length) {
+        body.innerHTML = '<tr><td colspan="11" class="px-3 py-6 text-center text-sm text-earth-500">No CD parcels submitted yet. Sign in as an officer and click <span class="font-semibold">+ Add CD parcel</span> to start.</td></tr>';
+    } else {
+        body.innerHTML = parcels.map(p => `
+            <tr data-cd-id="${p.id}" data-zone="${p.zone}" class="hover:bg-earth-50 cursor-pointer">
+                <td class="px-3 py-2 text-earth-700">${p.dateSubmitted || ''}</td>
+                <td class="px-3 py-2 text-earth-900 font-medium">${escapeHtml(p.aeName || '')}</td>
+                <td class="px-3 py-2 text-earth-700">${p.zone}</td>
+                <td class="px-3 py-2 text-earth-700">${escapeHtml(p.layout || '')}</td>
+                <td class="px-3 py-2 text-earth-700">${escapeHtml(p.block || '')}</td>
+                <td class="px-3 py-2 text-earth-700">${escapeHtml(p.village || '')}</td>
+                <td class="px-3 py-2 text-earth-700">${escapeHtml(p.surveyNo || '')}</td>
+                <td class="px-3 py-2 text-earth-700">${escapeHtml(p.siteNo || '')}</td>
+                <td class="px-3 py-2 text-right text-earth-800">${p.areaSqm != null ? p.areaSqm.toFixed(2) : ''}</td>
+                <td class="px-3 py-2 text-right text-earth-800">${p.ratePerSqmGuidance != null ? formatINR(p.ratePerSqmGuidance) : ''}</td>
+                <td class="px-3 py-2 text-right font-semibold text-earth-900">${p.totalAmount != null ? formatINR(p.totalAmount) : ''}</td>
+            </tr>`).join('');
+        body.querySelectorAll('tr[data-cd-id]').forEach(tr => {
+            tr.addEventListener('click', () => focusZoneOnMap(tr.dataset.zone));
+        });
+    }
+    const total = parcels.reduce((a, p) => a + (p.totalAmount || 0), 0);
+    if (totalEl) totalEl.textContent = `₹ ${formatINR(total)}`;
+}
+
+function refreshAddCdButton(state) {
+    const btn = document.getElementById('revenueAddCdBtn');
+    if (!btn) return;
+    const isOfficer = !!state.currentOfficerId;
+    btn.disabled = !isOfficer;
+    btn.title = isOfficer ? '' : 'Switch to an officer (top-right) to add a parcel';
+}
+
+// --- Trends + reminders ------------------------------------------------------
+function renderRevenueTrends(officers, state) {
+    const asOfEl = document.getElementById('revenueTrendsAsOf');
+    const today = new Date();
+    if (asOfEl) asOfEl.textContent = `As of ${today.toISOString().slice(0, 10)}`;
+
+    // Aggregate cumulative target plan across the filtered officer set, by week index.
+    const refPlan = state.actionPlan.find(ap => ap.weeks && ap.weeks.length);
+    const weeks = refPlan ? refPlan.weeks : [];
+    const cumTargetByWeek = new Array(weeks.length).fill(0);
+    officers.forEach(o => {
+        const plan = state.actionPlan.find(ap => ap.officerId === o.id);
+        if (!plan) return;
+        let running = 0;
+        plan.weeks.forEach((w, i) => {
+            running += Number(w.target) || 0;
+            cumTargetByWeek[i] += running;
+        });
+    });
+
+    // Current-week index = last completed week relative to today
+    let nowWeekIdx = -1;
+    for (let i = 0; i < weeks.length; i++) {
+        const ref = weeks[i].to || weeks[i].from;
+        if (ref && new Date(ref) <= today) nowWeekIdx = i;
+        else break;
+    }
+    const totalAchieved = officers.reduce((a, o) => a + (o.cumulative.financial || 0), 0);
+    const achievedData = weeks.map((_, i) => i === nowWeekIdx ? totalAchieved : null);
+
+    const ctx = document.getElementById('revenueTrendsChart');
+    if (ctx) {
+        if (charts.revenueTrends) charts.revenueTrends.destroy();
+        charts.revenueTrends = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: weeks.map(w => w.week),
+                datasets: [
+                    {
+                        label: 'Cumulative planned target (₹ Cr)',
+                        data: cumTargetByWeek,
+                        borderColor: earthColors.primary,
+                        backgroundColor: 'rgba(139,111,71,0.10)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.25,
+                        fill: true
+                    },
+                    {
+                        label: 'Cumulative achieved (₹ Cr)',
+                        data: achievedData,
+                        borderColor: earthColors.accent,
+                        backgroundColor: earthColors.accent,
+                        borderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        spanGaps: false,
+                        showLine: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { position: 'top', labels: { color: earthColors.primary, boxWidth: 12 } },
+                    tooltip: {
+                        callbacks: {
+                            label: (item) => `${item.dataset.label}: ₹ ${Number(item.parsed.y).toFixed(2)} Cr`,
+                            title: (items) => {
+                                const i = items[0].dataIndex;
+                                const w = weeks[i];
+                                return w ? `${w.week}  (${w.from || ''} → ${w.to || ''})` : '';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { ticks: { color: earthColors.primary, callback: v => `₹${v}` }, grid: { color: earthColors.light } },
+                    x: { ticks: { color: earthColors.primary, maxRotation: 0, autoSkip: true, maxTicksLimit: 14 }, grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    // Off-track list
+    const list = document.getElementById('revenueOffTrackList');
+    const countEl = document.getElementById('revenueOffTrackCount');
+    const helpEl = document.getElementById('revenueOffTrackHelp');
+    if (helpEl) helpEl.textContent = `Below ${state.offTrackThreshold}% of cumulative plan-to-date.`;
+    if (!list) return;
+    const offTrack = officers
+        .map(o => ({ o, info: window.revenueStore.getOffTrackInfo(o) }))
+        .filter(x => x.info.isOff)
+        .sort((a, b) => (a.info.pct ?? 0) - (b.info.pct ?? 0));
+    if (countEl) countEl.textContent = String(offTrack.length);
+    if (!offTrack.length) {
+        list.innerHTML = '<p class="text-xs text-sage-700">Everyone is on track. ✓</p>';
+        return;
+    }
+    list.innerHTML = offTrack.map(({ o, info }) => `
+        <div class="border border-earth-100 rounded-lg p-3 flex items-start justify-between gap-3">
+            <div class="min-w-0">
+                <div class="text-sm font-medium text-earth-900 truncate">${escapeHtml(o.name)}</div>
+                <div class="text-[11px] text-earth-600 truncate">${escapeHtml(o.designation || '')} · ${o.zone}</div>
+                <div class="text-[11px] mt-1 text-terracotta-700">
+                    ₹${info.achieved.toFixed(2)} / ₹${info.expected.toFixed(2)} Cr (${info.pct == null ? '—' : info.pct.toFixed(0)}%)
+                </div>
+            </div>
+            <button class="text-xs px-2 py-1 bg-sage-600 text-white rounded hover:bg-sage-700 shrink-0" data-remind-officer="${o.id}">Remind</button>
+        </div>
+    `).join('');
+    list.querySelectorAll('[data-remind-officer]').forEach(btn => {
+        btn.addEventListener('click', () => openReminderModal(btn.dataset.remindOfficer));
+    });
+}
+
+function buildReminderMessage(officer, info) {
+    const today = new Date().toISOString().slice(0, 10);
+    const expected = info.expected.toFixed(2);
+    const achieved = info.achieved.toFixed(2);
+    const pct = info.pct == null ? '—' : info.pct.toFixed(0);
+    const gap = Math.max(0, info.expected - info.achieved).toFixed(2);
+    return `Hello ${officer.name},
+
+This is a reminder regarding your revenue mobilisation targets for FY 2026–27.
+
+As of ${today}, your cumulative target plan-to-date is ₹ ${expected} Cr, but achievement stands at ₹ ${achieved} Cr (${pct}% of plan). The current gap is ₹ ${gap} Cr.
+
+Please prioritise:
+• Submitting pending CD parcels to FM section
+• Updating your weekly progress in the BDA dashboard
+• Reaching out to your zonal commissioner for support if needed
+
+— BDA Revenue Office`;
+}
+
+function openReminderModal(officerId) {
+    const state = window.revenueStore.getState();
+    const officer = state.officers.find(o => o.id === officerId);
+    if (!officer) return;
+    const info = window.revenueStore.getOffTrackInfo(officer);
+    const message = buildReminderMessage(officer, info);
+    document.getElementById('revenueReminderOfficerLabel').textContent =
+        `To: ${officer.name} · ${officer.designation || ''} · ${officer.zone}`;
+    const body = document.getElementById('revenueReminderBody');
+    if (body) body.textContent = message;
+    document.getElementById('revenueReminderCopyBtn').dataset.message = message;
+    document.getElementById('revenueReminderModal').classList.remove('hidden');
+}
+
+function copyReminderMessage(e) {
+    const msg = e.currentTarget.dataset.message || '';
+    if (!msg) return;
+    const fallback = () => {
+        const ta = document.createElement('textarea');
+        ta.value = msg;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+    };
+    const finish = () => {
+        const btn = e.currentTarget;
+        const orig = btn.textContent;
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+    };
+    if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(msg).then(finish).catch(() => { fallback(); finish(); });
+    } else {
+        fallback();
+        finish();
+    }
+}
+
+// --- Map ---------------------------------------------------------------------
+function ensureRevenueMap() {
+    if (revenueMap) return;
+    const el = document.getElementById('revenueMap');
+    if (!el) return;
+    revenueMap = L.map('revenueMap').setView([12.9716, 77.5946], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18
+    }).addTo(revenueMap);
+    fetch('data/bda-jurisdiction.geojson')
+        .then(r => r.json())
+        .then(gj => {
+            revenueGeoJson = gj;
+            const state = window.revenueStore.getState();
+            drawRevenuePolygons(state);
+        })
+        .catch(err => console.error('Error loading revenue geojson:', err));
+}
+
+function drawRevenuePolygons(state) {
+    if (!revenueMap || !revenueGeoJson) return;
+    if (revenueGeoLayer) revenueGeoLayer.remove();
+    revenueGeoLayer = L.geoJSON(revenueGeoJson, {
+        style: feature => polygonStyle(feature, state),
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(buildPolygonPopup(feature, state));
+        }
+    }).addTo(revenueMap);
+    try {
+        revenueMap.fitBounds(revenueGeoLayer.getBounds(), { padding: [20, 20] });
+    } catch (_) { /* empty geometry */ }
+}
+
+function styleRevenuePolygons(state) {
+    if (!revenueGeoLayer) return;
+    revenueGeoLayer.eachLayer(layer => {
+        const f = layer.feature;
+        layer.setStyle(polygonStyle(f, state));
+        layer.setPopupContent(buildPolygonPopup(f, state));
+    });
+}
+
+function polygonStyle(feature, state) {
+    const officer = feature.properties.officerId
+        ? state.officers.find(o => o.id === feature.properties.officerId)
+        : null;
+    const pct = officer && officer.totalTargetCr
+        ? ((officer.cumulative.financial || 0) / officer.totalTargetCr) * 100
+        : null;
+    let fill = revenueBucketColors.none;
+    if (pct != null) {
+        if (pct >= 100) fill = revenueBucketColors.full;
+        else if (pct >= 75) fill = revenueBucketColors.high;
+        else if (pct >= 50) fill = revenueBucketColors.mid;
+        else if (pct >= 25) fill = revenueBucketColors.low;
+        else fill = revenueBucketColors.veryLow;
+    }
+    return { color: earthColors.dark, weight: 1, fillColor: fill, fillOpacity: 0.65, opacity: 0.6 };
+}
+
+function buildPolygonPopup(feature, state) {
+    const p = feature.properties;
+    const officer = p.officerId ? state.officers.find(o => o.id === p.officerId) : null;
+    if (officer) {
+        const pct = officer.totalTargetCr ? ((officer.cumulative.financial || 0) / officer.totalTargetCr) * 100 : 0;
+        return `
+            <div class="p-1 min-w-[200px]">
+                <div class="text-xs text-earth-500 uppercase tracking-wide">${escapeHtml(p.name || '')}</div>
+                <div class="font-semibold text-earth-900">${escapeHtml(officer.name)}</div>
+                <div class="text-xs text-earth-600">${escapeHtml(officer.designation || '')} · ${officer.zone}</div>
+                <div class="mt-2 text-xs space-y-0.5">
+                    <div>Target: <span class="font-medium">₹ ${(officer.totalTargetCr || 0).toFixed(2)} Cr</span></div>
+                    <div>Achieved: <span class="font-medium">₹ ${(officer.cumulative.financial || 0).toFixed(2)} Cr</span></div>
+                    <div>Achievement: <span class="font-semibold">${pct.toFixed(1)}%</span></div>
+                </div>
+            </div>`;
+    }
+    return `
+        <div class="p-1">
+            <div class="text-xs text-earth-500 uppercase tracking-wide">${escapeHtml(p.name || '')}</div>
+            <div class="font-semibold text-earth-900">Unassigned</div>
+            <div class="text-xs text-earth-600 mt-1">AE: ${escapeHtml(p.aeName || '—')}</div>
+            <div class="text-xs text-earth-600">AEE: ${escapeHtml(p.aeeName || '—')}</div>
+        </div>`;
+}
+
+function focusZoneOnMap(zone) {
+    showRevenueTab('map');
+    if (!revenueGeoLayer) return;
+    const bounds = L.latLngBounds([]);
+    let found = 0;
+    revenueGeoLayer.eachLayer(layer => {
+        if (layer.feature.properties.officerZone === zone) {
+            bounds.extend(layer.getBounds());
+            found++;
+        }
+    });
+    if (found > 0) revenueMap.fitBounds(bounds, { padding: [20, 20] });
+}
+
+// --- Modals ------------------------------------------------------------------
+function openCdModal() {
+    const state = window.revenueStore.getState();
+    if (!state.currentOfficerId) return;
+    const officer = state.officers.find(o => o.id === state.currentOfficerId);
+    if (!officer) return;
+    document.getElementById('revenueCdOfficerLabel').textContent =
+        `As ${officer.name} · ${officer.designation || ''} · ${officer.zone}`;
+    const form = document.getElementById('revenueCdForm');
+    form.reset();
+    form.dataset.officerId = officer.id;
+    form.dataset.officerName = officer.name;
+    form.dataset.zone = officer.zone;
+    const today = new Date().toISOString().slice(0, 10);
+    form.querySelector('[name="dateSubmitted"]').value = today;
+    updateCdDerived();
+    setModalError('cd', '');
+    document.getElementById('revenueCdModal').classList.remove('hidden');
+}
+
+function updateCdDerived() {
+    const form = document.getElementById('revenueCdForm');
+    if (!form) return;
+    const ew = parseFloat(form.querySelector('[name="ewFeet"]').value) || 0;
+    const ns = parseFloat(form.querySelector('[name="nsFeet"]').value) || 0;
+    const rate = parseFloat(form.querySelector('[name="ratePerSqmGuidance"]').value) || 0;
+    const area = ew * ns * 0.092903;
+    const amount = area * rate;
+    form.querySelector('[data-cd-derived="area"]').textContent = area > 0 ? `${area.toFixed(2)} sq m` : '— sq m';
+    form.querySelector('[data-cd-derived="amount"]').textContent = amount > 0 ? `₹ ${formatINR(amount)}` : '₹ —';
+}
+
+function submitCdForm(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form).entries());
+    const ew = parseFloat(data.ewFeet) || 0;
+    const ns = parseFloat(data.nsFeet) || 0;
+    const rateG = parseFloat(data.ratePerSqmGuidance) || 0;
+    if (ew <= 0 || ns <= 0) return setModalError('cd', 'E–W and N–S dimensions are required.');
+    if (rateG <= 0) return setModalError('cd', 'Guidance rate is required.');
+    const areaSqm = Number((ew * ns * 0.092903).toFixed(2));
+    const totalAmount = Number((areaSqm * rateG).toFixed(2));
+    window.revenueStore.addCdParcel({
+        zone: form.dataset.zone,
+        aeName: form.dataset.officerName,
+        designation: window.revenueStore.getState().officers.find(o => o.id === form.dataset.officerId)?.designation || null,
+        dateSubmitted: data.dateSubmitted,
+        layout: data.layout || null,
+        block: data.block || null,
+        village: data.village || null,
+        surveyNo: data.surveyNo || null,
+        siteNo: data.siteNo || null,
+        ewFeet: ew,
+        nsFeet: ns,
+        areaSqm,
+        ratePerSqmMin: parseFloat(data.ratePerSqmMin) || null,
+        ratePerSqmGuidance: rateG,
+        totalAmount,
+        remarks: null
+    });
+    closeModal('cd');
+    showRevenueTab('cd-parcels');
+}
+
+function openWeeklyModal(officerId) {
+    const state = window.revenueStore.getState();
+    const officer = state.officers.find(o => o.id === officerId);
+    if (!officer) return;
+    const form = document.getElementById('revenueWeeklyForm');
+    form.reset();
+    form.dataset.officerId = officerId;
+    document.getElementById('revenueWeeklyOfficerLabel').textContent =
+        `${officer.name} · ${officer.designation || ''} · ${officer.zone}`;
+    setModalError('weekly', '');
+    document.getElementById('revenueWeeklyModal').classList.remove('hidden');
+}
+
+function submitWeeklyForm(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form).entries());
+    const v = parseFloat(data.financialCr);
+    if (!(v >= 0)) return setModalError('weekly', 'Enter a valid amount (≥ 0).');
+    window.revenueStore.recordWeeklyProgress(form.dataset.officerId, v);
+    closeModal('weekly');
+}
+
+function closeModal(name) {
+    const ids = { cd: 'revenueCdModal', weekly: 'revenueWeeklyModal', reminder: 'revenueReminderModal' };
+    const id = ids[name];
+    if (id) document.getElementById(id)?.classList.add('hidden');
+}
+
+function setModalError(name, text) {
+    const sel = name === 'cd' ? '[data-revenue-cd-error]' : '[data-revenue-weekly-error]';
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.textContent = text || '';
+    el.classList.toggle('hidden', !text);
+}
+
+// --- Helpers -----------------------------------------------------------------
+function escapeHtml(s) {
+    return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function formatINR(n) {
+    if (n == null || !Number.isFinite(n)) return '';
+    return Number(n).toLocaleString('en-IN', { maximumFractionDigits: 0 });
 }
 
 // Make functions globally available
