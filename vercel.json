@@ -4,7 +4,7 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/:path(overview|revenue|master-plan|layouts|e-auction|departments|demographics|economic|infrastructure|environment|sources)",
+      "source": "/:path(overview|revenue|auction|legal|pgrs|master-plan|layouts|e-auction|departments|demographics|economic|infrastructure|environment|sources)",
       "destination": "/index.html"
     }
   ],

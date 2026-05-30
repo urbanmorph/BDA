@@ -25,7 +25,7 @@ let adminBoundaryLayers = [];
 // Any section id present in the DOM is a valid route; this list keeps the
 // pathname parser strict so we don't match arbitrary URLs.
 const SECTION_ROUTES = new Set([
-    'overview', 'revenue',
+    'overview', 'revenue', 'auction', 'legal', 'pgrs',
     'master-plan', 'layouts', 'e-auction', 'departments',
     'demographics', 'economic', 'infrastructure', 'environment',
     'sources'

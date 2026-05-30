@@ -107,6 +107,24 @@
                         Revenue
                     </button>
 
+                    <!-- Auction (standalone) -->
+                    <button onclick="showSection('auction')" data-section="auction"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Auction
+                    </button>
+
+                    <!-- Legal (standalone) -->
+                    <button onclick="showSection('legal')" data-section="legal"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        Legal
+                    </button>
+
+                    <!-- PGRS (standalone) -->
+                    <button onclick="showSection('pgrs')" data-section="pgrs"
+                            class="nav-btn px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 hover:text-earth-800 rounded-lg transition-colors">
+                        PGRS
+                    </button>
+
                     <!-- Development (dropdown) -->
                     <div class="nav-category-wrapper relative">
                         <button onclick="handleCategoryClick('development', event)" data-category="development"
@@ -192,6 +210,24 @@
                 <button onclick="showSection('revenue'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="revenue"
                         class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
                     Revenue
+                </button>
+
+                <!-- Auction (standalone) -->
+                <button onclick="showSection('auction'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="auction"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Auction
+                </button>
+
+                <!-- Legal (standalone) -->
+                <button onclick="showSection('legal'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="legal"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    Legal
+                </button>
+
+                <!-- PGRS (standalone) -->
+                <button onclick="showSection('pgrs'); document.getElementById('mobileMenu').classList.add('hidden');" data-section="pgrs"
+                        class="mobile-nav-btn block w-full text-left px-4 py-2 text-sm font-medium text-earth-700 hover:bg-earth-100 rounded-lg transition-colors">
+                    PGRS
                 </button>
 
                 <!-- Development (accordion) -->
@@ -1871,6 +1907,93 @@
                 <div id="revenueMap" class="rounded-lg border border-earth-200"></div>
             </div>
 
+        </section>
+
+        <!-- Auction Section (stub — data wiring in progress) -->
+        <section id="auction-section" class="section-content hidden">
+            <div class="bg-white border border-earth-200 rounded-lg p-4 mb-6">
+                <div class="flex items-center gap-3 flex-wrap">
+                    <h2 class="text-2xl font-bold text-earth-900">Auction</h2>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-terracotta-100 text-terracotta-700 border border-terracotta-200">
+                        Data wiring in progress
+                    </span>
+                </div>
+                <p class="text-sm text-earth-600 mt-1">Auction lots, bid outcomes, and revenue realised — to be mirrored from a BDA-maintained Google Sheet.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white border border-earth-200 rounded-lg p-6">
+                    <h3 class="text-base font-semibold text-earth-800 mb-2">What this page will show</h3>
+                    <ul class="text-sm text-earth-700 space-y-2 list-disc pl-5">
+                        <li>Upcoming auction lots — site number, layout, reserve price, scheduled date</li>
+                        <li>Live and completed bids — winning bid, premium over reserve, bidder count</li>
+                        <li>Revenue realised year-to-date, broken down by zone and lot type</li>
+                        <li>Map of auctioned sites coloured by status (upcoming / live / sold / withdrawn)</li>
+                    </ul>
+                </div>
+                <div class="bg-sage-50 border border-sage-200 rounded-lg p-6">
+                    <h3 class="text-base font-semibold text-sage-900 mb-2">Next step</h3>
+                    <p class="text-sm text-sage-800">BDA to share a Google Sheet shaped like the Revenue tracker (one tab per zone). The dashboard will mirror it in real-time using the same fetch + parse pipeline.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal Section (stub — schema arriving next week) -->
+        <section id="legal-section" class="section-content hidden">
+            <div class="bg-white border border-earth-200 rounded-lg p-4 mb-6">
+                <div class="flex items-center gap-3 flex-wrap">
+                    <h2 class="text-2xl font-bold text-earth-900">Legal Cases</h2>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-terracotta-100 text-terracotta-700 border border-terracotta-200">
+                        Schema arriving next week
+                    </span>
+                </div>
+                <p class="text-sm text-earth-600 mt-1">Pending and disposed legal matters across BDA's jurisdictional areas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white border border-earth-200 rounded-lg p-6">
+                    <h3 class="text-base font-semibold text-earth-800 mb-2">What this page will show</h3>
+                    <ul class="text-sm text-earth-700 space-y-2 list-disc pl-5">
+                        <li>Case inventory — pending / under hearing / disposed, broken down by court and case type</li>
+                        <li>Ageing buckets so old cases surface clearly</li>
+                        <li>Disposal rate trend over the last 12 months</li>
+                        <li>Map view of disputed sites where land or layout boundaries are contested</li>
+                    </ul>
+                </div>
+                <div class="bg-sage-50 border border-sage-200 rounded-lg p-6">
+                    <h3 class="text-base font-semibold text-sage-900 mb-2">Next step</h3>
+                    <p class="text-sm text-sage-800">BDA legal team to share the data schema and a current case list. Once received, the dashboard will be wired to the same Sheet-mirror pipeline used for Revenue.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PGRS Section (stub — integration path pending) -->
+        <section id="pgrs-section" class="section-content hidden">
+            <div class="bg-white border border-earth-200 rounded-lg p-4 mb-6">
+                <div class="flex items-center gap-3 flex-wrap">
+                    <h2 class="text-2xl font-bold text-earth-900">Public Grievance Redressal</h2>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-terracotta-100 text-terracotta-700 border border-terracotta-200">
+                        Integration path pending
+                    </span>
+                </div>
+                <p class="text-sm text-earth-600 mt-1">Citizen-filed grievances from the existing BDA PGRS portal, summarised here for at-a-glance review.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white border border-earth-200 rounded-lg p-6">
+                    <h3 class="text-base font-semibold text-earth-800 mb-2">What this page will show</h3>
+                    <ul class="text-sm text-earth-700 space-y-2 list-disc pl-5">
+                        <li>Open vs closed grievances, broken down by category and zonal office</li>
+                        <li>Ageing buckets — 0–7 days, 8–30 days, 30+ days unresolved</li>
+                        <li>Trends over the last 12 months for filing and resolution rates</li>
+                        <li>Ward-level heatmap of grievance density</li>
+                    </ul>
+                </div>
+                <div class="bg-sage-50 border border-sage-200 rounded-lg p-6">
+                    <h3 class="text-base font-semibold text-sage-900 mb-2">Next step</h3>
+                    <p class="text-sm text-sage-800">BDA PGRS portal team to provide either a JSON endpoint or a nightly CSV export. The dashboard will read directly from that source — no duplicate data entry required.</p>
+                </div>
+            </div>
         </section>
 
     </main>
