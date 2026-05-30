@@ -1665,7 +1665,7 @@ function populateInfrastructureSection() {
 }
 
 // ============================================================================
-// Revenue section (demo v1 — localStorage-backed)
+// Revenue section — read-only mirror of the FY 2026-27 Google Sheet
 // ============================================================================
 
 let revenueMap = null;
@@ -1684,14 +1684,13 @@ let revenueBucketColors = {
 };
 
 async function loadRevenueData() {
+    document.addEventListener('revenue:changed', renderRevenue);
+    wireRevenueOnce();
     try {
         await window.revenueStore.init();
-        document.addEventListener('revenue:changed', renderRevenue);
-        wireRevenueOnce();
-        renderRevenue();
-        console.log('Loaded revenue store');
     } catch (err) {
-        console.error('Error loading revenue data:', err);
+        // init() already emits with a state-shaped error; renderRevenue handles it
+        console.warn('Initial revenue fetch failed:', err);
     }
 }
 
@@ -1706,35 +1705,17 @@ function wireRevenueOnce() {
     document.getElementById('revenueZoneFilter')?.addEventListener('change', renderRevenue);
     document.getElementById('revenueOfficerSearch')?.addEventListener('input', renderRevenue);
 
-    document.getElementById('revenueOfficerSwitcher')?.addEventListener('change', e => {
-        window.revenueStore.setCurrentOfficer(e.target.value || null);
+    const refreshBtn = document.getElementById('revenueRefreshBtn');
+    refreshBtn?.addEventListener('click', async () => {
+        refreshBtn.disabled = true;
+        const original = refreshBtn.textContent;
+        refreshBtn.textContent = 'Refreshing…';
+        try {
+            await window.revenueStore.refresh();
+        } catch (_) { /* error shown in banner */ }
+        refreshBtn.disabled = false;
+        refreshBtn.textContent = original;
     });
-
-    document.getElementById('revenueResetBtn')?.addEventListener('click', () => {
-        if (confirm('Reset demo data? All entries you added will be lost.')) {
-            window.revenueStore.reset();
-        }
-    });
-
-    document.getElementById('revenueAddCdBtn')?.addEventListener('click', openCdModal);
-    document.querySelectorAll('[data-revenue-modal-close]').forEach(el => {
-        el.addEventListener('click', () => closeModal(el.dataset.revenueModalClose));
-    });
-
-    document.getElementById('revenueCdForm')?.addEventListener('input', updateCdDerived);
-    document.getElementById('revenueCdForm')?.addEventListener('submit', submitCdForm);
-    document.getElementById('revenueWeeklyForm')?.addEventListener('submit', submitWeeklyForm);
-
-    const thresholdInput = document.getElementById('revenueThresholdInput');
-    if (thresholdInput) {
-        const initial = window.revenueStore.getState()?.offTrackThreshold;
-        if (typeof initial === 'number') thresholdInput.value = initial;
-        thresholdInput.addEventListener('change', e => {
-            window.revenueStore.setOffTrackThreshold(e.target.value);
-        });
-    }
-
-    document.getElementById('revenueReminderCopyBtn')?.addEventListener('click', copyReminderMessage);
 }
 
 function onRevenueSectionShown() {
@@ -1779,7 +1760,6 @@ function renderRevenue() {
     if (!state) return;
     updateSnapshotLabel(state);
     populateZoneFilter(state);
-    populateOfficerSwitcher(state);
     const f = getRevenueFilter();
     const filteredOfficers = state.officers.filter(o => officerMatches(o, f));
     const filteredParcels = state.cdParcels.filter(p => !f.zone || p.zone === f.zone);
@@ -1790,21 +1770,29 @@ function renderRevenue() {
     renderRevenueCdParcels(filteredParcels);
     renderRevenueTrends(filteredOfficers, state);
     if (revenueMap) styleRevenuePolygons(state);
-    refreshAddCdButton(state);
-    const thresholdInput = document.getElementById('revenueThresholdInput');
-    if (thresholdInput && document.activeElement !== thresholdInput && Number(thresholdInput.value) !== state.offTrackThreshold) {
-        thresholdInput.value = state.offTrackThreshold;
-    }
 }
 
 function updateSnapshotLabel(state) {
     const el = document.getElementById('revenueSnapshotLabel');
-    if (!el) return;
-    const s = state.snapshot;
-    if (s) {
-        el.textContent = `${s.fiscalYear} · Week ${s.weekNumber} snapshot · ${s.weekRange} · ${state.officers.length} officers across ${state.zones.filter(z => state.officers.some(o => o.zone === z)).length} zones`;
-    } else {
-        el.textContent = 'Resource mobilization across zones';
+    const syncedEl = document.getElementById('revenueLastSynced');
+    const s = state.source || {};
+    if (el) {
+        if (s.error) {
+            el.innerHTML = `<span class="text-terracotta-700">Could not fetch the source Sheet (${escapeHtml(s.error)}). Showing whatever was cached.</span>`;
+        } else {
+            const zonesActive = state.zones.filter(z => state.officers.some(o => o.zone === z)).length;
+            const week = s.weekNumber ? `Week ${s.weekNumber}` : 'Week —';
+            const range = s.weekRange ? ` (${s.weekRange})` : '';
+            el.textContent = `${s.fiscalYear || 'FY 2026–27'} · ${week}${range} · ${state.officers.length} officers across ${zonesActive} zone${zonesActive === 1 ? '' : 's'}`;
+        }
+    }
+    if (syncedEl) {
+        if (s.fetchedAt) {
+            const dt = new Date(s.fetchedAt);
+            syncedEl.textContent = `Synced ${dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        } else {
+            syncedEl.textContent = 'Synced —';
+        }
     }
 }
 
@@ -1819,42 +1807,15 @@ function populateZoneFilter(state) {
     });
 }
 
-function populateOfficerSwitcher(state) {
-    const sel = document.getElementById('revenueOfficerSwitcher');
-    if (!sel) return;
-    const desired = state.currentOfficerId || '';
-    if (sel.options.length <= 1) {
-        const grouped = {};
-        state.officers.forEach(o => {
-            if (!grouped[o.zone]) grouped[o.zone] = [];
-            grouped[o.zone].push(o);
-        });
-        Object.entries(grouped).sort().forEach(([zone, list]) => {
-            const og = document.createElement('optgroup');
-            og.label = zone;
-            list.forEach(o => {
-                const opt = document.createElement('option');
-                opt.value = o.id;
-                opt.textContent = `${o.name} · ${o.designation}`;
-                og.appendChild(opt);
-            });
-            sel.appendChild(og);
-        });
-    }
-    if (sel.value !== desired) sel.value = desired;
-}
-
 function renderRevenueKpis(officers, parcels, state) {
     const totalTarget = officers.reduce((a, o) => a + (o.totalTargetCr || 0), 0);
     const achieved = officers.reduce((a, o) => a + (o.cumulative.financial || 0), 0);
     const pct = totalTarget > 0 ? (achieved / totalTarget) * 100 : 0;
-    const offTrack = officers.filter(o => window.revenueStore.getOffTrackInfo(o).isOff).length;
     setKpi('totalTarget', `₹ ${totalTarget.toFixed(2)} Cr`);
     setKpi('achieved', `₹ ${achieved.toFixed(2)} Cr`);
     setKpi('pct', `${pct.toFixed(1)}%`);
     setKpi('cdCount', String(parcels.length));
-    const officersEl = document.querySelector('[data-kpi="activeOfficers"]');
-    if (officersEl) officersEl.innerHTML = `${officers.length} <span class="text-base font-medium text-terracotta-600">· ${offTrack} off track</span>`;
+    setKpi('activeOfficers', String(officers.length));
 }
 
 function setKpi(key, text) {
@@ -1925,12 +1886,11 @@ function renderRevenueProgress(officers, state) {
     const tbody = document.getElementById('revenueProgressBody');
     if (!tbody) return;
     if (!officers.length) {
-        tbody.innerHTML = '<tr><td colspan="9" class="px-4 py-6 text-center text-sm text-earth-500">No officers match the current filter.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-6 text-center text-sm text-earth-500">No officers match the current filter.</td></tr>';
         return;
     }
     Object.values(revenueSparklines).forEach(c => c.destroy());
     revenueSparklines = {};
-    const isAdmin = !state.currentOfficerId;
     // Sort by % achieved descending so the table doubles as a leaderboard.
     // Officers without a target sink to the bottom (pct = -1 sentinel).
     const ranked = [...officers].map(o => ({
@@ -1946,11 +1906,6 @@ function renderRevenueProgress(officers, state) {
         const rank = idx + 1;
         const pct = Math.max(0, rawPct);
         const pctClass = pct >= 75 ? 'text-sage-700' : pct >= 25 ? 'text-earth-700' : 'text-terracotta-700';
-        const canEdit = state.currentOfficerId === o.id;
-        const off = window.revenueStore.getOffTrackInfo(o);
-        const badge = off.isOff ? `<span class="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-terracotta-100 text-terracotta-700 align-middle">OFF TRACK</span>` : '';
-        const remindBtn = isAdmin && off.isOff ? `<button class="text-xs px-2 py-1 bg-sage-600 text-white rounded hover:bg-sage-700" data-remind-officer="${o.id}">Send reminder</button>` : '';
-        const logBtn = canEdit ? `<button class="text-xs px-2 py-1 bg-earth-700 text-white rounded hover:bg-earth-800 ml-1" data-log-officer="${o.id}">Log week</button>` : '';
         const rankChip = rankStyles[rank]
             ? `<span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${rankStyles[rank]}">${rank}</span>`
             : `<span class="text-xs font-medium text-earth-500">#${rank}</span>`;
@@ -1958,23 +1913,17 @@ function renderRevenueProgress(officers, state) {
         return `
             <tr data-officer-id="${o.id}" class="${rowHighlight}">
                 <td class="px-3 py-3 text-center">${rankChip}</td>
-                <td class="px-4 py-3 text-earth-900 font-medium">${escapeHtml(o.name)}${badge}</td>
+                <td class="px-4 py-3 text-earth-900 font-medium">${escapeHtml(o.name)}</td>
                 <td class="px-4 py-3 text-earth-700">${escapeHtml(o.designation || '')}</td>
                 <td class="px-4 py-3 text-earth-700">${o.zone}</td>
                 <td class="px-4 py-3 text-right text-earth-800">${(o.totalTargetCr || 0).toFixed(2)}</td>
                 <td class="px-4 py-3 text-right text-earth-800">${(o.cumulative.financial || 0).toFixed(2)}</td>
                 <td class="px-4 py-3 text-right font-semibold ${pctClass}">${rawPct < 0 ? '<span class="text-earth-400">—</span>' : pct.toFixed(1) + '%'}</td>
                 <td class="px-4 py-3"><canvas class="revenue-sparkline" data-officer-id="${o.id}"></canvas></td>
-                <td class="px-4 py-3 text-right whitespace-nowrap">${remindBtn}${logBtn}</td>
             </tr>`;
     }).join('');
-    tbody.querySelectorAll('[data-log-officer]').forEach(btn => {
-        btn.addEventListener('click', () => openWeeklyModal(btn.dataset.logOfficer));
-    });
-    tbody.querySelectorAll('[data-remind-officer]').forEach(btn => {
-        btn.addEventListener('click', () => openReminderModal(btn.dataset.remindOfficer));
-    });
-    // Render sparklines (weekly action plan + cumulative actuals overlay)
+    // Render per-officer sparklines from the first 12 weeks of their FY 26-27
+    // action plan. Officers without a plan row render an empty canvas.
     requestAnimationFrame(() => {
         officers.forEach(o => {
             const canvas = tbody.querySelector(`canvas[data-officer-id="${o.id}"]`);
@@ -1982,6 +1931,7 @@ function renderRevenueProgress(officers, state) {
             const plan = state.actionPlan.find(ap => ap.officerId === o.id);
             const weeks = plan ? plan.weeks.slice(0, 12) : [];
             const data = weeks.map(w => w.target || 0);
+            if (!data.some(v => v > 0)) return;
             revenueSparklines[o.id] = new Chart(canvas, {
                 type: 'line',
                 data: {
@@ -2013,10 +1963,8 @@ function renderRevenueActionPlan(officers, state) {
     if (!head || !body) return;
     const ref = state.actionPlan.find(ap => ap.weeks && ap.weeks.length);
     const weeks = ref ? ref.weeks : [];
-    const isAdmin = !state.currentOfficerId;
-    // Restrict to officers that actually have a matching plan row — avoids 80+
-    // rows of empty cells when the FY 26-27 plan covers a different cohort
-    // than the Week 26 roster.
+    // Restrict to officers that actually have a matching plan row. The Action
+    // Plan tabs in the Sheet may be sparser than the Progress tabs.
     const planIds = new Set(state.actionPlan.map(ap => ap.officerId));
     officers = officers.filter(o => planIds.has(o.id));
     head.innerHTML = '<th class="px-3 py-2 text-left sticky left-0 bg-earth-50 z-10 border-r border-earth-200">Officer</th>'
@@ -2026,14 +1974,6 @@ function renderRevenueActionPlan(officers, state) {
         const cells = weeks.map((_, i) => {
             const t = plan?.weeks[i]?.target;
             const display = t != null ? Number(t).toFixed(2) : '';
-            if (isAdmin && plan) {
-                return `<td class="px-1 py-1 text-right">
-                    <input type="number" step="0.01" min="0"
-                           class="w-20 px-1.5 py-1 text-right text-earth-800 text-xs border border-transparent rounded hover:border-earth-200 focus:border-earth-500 focus:outline-none focus:bg-earth-50"
-                           value="${display}" placeholder="—"
-                           data-edit-target="${o.id}" data-edit-week="${i}">
-                </td>`;
-            }
             return `<td class="px-3 py-2 text-right text-earth-800">${display || '<span class="text-earth-300">·</span>'}</td>`;
         }).join('');
         return `<tr>
@@ -2041,16 +1981,7 @@ function renderRevenueActionPlan(officers, state) {
             ${cells}
         </tr>`;
     }).join('');
-    body.innerHTML = rows || '<tr><td class="px-3 py-6 text-center text-sm text-earth-500">No officers in current filter.</td></tr>';
-    if (isAdmin) {
-        body.querySelectorAll('[data-edit-target]').forEach(inp => {
-            inp.addEventListener('change', e => {
-                const id = e.target.dataset.editTarget;
-                const wk = Number(e.target.dataset.editWeek);
-                window.revenueStore.setWeeklyTarget(id, wk, e.target.value === '' ? null : e.target.value);
-            });
-        });
-    }
+    body.innerHTML = rows || '<tr><td class="px-3 py-6 text-center text-sm text-earth-500">No action-plan rows in the Sheet yet for the current filter.</td></tr>';
 }
 
 function renderRevenueCdParcels(parcels) {
@@ -2058,7 +1989,7 @@ function renderRevenueCdParcels(parcels) {
     const totalEl = document.getElementById('revenueCdTotal');
     if (!body) return;
     if (!parcels.length) {
-        body.innerHTML = '<tr><td colspan="11" class="px-3 py-6 text-center text-sm text-earth-500">No CD parcels submitted yet. Sign in as an officer and click <span class="font-semibold">+ Add CD parcel</span> to start.</td></tr>';
+        body.innerHTML = '<tr><td colspan="11" class="px-3 py-6 text-center text-sm text-earth-500">No CD parcels in the source Sheet yet for the current filter.</td></tr>';
     } else {
         body.innerHTML = parcels.map(p => `
             <tr data-cd-id="${p.id}" data-zone="${p.zone}" class="hover:bg-earth-50 cursor-pointer">
@@ -2082,181 +2013,124 @@ function renderRevenueCdParcels(parcels) {
     if (totalEl) totalEl.textContent = `₹ ${formatINR(total)}`;
 }
 
-function refreshAddCdButton(state) {
-    const btn = document.getElementById('revenueAddCdBtn');
-    if (!btn) return;
-    const isOfficer = !!state.currentOfficerId;
-    btn.disabled = !isOfficer;
-    btn.title = isOfficer ? '' : 'Switch to an officer (top-right) to add a parcel';
-}
-
-// --- Trends + reminders ------------------------------------------------------
+// --- Trends ------------------------------------------------------------------
 function renderRevenueTrends(officers, state) {
     const asOfEl = document.getElementById('revenueTrendsAsOf');
-    const snap = state.snapshot;
+    const src = state.source || {};
     if (asOfEl) {
-        asOfEl.textContent = snap
-            ? `${snap.fiscalYear} · Week ${snap.weekNumber} (${snap.weekRange})`
-            : `As of ${new Date().toISOString().slice(0, 10)}`;
+        if (src.weekNumber && src.weekRange) {
+            asOfEl.textContent = `${src.fiscalYear || 'FY 2026–27'} · Week ${src.weekNumber} (${src.weekRange})`;
+        } else if (src.fetchedAt) {
+            asOfEl.textContent = `Synced ${new Date(src.fetchedAt).toLocaleString()}`;
+        } else {
+            asOfEl.textContent = 'No data yet';
+        }
     }
 
-    // Build a 26-week cumulative curve from the Sorting-xlsx end values.
-    // Per-week historical actuals aren't captured anywhere, so we interpolate
-    // linearly from 0 at Week 0 to the Week-26 cumulative endpoint. The
-    // endpoints are real; the shape between is an estimate, matching the
-    // visual idiom BDA already uses in their Week 26 charts.
-    const weeksN = snap?.weekNumber || 26;
-    const labels = [];
-    for (let i = 1; i <= weeksN; i++) labels.push(`Week ${i}`);
+    // Build the cumulative-target curve from the FY 26-27 Action Plan tabs.
+    // Each plan row has up to 39 weeks of weekly targets; aggregate across the
+    // filtered officer set and cumsum.
+    const officerIds = new Set(officers.map(o => o.id));
+    const plans = state.actionPlan.filter(ap => officerIds.has(ap.officerId));
+    const planLengths = plans.map(p => p.weeks.length);
+    const W = planLengths.length ? Math.max(...planLengths) : 0;
+    const refWeeks = plans.find(p => p.weeks.length === W)?.weeks || [];
+    const labels = refWeeks.map(w => w.week || '');
 
-    const totalCumTarget = officers.reduce((a, o) => a + (Number(o.cumulative?.target) || 0), 0);
+    let targetCurve = [];
+    if (W > 0) {
+        const weeklySum = new Array(W).fill(0);
+        for (const p of plans) {
+            p.weeks.forEach((w, i) => {
+                weeklySum[i] += Number(w.target) || 0;
+            });
+        }
+        let running = 0;
+        targetCurve = weeklySum.map(v => { running += v; return Number(running.toFixed(2)); });
+    }
+
+    // Achieved curve: aggregate the snapshot's "Cum Financial" across the
+    // filtered set, plotted as a flat-then-step line up to the current week
+    // and null afterwards (only the current week's cumulative is captured —
+    // no per-week history).
     const totalAchieved = officers.reduce((a, o) => a + (Number(o.cumulative?.financial) || 0), 0);
-    const targetCurve = labels.map((_, i) => Number((totalCumTarget * (i + 1) / weeksN).toFixed(2)));
-    const achievedCurve = labels.map((_, i) => Number((totalAchieved * (i + 1) / weeksN).toFixed(2)));
+    const currentWeek = src.weekNumber || 0;
+    const achievedCurve = labels.map((_, i) => {
+        if (currentWeek === 0) return null;
+        if (i + 1 > currentWeek) return null;
+        return Number(((totalAchieved * (i + 1)) / currentWeek).toFixed(2));
+    });
 
     const ctx = document.getElementById('revenueTrendsChart');
-    if (ctx) {
-        if (charts.revenueTrends) charts.revenueTrends.destroy();
-        charts.revenueTrends = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels,
-                datasets: [
-                    {
-                        label: 'Cumulative Target (₹ Cr)',
-                        data: targetCurve,
-                        borderColor: earthColors.accent,
-                        backgroundColor: 'rgba(200,90,54,0.08)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        pointHoverRadius: 5,
-                        tension: 0.15,
-                        fill: false
-                    },
-                    {
-                        label: 'Cumulative Progress (₹ Cr)',
-                        data: achievedCurve,
-                        borderColor: earthColors.primary,
-                        backgroundColor: 'rgba(139,111,71,0.10)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        pointHoverRadius: 5,
-                        tension: 0.15,
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: { position: 'top', labels: { color: earthColors.primary, boxWidth: 12 } },
-                    tooltip: {
-                        callbacks: {
-                            label: (item) => `${item.dataset.label}: ₹ ${Number(item.parsed.y).toFixed(2)} Cr`
-                        }
-                    }
-                },
-                scales: {
-                    y: { ticks: { color: earthColors.primary, callback: v => `₹${v}` }, grid: { color: earthColors.light } },
-                    x: { ticks: { color: earthColors.primary, maxRotation: 0, autoSkip: true, maxTicksLimit: 13 }, grid: { display: false } }
-                }
+    if (!ctx) return;
+    if (charts.revenueTrends) charts.revenueTrends.destroy();
+    if (!labels.length) {
+        // No action plan rows yet — render an empty placeholder
+        const parent = ctx.parentElement;
+        if (parent) {
+            ctx.style.display = 'none';
+            if (!parent.querySelector('[data-empty-trends]')) {
+                const div = document.createElement('div');
+                div.dataset.emptyTrends = '1';
+                div.className = 'flex items-center justify-center h-full text-sm text-earth-500';
+                div.textContent = 'No Action Plan rows in the Sheet yet for the current filter.';
+                parent.appendChild(div);
             }
-        });
-    }
-
-    // Off-track list
-    const list = document.getElementById('revenueOffTrackList');
-    const countEl = document.getElementById('revenueOffTrackCount');
-    const helpEl = document.getElementById('revenueOffTrackHelp');
-    if (helpEl) helpEl.textContent = `Below ${state.offTrackThreshold}% of cumulative plan-to-date.`;
-    if (!list) return;
-    const offTrack = officers
-        .map(o => ({ o, info: window.revenueStore.getOffTrackInfo(o) }))
-        .filter(x => x.info.isOff)
-        .sort((a, b) => (a.info.pct ?? 0) - (b.info.pct ?? 0));
-    if (countEl) countEl.textContent = String(offTrack.length);
-    if (!offTrack.length) {
-        list.innerHTML = '<p class="text-xs text-sage-700">Everyone is on track. ✓</p>';
+        }
         return;
     }
-    list.innerHTML = offTrack.map(({ o, info }) => `
-        <div class="border border-earth-100 rounded-lg p-3 flex items-start justify-between gap-3">
-            <div class="min-w-0">
-                <div class="text-sm font-medium text-earth-900 truncate">${escapeHtml(o.name)}</div>
-                <div class="text-[11px] text-earth-600 truncate">${escapeHtml(o.designation || '')} · ${o.zone}</div>
-                <div class="text-[11px] mt-1 text-terracotta-700">
-                    ₹${info.achieved.toFixed(2)} / ₹${info.expected.toFixed(2)} Cr (${info.pct == null ? '—' : info.pct.toFixed(0)}%)
-                </div>
-            </div>
-            <button class="text-xs px-2 py-1 bg-sage-600 text-white rounded hover:bg-sage-700 shrink-0" data-remind-officer="${o.id}">Remind</button>
-        </div>
-    `).join('');
-    list.querySelectorAll('[data-remind-officer]').forEach(btn => {
-        btn.addEventListener('click', () => openReminderModal(btn.dataset.remindOfficer));
+    // Restore canvas if previously hidden
+    ctx.style.display = '';
+    ctx.parentElement?.querySelector('[data-empty-trends]')?.remove();
+
+    charts.revenueTrends = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Cumulative Target (₹ Cr)',
+                    data: targetCurve,
+                    borderColor: earthColors.accent,
+                    backgroundColor: 'rgba(200,90,54,0.08)',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    tension: 0.15,
+                    fill: false
+                },
+                {
+                    label: 'Cumulative Progress (₹ Cr)',
+                    data: achievedCurve,
+                    borderColor: earthColors.primary,
+                    backgroundColor: 'rgba(139,111,71,0.10)',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    tension: 0.15,
+                    fill: true,
+                    spanGaps: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { position: 'top', labels: { color: earthColors.primary, boxWidth: 12 } },
+                tooltip: {
+                    callbacks: {
+                        label: (item) => `${item.dataset.label}: ₹ ${Number(item.parsed.y).toFixed(2)} Cr`
+                    }
+                }
+            },
+            scales: {
+                y: { ticks: { color: earthColors.primary, callback: v => `₹${v}` }, grid: { color: earthColors.light } },
+                x: { ticks: { color: earthColors.primary, maxRotation: 0, autoSkip: true, maxTicksLimit: 13 }, grid: { display: false } }
+            }
+        }
     });
-}
-
-function buildReminderMessage(officer, info) {
-    const today = new Date().toISOString().slice(0, 10);
-    const expected = info.expected.toFixed(2);
-    const achieved = info.achieved.toFixed(2);
-    const pct = info.pct == null ? '—' : info.pct.toFixed(0);
-    const gap = Math.max(0, info.expected - info.achieved).toFixed(2);
-    return `Hello ${officer.name},
-
-This is a reminder regarding your revenue mobilisation targets for FY 2026–27.
-
-As of ${today}, your cumulative target plan-to-date is ₹ ${expected} Cr, but achievement stands at ₹ ${achieved} Cr (${pct}% of plan). The current gap is ₹ ${gap} Cr.
-
-Please prioritise:
-• Submitting pending CD parcels to FM section
-• Updating your weekly progress in the BDA dashboard
-• Reaching out to your zonal commissioner for support if needed
-
-— BDA Revenue Office`;
-}
-
-function openReminderModal(officerId) {
-    const state = window.revenueStore.getState();
-    const officer = state.officers.find(o => o.id === officerId);
-    if (!officer) return;
-    const info = window.revenueStore.getOffTrackInfo(officer);
-    const message = buildReminderMessage(officer, info);
-    document.getElementById('revenueReminderOfficerLabel').textContent =
-        `To: ${officer.name} · ${officer.designation || ''} · ${officer.zone}`;
-    const body = document.getElementById('revenueReminderBody');
-    if (body) body.textContent = message;
-    document.getElementById('revenueReminderCopyBtn').dataset.message = message;
-    document.getElementById('revenueReminderModal').classList.remove('hidden');
-}
-
-function copyReminderMessage(e) {
-    const msg = e.currentTarget.dataset.message || '';
-    if (!msg) return;
-    const fallback = () => {
-        const ta = document.createElement('textarea');
-        ta.value = msg;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch (_) {}
-        document.body.removeChild(ta);
-    };
-    const finish = () => {
-        const btn = e.currentTarget;
-        const orig = btn.textContent;
-        btn.textContent = 'Copied ✓';
-        setTimeout(() => { btn.textContent = orig; }, 1500);
-    };
-    if (navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(msg).then(finish).catch(() => { fallback(); finish(); });
-    } else {
-        fallback();
-        finish();
-    }
 }
 
 // --- Map ---------------------------------------------------------------------
@@ -2358,108 +2232,6 @@ function focusZoneOnMap(zone) {
         }
     });
     if (found > 0) revenueMap.fitBounds(bounds, { padding: [20, 20] });
-}
-
-// --- Modals ------------------------------------------------------------------
-function openCdModal() {
-    const state = window.revenueStore.getState();
-    if (!state.currentOfficerId) return;
-    const officer = state.officers.find(o => o.id === state.currentOfficerId);
-    if (!officer) return;
-    document.getElementById('revenueCdOfficerLabel').textContent =
-        `As ${officer.name} · ${officer.designation || ''} · ${officer.zone}`;
-    const form = document.getElementById('revenueCdForm');
-    form.reset();
-    form.dataset.officerId = officer.id;
-    form.dataset.officerName = officer.name;
-    form.dataset.zone = officer.zone;
-    const today = new Date().toISOString().slice(0, 10);
-    form.querySelector('[name="dateSubmitted"]').value = today;
-    updateCdDerived();
-    setModalError('cd', '');
-    document.getElementById('revenueCdModal').classList.remove('hidden');
-}
-
-function updateCdDerived() {
-    const form = document.getElementById('revenueCdForm');
-    if (!form) return;
-    const ew = parseFloat(form.querySelector('[name="ewFeet"]').value) || 0;
-    const ns = parseFloat(form.querySelector('[name="nsFeet"]').value) || 0;
-    const rate = parseFloat(form.querySelector('[name="ratePerSqmGuidance"]').value) || 0;
-    const area = ew * ns * 0.092903;
-    const amount = area * rate;
-    form.querySelector('[data-cd-derived="area"]').textContent = area > 0 ? `${area.toFixed(2)} sq m` : '— sq m';
-    form.querySelector('[data-cd-derived="amount"]').textContent = amount > 0 ? `₹ ${formatINR(amount)}` : '₹ —';
-}
-
-function submitCdForm(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = Object.fromEntries(new FormData(form).entries());
-    const ew = parseFloat(data.ewFeet) || 0;
-    const ns = parseFloat(data.nsFeet) || 0;
-    const rateG = parseFloat(data.ratePerSqmGuidance) || 0;
-    if (ew <= 0 || ns <= 0) return setModalError('cd', 'E–W and N–S dimensions are required.');
-    if (rateG <= 0) return setModalError('cd', 'Guidance rate is required.');
-    const areaSqm = Number((ew * ns * 0.092903).toFixed(2));
-    const totalAmount = Number((areaSqm * rateG).toFixed(2));
-    window.revenueStore.addCdParcel({
-        zone: form.dataset.zone,
-        aeName: form.dataset.officerName,
-        designation: window.revenueStore.getState().officers.find(o => o.id === form.dataset.officerId)?.designation || null,
-        dateSubmitted: data.dateSubmitted,
-        layout: data.layout || null,
-        block: data.block || null,
-        village: data.village || null,
-        surveyNo: data.surveyNo || null,
-        siteNo: data.siteNo || null,
-        ewFeet: ew,
-        nsFeet: ns,
-        areaSqm,
-        ratePerSqmMin: parseFloat(data.ratePerSqmMin) || null,
-        ratePerSqmGuidance: rateG,
-        totalAmount,
-        remarks: null
-    });
-    closeModal('cd');
-    showRevenueTab('cd-parcels');
-}
-
-function openWeeklyModal(officerId) {
-    const state = window.revenueStore.getState();
-    const officer = state.officers.find(o => o.id === officerId);
-    if (!officer) return;
-    const form = document.getElementById('revenueWeeklyForm');
-    form.reset();
-    form.dataset.officerId = officerId;
-    document.getElementById('revenueWeeklyOfficerLabel').textContent =
-        `${officer.name} · ${officer.designation || ''} · ${officer.zone}`;
-    setModalError('weekly', '');
-    document.getElementById('revenueWeeklyModal').classList.remove('hidden');
-}
-
-function submitWeeklyForm(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = Object.fromEntries(new FormData(form).entries());
-    const v = parseFloat(data.financialCr);
-    if (!(v >= 0)) return setModalError('weekly', 'Enter a valid amount (≥ 0).');
-    window.revenueStore.recordWeeklyProgress(form.dataset.officerId, v);
-    closeModal('weekly');
-}
-
-function closeModal(name) {
-    const ids = { cd: 'revenueCdModal', weekly: 'revenueWeeklyModal', reminder: 'revenueReminderModal' };
-    const id = ids[name];
-    if (id) document.getElementById(id)?.classList.add('hidden');
-}
-
-function setModalError(name, text) {
-    const sel = name === 'cd' ? '[data-revenue-cd-error]' : '[data-revenue-weekly-error]';
-    const el = document.querySelector(sel);
-    if (!el) return;
-    el.textContent = text || '';
-    el.classList.toggle('hidden', !text);
 }
 
 // --- Helpers -----------------------------------------------------------------
